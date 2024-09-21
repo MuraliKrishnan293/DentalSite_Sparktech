@@ -67,7 +67,7 @@ const Land = () => {
   const dentists = [
     {
       id: 1,
-      name: "Nigga Holmes",
+      name: "Holmes",
       title: "Dentist",
       image: d1, // Replace with actual image link
       social: {
@@ -78,7 +78,7 @@ const Land = () => {
     },
     {
       id: 2,
-      name: "Dr Paramash",
+      name: "Paaraa",
       title: "Dentist",
       image: d2, // Replace with actual image link
       social: {
@@ -89,7 +89,7 @@ const Land = () => {
     },
     {
       id: 3,
-      name: "Dr Monish 9",
+      name: "Monisha",
       title: "Dentist",
       image: d3, // Replace with actual image link
       social: {
@@ -100,7 +100,7 @@ const Land = () => {
     },
     {
       id: 4,
-      name: "Director Nesar Kaaviyan",
+      name: "Kaaviya",
       title: "Dentist",
       image: d4, // Replace with actual image link
       social: {

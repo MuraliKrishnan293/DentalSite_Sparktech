@@ -52,7 +52,7 @@ const AboutUs = () => {
     },
     {
       id: 1,
-      name: "Nigga Holmes",
+      name: "Holmes",
       title: "Dentist",
       // image: d1, // Replace with actual image link
       social: {
@@ -63,7 +63,7 @@ const AboutUs = () => {
     },
     {
       id: 2,
-      name: "Dr Paramash",
+      name: "Paaraa",
       title: "Dentist",
       // image: d2, // Replace with actual image link
       social: {
@@ -74,7 +74,7 @@ const AboutUs = () => {
     },
     {
       id: 3,
-      name: "Dr Monish 9",
+      name: "Monisha",
       title: "Dentist",
       // image: d3, // Replace with actual image link
       social: {
@@ -85,7 +85,7 @@ const AboutUs = () => {
     },
     {
       id: 4,
-      name: "Director Nesar Kaaviyan",
+      name: "Kaaviya",
       title: "Dentist",
       // image: d4, // Replace with actual image link
       social: {
@@ -125,10 +125,13 @@ const AboutUs = () => {
         </center></h1>
         
     </div>
-    <div class="content container p-5">
+    <div class="content container p-5" data-aos="fade-up"
+     data-aos-anchor-placement="center-bottom" data-aos-once="true">
         
-        <h3><span id="sp" style={{color: "#2A4735"}} className=''>ABOUT US</span></h3>
-        <h1>Welcome to ThulasiRaam</h1>
+        <h3><span id="sp" style={{color: "#2A4735"}} className=''
+        data-aos-once="true" data-aos-duration="2000" data-aos="fade-in-right"
+        >ABOUT US</span></h3>
+        <h1 data-aos="fade-in-right">Welcome to ThulasiRaam</h1>
         <p>The Tamil Nadu Dental Council is a statutory body constituted under section 21 of The Dentists Act, 1948 for the purpose of registering the dentists & regulating the profession of dentistry in Tamilnadu.
         </p>
         <p>The dentists registration tribunal was in existence from Feb 1949 to Feb 1951. The Tamil Nadu Dental Council was inaugurated in October 1952. The BDS course was started in August 1953.</p>
@@ -140,12 +143,16 @@ const AboutUs = () => {
 
 
 
-      <h4 className='text-center w-100'>Our Team</h4>
+      <h4 className='text-center w-100' data-aos="fade-up"
+     data-aos-anchor-placement="center-center">Our Team</h4>
       <div className='container d-flex justify-content-center w-100 align-items-center text-center'>
         
       <div className='row sec mb-3 pt-5 d-flex justify-content-center w-100 align-items-center text-center'>
         {dentists.map((d)=>(
-          <div key={d.id} className='col-md-4 col-sm-6 col-12 d-flex justify-content-center align-items-center text-center'>
+          <div key={d.id} className='col-md-4 col-sm-6 col-12 d-flex justify-content-center align-items-center text-center'
+          data-aos="fade-up"
+     data-aos-anchor-placement="center-bottom" data-aos-delay={d.id * 5000} data-aos-once="true"
+          >
             <div style={{width: "250px", height: "250px"}} className='card mt-5'>
               <h6>{d.name}</h6>
               <h6>{d.title}</h6>
