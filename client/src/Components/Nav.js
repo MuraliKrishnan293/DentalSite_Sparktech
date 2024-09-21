@@ -44,10 +44,10 @@ const MyNavbar = () => {
     }, []);
 
     return (
-        <nav className={`navbar navbar-expand-lg position-fixed w-100 text-dark ${scrolling ? 'scrolled' : ''}`}>
+        <nav style={{top: "0"}} className={`navbar navbar-expand-lg position-fixed w-100 text-dark ${scrolling ? 'scrolled' : ''}`}>
             <div className="container-fluid">
-                <a className="navbar-brand text-md-end text-sm-start text-start" style={{ color: "#2A4735", fontWeight: "500", fontSize: "34px", width: "50%" }} href="#"><b>ThulasiRaam</b></a>
-                <button
+                <div className='' style={{width: "50%"}}><a className="navbar-brand text-md-start text-start" style={{ color: "#2A4735", fontWeight: "500", fontSize: "34px"}} href="/"><b>ThulasiRaam</b></a>
+                </div><button
                     className="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -58,15 +58,16 @@ const MyNavbar = () => {
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div style={{width: "50%"}} className="collapse navbar-collapse w-100 gap-md-5" id="navbarNavAltMarkup">
-                    <div className="navbar-nav justify-content-center text-end justify-content-lg-end gap-md-5">
-                        <a style={{ color: "#2A4735" }} className="nav-link" aria-current="page" href="#">Home</a>
-                        <a style={{ color: "#2A4735" }} className="nav-link" href="#">About us</a>
+                <div style={{width: "60%"}} className="collapse navbar-collapse w-100 gap-md-5" id="navbarNavAltMarkup">
+                    <div className="navbar-nav justify-content-center text-end gap-1 gap-sm-2 gap-md-3">
+                        <a style={{ color: "#2A4735" }} className="nav-link" aria-current="page" href="/">Home</a>
+                        <a style={{ color: "#2A4735" }} className="nav-link" href="/about">About</a>
                         <a style={{ color: "#2A4735" }} className="nav-link" href="#">Specialities</a>
-                        <a style={{ color: "#2A4735" }} className="nav-link" href="#">Contact us</a>
+                        <a style={{ color: "#2A4735" }} className="nav-link" href="#">Contact</a>
                         <button
                         style={{background: "#2A4735", color: "white"}}
                         className='btn'>Book Appointment</button>
+                        <a style={{textDecoration: "none"}} href='/login' className='loginbtn mx-md-5'>Login</a>
                     </div>
                 </div>
             </div>

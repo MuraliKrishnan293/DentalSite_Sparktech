@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.content {
+}
+
+#colr {
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+}
+p {
+  font-family: "Jost", sans-serif;
+  font-size: 20px;
+}
+h1 {
+  font-size: 48px;
+  font-family: "Barlow", sans-serif;
+}
+.fill {
+  font-family: "Barlow", sans-serif;
+}
+/* a {
+  color: white;
+} */
+
+#sp{
+    font-family: 'Jost',sans-serif; 
+    color:#2A4735;
+}
+
+
+/*Here, i added the padding to get below the navbar that i gave as fixed as it is overlayed*/
+.containerd {
+    padding-top: 100px;
+    width: 100%;
+}
+  
+  .bg-succes {
+    background-color: #0b361c93;
+    font-weight: 1000;
+    color: #2A4735;
+    
+    center{
+      color: #2A4735;
+    }
+}
+  
+  #sp {
+    font-family: 'Jost', sans-serif; 
+    color: #fff;
+  }
+
+.conta{
+    width: 100%;
+}
+
+.content{
+  /* margin: 100px; */
+}

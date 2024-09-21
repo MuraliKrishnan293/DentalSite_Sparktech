@@ -327,61 +327,69 @@ const Register = () => {
     <>
       {!issubmitted ? (
         <div className="register d-flex justify-content-center align-items-center flex-column">
-          <div className="container registration d-flex justify-content-center align-items-center flex-column">
-            <h1 className="fw-bold text-center p-4">Register Form</h1>
-            <form className="form" onSubmit={handleSubmit}>
+          <div className="container mt-5 registration d-flex justify-content-center align-items-center flex-column">
+            
+            <form style={{}} className="form mt-5" onSubmit={handleSubmit}>
+            <h1 className="fw-bold text-center text-white">Signup</h1>
               <div className="d-flex flex-row form-group">
-                <h6 className="fw-bold mt-2 p-1 mx-2">Username:</h6>
+                {/* <h6 className="fw-bold mt-2 p-1 mx-2">Username:</h6> */}
                 <input
                   type="text"
+                  placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="form-control"
+                  className="form-control mb-2"
                 />
               </div>
               <div className="d-flex mt-3 flex-row form-group">
-                <h6 className="fw-bold mt-2 p-1 mx-2">Email:</h6>
+                {/* <h6 className="fw-bold mt-2 p-1 mx-2">Email:</h6> */}
                 <input
                   type="email"
+                  placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="form-control"
+                  className="form-control mb-2"
                 />
               </div>
-              <div className="d-flex mt-3 mb-5 flex-row form-group">
-                <h6 className="fw-bold mt-2 p-1 mx-2">Password:</h6>
+              <div className="d-flex mt-3 mb-3 flex-row form-group">
+                {/* <h6 className="fw-bold mt-2 p-1 mx-2">Password:</h6> */}
                 <input
                   type="password"
+                  placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="form-control"
+                  className="form-control mb-2"
                 />
               </div>
-              <div className="d-flex mt-3 mb-5 flex-row form-group">
-                <h6 className="fw-bold mt-2 p-1 mx-2">Role:</h6>
+              <div className="d-flex flex-row form-group">
+                {/* <h6 className="fw-bold mt-2 p-1 mx-2">Role:</h6> */}
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="form-control"
+                  className="form-control mb-2"
                 >
                   <option value="user">User</option>
                   <option value="doctor">Doctor</option>
                 </select>
               </div>
-              <div className="d-flex mt-3 mb-5 flex-row form-group">
-                <h6 className="fw-bold mt-2 p-1 mx-2">PhoneNumber:</h6>
+              <div className="d-flex mt-3 mb-3 flex-row form-group">
+                {/* <h6 className="fw-bold mt-2 p-1 mx-2">PhoneNumber:</h6> */}
                 <input
                   type="number"
+                  placeholder="Phone"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="form-control"
+                  className="form-control mb-2"
                 />
               </div>
-              <div className="d-flex align-items-center justify-content-center mb-2 text-center form-group">
+              <div className="d-flex align-items-center justify-content-center text-center form-group">
                 <button className="btn btn-primary" type="submit">
                   Register
                 </button>
               </div>
+              <div className="text-start"><h5 className="text-white mt-3 w-100 text-start">Already an user?</h5>
+          <a className="text-start" href='/login' style={{textDecoration: "none", color: "white"}}>Click here</a>
+        </div>
             </form>
           </div>
           <ToastContainer />

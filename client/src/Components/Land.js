@@ -113,7 +113,7 @@ const Land = () => {
 
   return (
     <>
-      <Nav />
+      {/* <Nav /> */}
       <div className="container-fluid d-flex justify-content-center aign-items-center text-center heroimg">
         <div
           style={{ minHeight: "100vh" }}
@@ -126,13 +126,13 @@ const Land = () => {
             {/* <p className="fw-5 text-start">Welcome to ThulasiRaam</p> */}
             <h1
             data-aos="fade-in"
-            data-aos-delay="1000"
+            data-aos-delay="500"
             className="h1text d-flex flex-wrap w-100">
               We are best dental service
             </h1>
             <p
             data-aos="fade-in"
-            data-aos-delay="2000"
+            data-aos-delay="1000"
             className="ptexthero text-left">
               At ThulasiRaam, we believe that every smile deserves the best
               care. Our dedicated team is committed to providing exceptional
@@ -298,9 +298,9 @@ const Land = () => {
             data-aos-anchor-placement="center-bottom"
             data-aos-delay={s.id * 10000000}
             >
-              <div style={{ height: "400px" }} className="mt-5 p-4 card mb-4"><div className="w-100 text-center">
-                <img src={s.image} alt="doc" className="card-img card-img-top text-center" /></div>
-                <h3 className="text-center">{s.name}</h3>
+              <div className="doccard mt-5 p-4 card mb-4">
+                <img src={s.image} alt="doc" className="docimg card-img card-img-top text-center" />
+                <h6 className="text-center">{s.name}</h6>
                 <p className="text-center">{s.description}</p>
               </div>
             </div>
@@ -308,11 +308,11 @@ const Land = () => {
         </div>
       </div>
 
-      <footer style={{background: "#2a4735"}} class="foot pt-5">
+      <footer style={{background: "#2a4735"}} class="foot">
         <div style={{background: "#2a4735", color: "white"}} class="container">
           <div class="row footer-con">
             <div 
-            data-aos="zoom-in-up"
+            data-aos="zoom-in"
             data-aos-once="true"
 
             class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
@@ -323,9 +323,10 @@ const Land = () => {
                 class="footer-logo-img"
               />
             </div>
+            {/* <div className="hr"><hr /></div> */}
             <div
             
-            data-aos="zoom-in-down"
+            data-aos="zoom-in"
             data-aos-once="true"
 
             class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
@@ -339,13 +340,13 @@ const Land = () => {
                 <li className="mt-3">Crowns and Bridges</li>
               </ul>
             </div>
-          </div>
+          </div><hr />
           <div className="row">
-          <h2 style={{width: "100%"}} className="mt-5 w-100 text-md-center text-start fw-5 fs-1 mt-5">Contact us</h2>
+          <h2 style={{width: "100%"}} className="w-100 text-md-center text-start fw-5 fs-1">Contact us</h2>
           <div
           
 
-          data-aos="zoom-in-left"
+          data-aos="zoom-in"
           data-aos-once="true"
 
           class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
@@ -370,7 +371,7 @@ const Land = () => {
                 <div
                 
 
-                data-aos="zoom-in-right"
+                data-aos="zoom-in"
                 data-aos-once="true"
 
                 

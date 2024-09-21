@@ -1,73 +1,248 @@
 import React from 'react';
-import { Container, Row, Col, Card, Image } from 'react-bootstrap';
-import "../Styles/abt.css";
+import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
+import '../Styles/About.css';
+import Nav from './Nav';
 
 const AboutUs = () => {
-  return (
-    <Container fluid style={{ maxWidth: '1000px', margin: 'auto' }}>
-      <Row className="my-4">
-        <Col>
-          <h1 className="text-center mb-4">About Us</h1>
-          <p>
-            Welcome to our dental clinic! We are dedicated to providing high-quality dental care to our patients. Our team of skilled professionals is committed to helping you achieve optimal oral health and a beautiful smile.
-          </p>
-          <Image src="path_to_your_image.jpg" fluid className="my-4" />
-          <h2>Our Mission</h2>
-          <p>
-            Our mission is to deliver exceptional dental care with a focus on patient comfort and satisfaction. We strive to make every visit a positive experience and are committed to ongoing education and advanced techniques in dentistry.
-          </p>
-          <h2>Our Team</h2>
-          <Row>
-            <Col md={4}>
-              <Card>
-                <Card.Img variant="top" src="team_member_1.jpg" />
-                <Card.Body>
-                  <Card.Title>Dr. Jane Doe</Card.Title>
-                  <Card.Text>
-                    Dr. Jane Doe is a seasoned dentist with over 15 years of experience in the field. She specializes in preventive care and is passionate about educating patients on maintaining excellent oral health.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={4}>
-              <Card>
-                <Card.Img variant="top" src="team_member_2.jpg" />
-                <Card.Body>
-                  <Card.Title>Dr. John Smith</Card.Title>
-                  <Card.Text>
-                    Dr. John Smith is an expert in cosmetic dentistry and restorative treatments. His attention to detail and artistic approach ensures that every smile he works on is both functional and beautiful.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={4}>
-              <Card>
-                <Card.Img variant="top" src="team_member_3.jpg" />
-                <Card.Body>
-                  <Card.Title>Dr. Emily Brown</Card.Title>
-                  <Card.Text>
-                    Dr. Emily Brown focuses on pediatric dentistry and loves working with children to create positive dental experiences. Her gentle approach helps children feel comfortable and confident about their dental visits.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          <h2>Our Services</h2>
-          <p>
-            We offer a wide range of dental services, including:
-          </p>
-          <ul>
-            <li>Preventive care</li>
-            <li>Restorative dentistry</li>
-            <li>Cosmetic procedures</li>
-            <li>Pediatric dentistry</li>
-          </ul>
-          <p>
-            Our state-of-the-art facility is equipped with the latest technology to ensure that you receive the best possible care. We look forward to welcoming you to our clinic!
-          </p>
-        </Col>
-      </Row>
-    </Container>
+
+  const dentists = [
+    {
+      id: 1,
+      name: "Nigga Holmes",
+      title: "Dentist",
+      // image: d1, // Replace with actual image link
+      social: {
+        facebook: "https://facebook.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com",
+      },
+    },
+    {
+      id: 2,
+      name: "Dr Paramash",
+      title: "Dentist",
+      // image: d2, // Replace with actual image link
+      social: {
+        facebook: "https://facebook.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com",
+      },
+    },
+    {
+      id: 3,
+      name: "Dr Monish 9",
+      title: "Dentist",
+      // image: d3, // Replace with actual image link
+      social: {
+        facebook: "https://facebook.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com",
+      },
+    },
+    {
+      id: 4,
+      name: "Director Nesar Kaaviyan",
+      title: "Dentist",
+      // image: d4, // Replace with actual image link
+      social: {
+        facebook: "https://facebook.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com",
+      },
+    },
+    {
+      id: 1,
+      name: "Nigga Holmes",
+      title: "Dentist",
+      // image: d1, // Replace with actual image link
+      social: {
+        facebook: "https://facebook.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com",
+      },
+    },
+    {
+      id: 2,
+      name: "Dr Paramash",
+      title: "Dentist",
+      // image: d2, // Replace with actual image link
+      social: {
+        facebook: "https://facebook.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com",
+      },
+    },
+    {
+      id: 3,
+      name: "Dr Monish 9",
+      title: "Dentist",
+      // image: d3, // Replace with actual image link
+      social: {
+        facebook: "https://facebook.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com",
+      },
+    },
+    {
+      id: 4,
+      name: "Director Nesar Kaaviyan",
+      title: "Dentist",
+      // image: d4, // Replace with actual image link
+      social: {
+        facebook: "https://facebook.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com",
+      },
+    },
+    {
+      id: 4,
+      name: "Director Nesar Kaaviyan",
+      title: "Dentist",
+      // image: d4, // Replace with actual image link
+      social: {
+        facebook: "https://facebook.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com",
+      },
+    }
+  ];
+  
+
+  return (<>
+    
+    <div className='containerd w-100'>
+      {/* <div style={{minHeight: "100vh"}} className='first'>
+      
+
+      </div> */}
+
+<div class="conta w-100">
+    <div class="fill w-100">
+        <h1 className='bg-succes w-100 p-5 text-white'><center data-aos='zoom-in' data-aos-once="true" data-aos-duration="2000">
+        <br />
+        ABOUT US
+        <br /><br />
+        </center></h1>
+        
+    </div>
+    <div class="content container p-5">
+        
+        <h3><span id="sp" style={{color: "#2A4735"}} className=''>ABOUT US</span></h3>
+        <h1>Welcome to ThulasiRaam</h1>
+        <p>The Tamil Nadu Dental Council is a statutory body constituted under section 21 of The Dentists Act, 1948 for the purpose of registering the dentists & regulating the profession of dentistry in Tamilnadu.
+        </p>
+        <p>The dentists registration tribunal was in existence from Feb 1949 to Feb 1951. The Tamil Nadu Dental Council was inaugurated in October 1952. The BDS course was started in August 1953.</p>
+        <p>Sixteen recognised dental colleges are functioning in Tamil Nadu. A total number of 15,936 dentists have been registered in Tamil Nadu Dental Council as on 31.03.12, out of which 1962 dentists hold MDS qualification. 606 number of Dental Hygienists and 959 number of Dental Mechanics have been registered in this Council as on 31.03.2012.</p>
+        <p>Eight elected registered dentists, Principals of recognised dental colleges in Tamilnadu, one elected member from Tamil Nadu Medical Council, three TN Govt nominees, Director of Medical & Rural Health Services – all ex-officios – constitute the State Dental Council.</p>
+        <p>Now the Continuing Dental Education Regulations have been implemented for updating the knowledge of Dentists in Dentistry.</p>
+        
+    </div></div>
+
+
+
+      <h4 className='text-center w-100'>Our Team</h4>
+      <div className='container d-flex justify-content-center w-100 align-items-center text-center'>
+        
+      <div className='row sec mb-3 pt-5 d-flex justify-content-center w-100 align-items-center text-center'>
+        {dentists.map((d)=>(
+          <div key={d.id} className='col-md-4 col-sm-6 col-12 d-flex justify-content-center align-items-center text-center'>
+            <div style={{width: "250px", height: "250px"}} className='card mt-5'>
+              <h6>{d.name}</h6>
+              <h6>{d.title}</h6>
+            </div>
+          </div>
+        ))}
+        </div>
+      </div>
+      <footer style={{background: "#2a4735"}} class="foot">
+        <div style={{background: "#2a4735", color: "white"}} class="container">
+          <div class="row footer-con">
+            <div 
+            data-aos="zoom-in"
+            data-aos-once="true"
+
+            class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
+              <h2 class="footer-logo fw-5 fs-1">Thulasiraam</h2>
+              <img
+                src={logo}
+                alt="Logo"
+                class="footer-logo-img"
+              />
+            </div>
+            {/* <div className="hr"><hr /></div> */}
+            <div
+            
+            data-aos="zoom-in"
+            data-aos-once="true"
+
+            class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
+              <h4>Our Services</h4>
+              <ul class="footer-services" style={{listStyleType: "none"}}>
+                <li className="mt-3">Root Canal</li>
+                <li className="mt-3">Pediatric Dentistry</li>
+                <li className="mt-3">Complete Dentures</li>
+                <li className="mt-3">Orthodontics</li>
+                <li className="mt-3">Flap Surgery</li>
+                <li className="mt-3">Crowns and Bridges</li>
+              </ul>
+            </div>
+          </div><hr />
+          <div className="row">
+          <h2 style={{width: "100%"}} className="w-100 text-md-center text-start fw-5 fs-1">Contact us</h2>
+          <div
+          
+
+          data-aos="zoom-in"
+          data-aos-once="true"
+
+          class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
+{/*               
+              <div class="contact-details"> */}
+                {/* <div className="col-md-6 col-12"> */}
+                  <p>
+                  <i class="fa fa-instagram"></i> _mo.nish_ 9
+                </p>
+                <p>
+                  <i class="fa fa-envelope"></i> ThulasiRaam@gmail.com
+                </p>
+                <p>
+                  <i class="fa fa-map-marker"></i> 18, Venkatesa St,
+                  Pallikaranai, Chennai, Tamil Nadu
+                </p>
+                <p>
+                  <i class="fa fa-phone"></i> +91-7052-101-786
+                </p>
+                </div>
+                
+                <div
+                
+
+                data-aos="zoom-in"
+                data-aos-once="true"
+
+                
+                className="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
+                  <p>
+                  <i class="fa fa-instagram"></i> _mo.nish_
+                </p>
+                <p>
+                  <i class="fa fa-envelope"></i> ThulasiRaam@gmail.com
+                </p>
+                <p>
+                  <i class="fa fa-map-marker"></i> 18, Venkatesa St,
+                  Pallikaranai, Chennai, Tamil Nadu
+                </p>
+                <p>
+                  <i class="fa fa-phone"></i> +91-7052-101-786
+                </p>
+                </div>
+
+              {/* </div> */}
+            {/* </div> */}
+          </div>
+        </div>
+      </footer>
+    </div></>
   );
 }
 
