@@ -132,13 +132,14 @@ const AboutUs = () => {
         data-aos-once="true" data-aos-duration="2000" data-aos="fade-in-right"
         >ABOUT US</span></h3>
         <h1 data-aos="fade-in-right">Welcome to ThulasiRaam</h1>
-        <p>The Tamil Nadu Dental Council is a statutory body constituted under section 21 of The Dentists Act, 1948 for the purpose of registering the dentists & regulating the profession of dentistry in Tamilnadu.
-        </p>
-        <p>The dentists registration tribunal was in existence from Feb 1949 to Feb 1951. The Tamil Nadu Dental Council was inaugurated in October 1952. The BDS course was started in August 1953.</p>
-        <p>Sixteen recognised dental colleges are functioning in Tamil Nadu. A total number of 15,936 dentists have been registered in Tamil Nadu Dental Council as on 31.03.12, out of which 1962 dentists hold MDS qualification. 606 number of Dental Hygienists and 959 number of Dental Mechanics have been registered in this Council as on 31.03.2012.</p>
-        <p>Eight elected registered dentists, Principals of recognised dental colleges in Tamilnadu, one elected member from Tamil Nadu Medical Council, three TN Govt nominees, Director of Medical & Rural Health Services – all ex-officios – constitute the State Dental Council.</p>
-        <p>Now the Continuing Dental Education Regulations have been implemented for updating the knowledge of Dentists in Dentistry.</p>
-        
+        <p>ThulasiRaam is a newly established dental initiative focused on delivering high-quality oral healthcare through our two branches and a dedicated dental hospital. We aim to be a cornerstone of dental excellence in our community.</p>
+<p>Our mission is to provide comprehensive services that prioritize patient comfort and satisfaction. From routine check-ups to advanced treatments, we are dedicated to meeting the diverse needs of our patients.</p>
+<p>With a commitment to continuous education, we ensure our team stays updated with the latest advancements in dentistry. This dedication enables us to offer innovative solutions and techniques for optimal care.</p>
+<p>At ThulasiRaam, we strive to create a welcoming environment where every patient feels valued. Our friendly staff is here to assist you at every step of your dental journey.</p>
+<p>Our services include preventive care, restorative treatments, and specialized procedures, ensuring all your dental needs are met under one roof. We believe in a holistic approach to oral health.</p>
+<p>We believe in fostering strong relationships with our patients to achieve optimal oral health. Open communication is key to understanding your needs and ensuring a positive experience.</p>
+<p>Join us in our journey to enhance oral health and promote brighter smiles in our community. Together, we can create a healthier future, one smile at a time.</p>
+
     </div></div>
 
 
