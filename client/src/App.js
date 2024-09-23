@@ -86,7 +86,7 @@ import AdminPanel from "./Components/AdminFiles/AdminPanel";
 import ConfirmOtp from "./Components/ConfirmOtp";
 import Specialities from "./Components/Specialities";
 import ScrollToTop from "react-scroll-to-top";
-import '@fortawesome/fontawesome-free/css/all.min.css'; // Font Awesome import
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 
 function App() {
@@ -126,10 +126,9 @@ function App() {
             <Route path="/admin" element={<AdminPanel />} />
           </Routes>
 
-          {/* Adding Scroll to Top with Font Awesome icon */}
           <ScrollToTop
             smooth
-            component={<i className="fas fa-tooth"></i>} // Font Awesome 'tooth' icon
+            component={<i className="fas fa-tooth"></i>}
             style={{
               backgroundColor: "#2A4735",
               borderRadius: "50%",
@@ -137,8 +136,8 @@ function App() {
               right: "20px",
               bottom: "20px",
               boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-              color: "white", // Icon color
-              fontSize: "24px" // Icon size
+              color: "white",
+              fontSize: "24px"
             }}
           />
         </BrowserRouter>
