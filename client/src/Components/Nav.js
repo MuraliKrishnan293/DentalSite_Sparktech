@@ -26,9 +26,14 @@ import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import '../Styles/Land.css';  // Custom CSS for styling
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 const MyNavbar = () => {
     const [scrolling, setScrolling] = useState(false);
+
+    const navigate = useNavigate();
+
+    const authToken = localStorage.getItem("authToken");
 
     useEffect(() => {
         const handleScroll = () => {
@@ -42,6 +47,21 @@ const MyNavbar = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const handleLogout = ()=>{
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("id");
+        localStorage.removeItem("role");
+        localStorage.removeItem("username");
+        localStorage.removeItem("email");
+        window.location.href = "/";
+    }
+
+    const handleBook = ()=>{
+        navigate('/book');
+    }
+
+    const role = localStorage.getItem("role");
 
     return (
         <nav style={{top: "0"}} className={`navbar navbar-expand-lg position-fixed w-100 text-dark ${scrolling ? 'scrolled' : ''}`}>
@@ -62,12 +82,15 @@ const MyNavbar = () => {
                     <div className="navbar-nav justify-content-center text-end gap-1 gap-sm-2 gap-md-3">
                         <a style={{ color: "#2A4735" }} className="nav-link" aria-current="page" href="/">Home</a>
                         <a style={{ color: "#2A4735" }} className="nav-link" href="/about">About</a>
-                        <a style={{ color: "#2A4735" }} className="nav-link" href="#">Specialities</a>
+                        <a style={{ color: "#2A4735" }} className="nav-link" href="/specialities">Specialities</a>
                         <a style={{ color: "#2A4735" }} className="nav-link" href="#">Contact</a>
-                        <button
+                        {role==="user" && (<a
                         style={{background: "#2A4735", color: "white"}}
-                        className='btn'>Book Appointment</button>
-                        <a style={{textDecoration: "none"}} href='/login' className='loginbtn mx-md-5'>Login</a>
+                        className='btn' href='/book'>Book Appointment</a>)}
+                        {role==="admin" && (
+                            <a style={{ color: "#2A4735" }} className="nav-link" href="admin">Admin Panel</a>
+                        )}
+                        {!authToken ? (<a style={{textDecoration: "none"}} href='/login' className='loginbtn mx-md-5'>Login</a>):(<a style={{textDecoration: "none"}} href='/' onClick={handleLogout} className='loginbtn mx-md-5'>Logout</a>)}
                     </div>
                 </div>
             </div>

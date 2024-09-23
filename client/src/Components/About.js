@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
 import '../Styles/About.css';
 import Nav from './Nav';
+import ScrollToTop from 'react-scroll-to-top';
 
 const AboutUs = () => {
 
@@ -116,7 +117,7 @@ const AboutUs = () => {
 
       </div> */}
 
-<div class="conta w-100">
+<div class="conta">
     <div class="fill w-100">
         <h1 className='bg-succes w-100 p-5 text-white'><center data-aos='zoom-in' data-aos-once="true" data-aos-duration="2000">
         <br />
@@ -250,7 +251,9 @@ const AboutUs = () => {
           </div>
         </div>
       </footer>
-    </div></>
+    </div>
+    {/* <ScrollToTop smooth /> */}
+    </>
   );
 }
 

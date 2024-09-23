@@ -27,13 +27,24 @@ router.post("/register", async (req, res) => {
         role,
         phoneNumber,
         otp,
-        otpExpires: Date.now() + 5 * 60 * 1000
+        otpExpires: Date.now() + 1 * 60 * 1000
       });
 
       const subject = "Your OTP Code";
       const text = `Your OTP code is ${otp}. It will expire in 1 hour.`;
       await EmailHelper(email, subject, text);
       const newUser = await user.save();
+
+
+
+      setTimeout(async () => {
+        const currentUser = await User.findById(newUser._id);
+        if (currentUser && !currentUser.isVerified) {
+          await User.deleteOne({ _id: newUser._id });
+          console.log(`Deleted user with ID ${newUser._id} due to OTP expiration.`);
+        }
+      }, 1 * 60 * 1000);
+
       res.status(200).json(newUser);
     }
   } catch (err) {
@@ -91,7 +102,7 @@ router.post("/login", async (req, res) => {
     }
 
     const authToken = jwt.sign({ id: user.id }, SECRETKEY, {
-      expiresIn: "1h",
+      expiresIn: "30d",
     });
 
     res

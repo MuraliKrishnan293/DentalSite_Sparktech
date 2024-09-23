@@ -62,7 +62,8 @@ const appointmentSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      default: "pending_payment", // Use "pending_payment" when creating the appointment
+      enum: ['pending_payment', 'confirmed'],
+      default: 'pending_payment',
     },
     startTime: {
       type: String,

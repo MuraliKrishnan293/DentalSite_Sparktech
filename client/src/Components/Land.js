@@ -11,12 +11,13 @@ import s5 from '../images/Untitled design (4).png';
 import s6 from '../images/Untitled design (5).png';
 import doc from '../images/doccheck.jpeg';
 
-import d1 from '../images/doctor-1.png';
-import d2 from '../images/doctor-2.png';
-import d3 from '../images/doctor-3.png';
-import d4 from '../images/doctor-4.png';
+import d1 from '../images/WhatsApp Image 2024-09-21 at 8.39.36 PM.jpeg';
+import d2 from '../images/WhatsApp Image 2024-09-21 at 7.10.05 PM.jpeg';
+import d3 from '../images/WhatsApp Image 2024-09-21 at 7.09.15 PM.jpeg';
+import d4 from '../images/WhatsApp Image 2024-09-21 at 7.09.03 PM.jpeg';
 
 import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
+import ScrollToTop from "react-scroll-to-top";
 
 const Land = () => {
 
@@ -67,7 +68,7 @@ const Land = () => {
   const dentists = [
     {
       id: 1,
-      name: "Holmes",
+      name: "Sowmiya",
       title: "Dentist",
       image: d1, // Replace with actual image link
       social: {
@@ -78,7 +79,7 @@ const Land = () => {
     },
     {
       id: 2,
-      name: "Paaraa",
+      name: "Sathish",
       title: "Dentist",
       image: d2, // Replace with actual image link
       social: {
@@ -89,7 +90,7 @@ const Land = () => {
     },
     {
       id: 3,
-      name: "Monisha",
+      name: "Thulasiraam",
       title: "Dentist",
       image: d3, // Replace with actual image link
       social: {
@@ -100,7 +101,7 @@ const Land = () => {
     },
     {
       id: 4,
-      name: "Kaaviya",
+      name: "Angel",
       title: "Dentist",
       image: d4, // Replace with actual image link
       social: {
@@ -299,7 +300,7 @@ const Land = () => {
             data-aos-delay={s.id * 10000000}
             >
               <div className="doccard mt-5 p-4 card mb-4">
-                <img src={s.image} alt="doc" className="docimg card-img card-img-top text-center" />
+                <img style={{width: "167px", height: "163px"}} src={s.image} alt="doc" className="docimg card-img card-img-top text-center" />
                 <h6 className="text-center">{s.name}</h6>
                 <p className="text-center">{s.description}</p>
               </div>
@@ -396,6 +397,7 @@ const Land = () => {
           </div>
         </div>
       </footer>
+      {/* <ScrollToTop smooth /> */}
     </>
   );
 };

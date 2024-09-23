@@ -11,6 +11,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  // const role =
+
   const toastOptions = {
     position: "top-left",
     autoClose: 5000,
@@ -35,8 +37,10 @@ const Login = () => {
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("id", res.data.id);
 
-        navigate("/home");
+        // if(role==="user"){
+        navigate("/");
       }
+      // }
       if (res.status === 400) {
         toast.error(res.data, toastOptions);
       }
@@ -45,7 +49,7 @@ const Login = () => {
       if (e.response) {
         const er = e.response.data;
         if (er.message) {
-          toast.error(er.message, toastOptions); 
+          toast.error(er.message, toastOptions);
         } else {
           toast.error("Login failed. Please try again later", toastOptions);
         }
@@ -58,9 +62,8 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-box">
-        
         <form onSubmit={handleSubmit}>
-        <h1 className="login-title">Login</h1>
+          <h1 className="login-title">Login</h1>
           <div className="input-group form-group d-flex flex-column">
             {/* <p className="text-start">Name:</p> */}
             {/* <label>Email</label> */}
@@ -76,7 +79,7 @@ const Login = () => {
           <div className="input-group form-group">
             {/* <label>Password</label> */}
             <input
-            className="form-control"
+              className="form-control"
               type="password"
               placeholder="password"
               value={password}
@@ -84,13 +87,34 @@ const Login = () => {
               required
             />
           </div>
-          <div className="form-group"><button className="login-btn btn btn-primary form-control" type="submit">
-            Login
-          </button></div>
-          <div className="text-start"><h5 className="text-white mt-3 w-100 text-start">Already an user?</h5>
-          <a className="text-start w-100" href='/register' style={{textDecoration: "none", color: "white"}}>Click here</a>
-        </div></form>
-        
+          <div className="form-group">
+            {/* <button
+              className="login-btn btn btn-primary form-control"
+              type="submit"
+            >
+              Login
+            </button> */}
+            <button style={{background: "none", border: '0.5px solid transparent', borderRadius: "50%"}} href="" type="submit" class="cta">
+              <span className="text-white">Click me</span>
+              <svg width="13px" height="50px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div className="text-start">
+            <h5 className="text-white mt-3 w-100 text-start">
+              Already an user?
+            </h5>
+            <a
+              className="text-start w-100"
+              href="/register"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Click here
+            </a>
+          </div>
+        </form>
       </div>
       <ToastContainer />
     </div>

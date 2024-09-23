@@ -91,10 +91,18 @@ router.post("/book", middleware, async (req, res) => {
       location,
       userId: req.user.id,
       userInfo: usernames.username,
-      paymentExpiry: new Date(Date.now() + 1 * 60 * 1000) // Set expiry time for 15 minutes later
+      paymentExpiry: new Date(Date.now() + 15 * 60 * 1000) // Set expiry time for 15 minutes later
     });
 
     await newAppointment.save();
+
+    setTimeout(async () => {
+      const currentAppointment = await appointmentModel.findById(newAppointment._id);
+      if (currentAppointment && currentAppointment.status === "pending_payment") {
+        await appointmentModel.deleteOne({ _id: newAppointment._id });
+        console.log(`Deleted appointment with ID ${newAppointment._id} due to expiration.`);
+      }
+    }, 60 * 1000);
 
     // Provide the user with a payment link or redirect URL
     return res.status(200).json({ message: "Appointment created successfully", appointment: newAppointment });

@@ -15,6 +15,7 @@ app.listen(PORT,()=>{
 app.use('/app', require('./routes/userRoutes'));
 app.use('/app', require('./routes/appointmentRoutes'));
 app.use('/app', require('./routes/appointmentRoutes'));
+app.use('/app', require('./routes/AdminRoutes'));
 
 try{
     mongoDBURL = "mongodb+srv://MuraliKrishnan412:MuraliKrishnan412@cluster0.d0ek1az.mongodb.net/DentalSite?retryWrites=true&w=majority";
@@ -22,11 +23,11 @@ try{
     .then(() => {
       console.log("Successfully connected to Database");
       // Initial cleanup when the server starts
-      cleanupExpiredUsers();
+      // cleanupExpiredUsers();
     
       // Periodic cleanup every 15 minutes (900,000 milliseconds)
-      setInterval(cleanupExpiredUsers, 2 * 60 * 1000); // Adjust interval as needed
-      setInterval(checkExpiredAppointments, 1 * 60 * 1000);
+      // setInterval(cleanupExpiredUsers, 2 * 60 * 1000); // Adjust interval as needed
+      // setInterval(checkExpiredAppointments, 1 * 60 * 1000);
     })
     .catch((e) => {
       console.log(e);

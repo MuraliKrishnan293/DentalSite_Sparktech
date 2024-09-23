@@ -630,7 +630,7 @@ padding: 10px;
 /* When scrolled, add green background */
 
 .navbar {
-  background-color: transparent;
+  background-color: #ddddddb7;
   transition: background-color 0.5s ease;
   color: #2a4735;
   z-index: 1;
@@ -668,7 +668,7 @@ padding: 10px;
 }
 
 .loginbtn{
-border: 0.1px solid #2A4735;
+border: 0.1px solid transparent;
 color: #2A4735;
 padding: 5px;
 transition: all 0.5s;
