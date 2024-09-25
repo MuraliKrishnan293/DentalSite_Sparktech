@@ -1034,9 +1034,9 @@ const Register = () => {
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   className="form-control mb-2"
                 />
-                <button type="submit" className="cta">
+                <center><button type="submit" className="btn mt-2 btn-success">
                   Register
-                </button>
+                </button></center>
               </form>
             ) : (
               <div>

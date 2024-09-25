@@ -104,7 +104,7 @@ const Login = () => {
           </div>
           <div className="text-start">
             <h5 className="text-white mt-3 w-100 text-start">
-              Already an user?
+              New User?
             </h5>
             <a
               className="text-start w-100"

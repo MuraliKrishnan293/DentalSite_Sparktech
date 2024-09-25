@@ -86,7 +86,7 @@ const Specialities = () => {
               <img src="assets/images/doctor-1.png" alt="img1" className="img11" />
             </div>
           </div> */}
-          <div className="row mb-5 p-md-5 p-sm-2 container text-black align-items-center">
+          <div id='rootcanal' className="row mb-5 p-md-5 p-sm-2 container text-black align-items-center">
             <div data-aos="fade-right" data-aos-delay="5000" data-aos-once="true" className="col-md-6 text-center order-md-2">
               <div className="text-center mb-4">
                 <img
@@ -315,7 +315,6 @@ const Specialities = () => {
         </div>
       </footer>
           </>
-          <ScrollToTop smooth />
     </div>
   );
 };

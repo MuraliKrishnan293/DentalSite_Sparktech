@@ -88,6 +88,7 @@ import Specialities from "./Components/Specialities";
 import ScrollToTop from "react-scroll-to-top";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
+import RatingComponent from "./Components/RatingComponent";
 
 function App() {
 
@@ -132,7 +133,7 @@ function App() {
             style={{
               backgroundColor: "#2A4735",
               borderRadius: "50%",
-              padding: "5px",
+              padding: "2px",
               right: "20px",
               bottom: "20px",
               boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
@@ -140,6 +141,7 @@ function App() {
               fontSize: "24px",
             }}
           />
+          {/* <RatingComponent /> */}
         </BrowserRouter>
       )}
     </div>

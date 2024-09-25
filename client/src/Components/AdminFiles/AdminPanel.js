@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
   const [appointments, setAppointments] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -25,7 +26,7 @@ const AdminPanel = () => {
   }, []);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchAppointments = async () => {
       try {
         const res1 = await axios.get('http://localhost:5000/app/allapointments',{
             headers: {
@@ -38,9 +39,26 @@ const AdminPanel = () => {
         console.error(error);
       }
     };
-    fetchUsers();
+    fetchAppointments();
   }, []);
 
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res1 = await axios.get('http://localhost:5000/app/getreviews',{
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+        });
+        
+        setReviews(res1.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchReviews();
+  }, []);
   
 
   return (
@@ -88,6 +106,20 @@ const AdminPanel = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      <h4>User Reviews</h4>
+      <div className='container'>
+        <div className='row'>
+          {reviews.map((r)=>(
+            <div key={r._id} className='col-md-4 col-sm-6 col-12'>
+              <div className='card mt-5'>
+                <h6>{r.username}</h6>
+                <p>{r.comment}</p>
+                <p>{r.rating}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

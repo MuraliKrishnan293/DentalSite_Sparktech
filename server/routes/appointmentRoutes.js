@@ -53,6 +53,11 @@ const middleware = require("../verify");
 
 // module.exports = router;
 
+const razorpayInstance = new Razorpay({
+  key_id: "rzp_live_yc3AZztwWuIG7a",
+  key_secret: "U3P6hrmRqqadC3oDGXGJ8xAu"
+});
+
 
 
 router.post("/book", middleware, async (req, res) => {
@@ -94,6 +99,14 @@ router.post("/book", middleware, async (req, res) => {
       paymentExpiry: new Date(Date.now() + 15 * 60 * 1000) // Set expiry time for 15 minutes later
     });
 
+    const options = {
+      amount: 50000,  // amount in the smallest currency unit (paise for INR, so 50000 paise = ₹500)
+      currency: "INR",
+      receipt: `receipt_order_${newAppointment._id}`,
+    };
+
+    const order = await razorpayInstance.orders.create(options);
+
     await newAppointment.save();
 
     setTimeout(async () => {
@@ -105,7 +118,8 @@ router.post("/book", middleware, async (req, res) => {
     }, 60 * 1000);
 
     // Provide the user with a payment link or redirect URL
-    return res.status(200).json({ message: "Appointment created successfully", appointment: newAppointment });
+    return res.status(200).json({ message: "Appointment created successfully", appointment: newAppointment, orderId: order.id, 
+      amount: options.amount });
   } catch (e) {
     return res.status(500).json(e);
   }
@@ -114,7 +128,7 @@ router.post("/book", middleware, async (req, res) => {
 
 
 router.post("/payment-callback", async (req, res) => {
-  const { appointmentId, paymentStatus } = req.body;
+  const { appointmentId, razorpay_payment_id, razorpay_order_id, razorpay_signature, paymentStatus } = req.body;
 
   try {
     const appointment = await appointmentModel.findById(appointmentId);
@@ -123,7 +137,16 @@ router.post("/payment-callback", async (req, res) => {
       return res.status(404).json({ message: "Appointment not found" });
     }
 
-    if (paymentStatus === "success") {
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
+
+    const expectedSignature = crypto
+      .createHmac("sha256", 
+        U3P6hrmRqqadC3oDGXGJ8xAu
+        )
+      .update(body.toString())
+      .digest("hex");
+
+    if (expectedSignature === razorpay_signature) {
       appointment.status = "confirmed";
       appointment.paymentExpiry = null; // Clear the expiry time
       await appointment.save();
@@ -138,5 +161,10 @@ router.post("/payment-callback", async (req, res) => {
     return res.status(500).json(e);
   }
 });
+
+
+
+
+
 
 module.exports = router;

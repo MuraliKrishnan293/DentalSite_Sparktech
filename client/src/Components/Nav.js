@@ -54,6 +54,10 @@ const MyNavbar = () => {
         localStorage.removeItem("role");
         localStorage.removeItem("username");
         localStorage.removeItem("email");
+        localStorage.removeItem("appointment");
+        localStorage.removeItem("appointmentTimestamp");
+        localStorage.removeItem("otpSentTime");
+        localStorage.removeItem("otpStatus");
         window.location.href = "/";
     }
 
@@ -83,10 +87,12 @@ const MyNavbar = () => {
                         <a style={{ color: "#2A4735" }} className="nav-link" aria-current="page" href="/">Home</a>
                         <a style={{ color: "#2A4735" }} className="nav-link" href="/about">About</a>
                         <a style={{ color: "#2A4735" }} className="nav-link" href="/specialities">Specialities</a>
-                        <a style={{ color: "#2A4735" }} className="nav-link" href="#">Contact</a>
-                        {role==="user" && (<a
+                        <a style={{ color: "#2A4735" }} className="nav-link" href="/book">Contact</a>
+                        {/* {role==="user" && ( */}
+                        <a
                         style={{background: "#2A4735", color: "white"}}
-                        className='btn' href='/book'>Book Appointment</a>)}
+                        className='btn' href='/book'>Book Appointment</a>
+                        {/* )} */}
                         {role==="admin" && (
                             <a style={{ color: "#2A4735" }} className="nav-link" href="admin">Admin Panel</a>
                         )}

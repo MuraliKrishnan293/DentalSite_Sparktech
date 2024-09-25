@@ -16,6 +16,7 @@ app.use('/app', require('./routes/userRoutes'));
 app.use('/app', require('./routes/appointmentRoutes'));
 app.use('/app', require('./routes/appointmentRoutes'));
 app.use('/app', require('./routes/AdminRoutes'));
+app.use('/app/', require('./routes/ReviewsRoutes'));
 
 try{
     mongoDBURL = "mongodb+srv://MuraliKrishnan412:MuraliKrishnan412@cluster0.d0ek1az.mongodb.net/DentalSite?retryWrites=true&w=majority";

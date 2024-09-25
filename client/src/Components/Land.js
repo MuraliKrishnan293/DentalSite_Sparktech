@@ -19,6 +19,7 @@ import d4 from '../images/WhatsApp Image 2024-09-21 at 7.09.03 PM.jpeg';
 import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
 import ScrollToTop from "react-scroll-to-top";
 
+
 const Land = () => {
 
   useEffect(() => {
@@ -31,37 +32,43 @@ const Land = () => {
       title: "Root Canal",
       description:
         "The goal of root canal treatment is to save a tooth that might otherwise need to be removed.",
-      icon: s1, // Replace with actual icon
+      icon: s1,
+      to: "/specialities#rootcanal"
     },
     {
       title: "Pediatric Dentistry",
       description:
         "Specialized care for children and adolescents, addressing their unique dental needs age-appropriate treatments.",
-      icon: s2, // Replace with actual icon
+      icon: s2,
+      id: "rootcanal"
     },
     {
       title: "Complete Dentures",
       description:
         "Removable prosthetics replacing all missing teeth in a jaw, designed for comfort and functionality in daily use.",
-      icon: s3, // Replace with actual icon
+      icon: s3,
+      id: "rootcanal"
     },
     {
       title: "Orthodontics",
       description:
         "Aligns teeth and corrects bite issues with braces, clear aligners, or retainers for a straight, healthy smile.",
-      icon: s4, // Replace with actual icon
+      icon: s4,
+      id: "rootcanal"
     },
     {
       title: "Flap Surgery",
       description:
         "Treats advanced gum disease by lifting and cleaning gum tissue, restoring oral health and preventing further damage.",
-      icon: s5, // Replace with actual icon
+      icon: s5,
+      id: "rootcanal"
     },
     {
       title: "Crowns and Bridges",
       description:
         "Fixed prosthetics that restore damaged or missing teeth, providing durability for improved function.",
-      icon: s6, // Replace with actual icon
+      icon: s6,
+      id: "rootcanal"
     },
   ];
 
@@ -111,6 +118,10 @@ const Land = () => {
       },
     },
   ];
+
+  // const handleAbout = ()=>{
+
+  // }
 
   return (
     <>
@@ -168,7 +179,7 @@ const Land = () => {
           {services.map((s) => (
             <div className="col-md-4 col-sm-6 col-12" key={s.id} data-aos="fade-up" data-aos-delay={s.id * 500000}>
               <div style={{ height: "300px" }} className="mt-5 p-4 card"><div className="w-100 text-center">
-                <img src={s.icon} alt='icon' style={{width: "50px", height: "50px"}} className=" text-center" /></div>
+                <a href={s.to}><img src={s.icon} alt='icon' style={{width: "50px", height: "50px"}} className=" text-center" /></a></div>
                 <h6 className="text-center">{s.title}</h6>
                 <p className="text-center">{s.description}</p>
               </div>
@@ -243,7 +254,7 @@ const Land = () => {
         positive impact on your dental health. At ThulasiRaam, your smile
         is in expert hands.
       </p>
-      <button className="read-more-button">READ MORE</button>
+      <a href='/about' className="read-more-button">READ MORE</a>
     </div>
   </div>
 </section>
