@@ -4,6 +4,7 @@ const moment = require("moment");
 const appointmentModel = require("../models/appointmentModel");
 const userModel = require("../models/userModel");
 const middleware = require("../verify");
+const Razorpay = require("razorpay");
 
 // router.post("/book", middleware, async (req, res) => {
 //   const { date, startTime, endTime, location } = req.body;
@@ -115,7 +116,7 @@ router.post("/book", middleware, async (req, res) => {
         await appointmentModel.deleteOne({ _id: newAppointment._id });
         console.log(`Deleted appointment with ID ${newAppointment._id} due to expiration.`);
       }
-    }, 60 * 1000);
+    }, 15* 60 * 1000);
 
     // Provide the user with a payment link or redirect URL
     return res.status(200).json({ message: "Appointment created successfully", appointment: newAppointment, orderId: order.id, 

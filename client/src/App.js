@@ -89,6 +89,7 @@ import ScrollToTop from "react-scroll-to-top";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 import RatingComponent from "./Components/RatingComponent";
+import Confirmation from "./Components/Confirm";
 
 function App() {
 
@@ -125,6 +126,7 @@ function App() {
             <Route path='/book' element={<Book />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/confirmation" element={<Confirmation />} />
           </Routes>
 
           <ScrollToTop

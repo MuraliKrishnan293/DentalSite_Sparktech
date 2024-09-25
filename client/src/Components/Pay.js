@@ -12,13 +12,13 @@
 
 //   const TIMER_DURATION = 15 * 60 * 1000; // 15 minutes in milliseconds
 //   const [remainingTime, setRemainingTime] = useState(TIMER_DURATION);
-  
+
 //   useEffect(() => {
 //     const checkAppointmentExpiry = () => {
 //       if (appointmentExists && appointmentTimestamp) {
 //         const currentTime = Date.now();
 //         const appointmentTime = Number(appointmentTimestamp);
-        
+
 //         // Calculate remaining time
 //         const timeLeft = TIMER_DURATION - (currentTime - appointmentTime);
 
@@ -75,9 +75,6 @@
 
 // export default Payment;
 
-
-
-
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -91,18 +88,18 @@ const Payment = () => {
   const appointmentExists = location.state?.exists;
   const appointmentId = location.state?.appointmentId; // Ensure this ID is available in state
   const orderId = location.state?.orderId; // The order ID returned from your backend
-  const amount = location.state?.amount; // The amount for the payment
+  const amount = 50000;
   const appointmentTimestamp = location.state?.timestamp;
 
   const TIMER_DURATION = 15 * 60 * 1000; // 15 minutes in milliseconds
   const [remainingTime, setRemainingTime] = useState(TIMER_DURATION);
-  
+
   useEffect(() => {
     const checkAppointmentExpiry = () => {
       if (appointmentExists && appointmentTimestamp) {
         const currentTime = Date.now();
         const appointmentTime = Number(appointmentTimestamp);
-        
+
         // Calculate remaining time
         const timeLeft = TIMER_DURATION - (currentTime - appointmentTime);
 
@@ -151,24 +148,41 @@ const Payment = () => {
       order_id: orderId, // The order ID created in your backend
       handler: async function (response) {
         try {
-          const paymentResponse = await axios.post("http://localhost:5000/app/payment-callback", {
-            appointmentId: appointmentId,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_signature: response.razorpay_signature,
-          });
+          const paymentResponse = await axios.post(
+            "http://localhost:5000/app/payment-callback",
+            {
+              appointmentId: appointmentId,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+            }
+          );
 
           if (paymentResponse.status === 200) {
-            toast.success("Payment successful and appointment confirmed!", { autoClose: 3000 });
-            navigate("/confirmation"); // Navigate to confirmation page
+            toast.success("Payment successful and appointment confirmed!", {
+              autoClose: 3000,
+            });
+            // navigate("/confirmation"); // Navigate to confirmation page
+            localStorage.removeItem("rzp_checkout_anon_id");
+            localStorage.removeItem("rzp_device_id");
+            navigate("/confirmation", {
+              state: {
+                appointmentId: appointmentId,
+                razorpay_payment_id: response.razorpay_payment_id,
+                amount: amount,
+              },
+            });
           }
         } catch (error) {
-          toast.error(error.response?.data?.message || "Payment verification failed", { autoClose: 3000 });
+          toast.error(
+            error.response?.data?.message || "Payment verification failed",
+            { autoClose: 3000 }
+          );
         }
       },
       prefill: {
-        name: "John Doe", // Placeholder name
-        email: "john.doe@example.com", // Placeholder email
+        name: "Monish", // Placeholder name
+        email: "email", // Placeholder email
       },
       theme: {
         color: "#3399cc",

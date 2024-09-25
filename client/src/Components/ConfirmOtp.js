@@ -53,6 +53,8 @@ const ConfirmOtp = () => {
 
       if (response.status === 200) {
         toast.success("OTP verified successfully!");
+        localStorage.removeItem("otpSentTime");
+        localStorage.removeItem("otpStatus");
         navigate("/login");
       }
     } catch (error) {

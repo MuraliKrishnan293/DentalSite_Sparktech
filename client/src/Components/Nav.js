@@ -56,8 +56,8 @@ const MyNavbar = () => {
         localStorage.removeItem("email");
         localStorage.removeItem("appointment");
         localStorage.removeItem("appointmentTimestamp");
-        localStorage.removeItem("otpSentTime");
-        localStorage.removeItem("otpStatus");
+        // localStorage.removeItem("otpSentTime");
+        // localStorage.removeItem("otpStatus");
         window.location.href = "/";
     }
 
