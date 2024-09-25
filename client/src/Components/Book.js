@@ -182,6 +182,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { CButton } from "@coreui/react";
 import StarRating from "./RatingComponent";
 import "../Styles/Rev.css";
+import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
 
 const timeSlots = [
   "06:00",
@@ -252,7 +253,7 @@ const BookAppointment = () => {
           localStorage.removeItem("rzp_checkout_anon_id");
           localStorage.removeItem("rzp_device_id");
           setAppointmentExists(false);
-          toast.info(
+          toast.danger(
             "Your appointment has been canceled as Payment was incomplete",
             toastOptions
           );
@@ -324,80 +325,7 @@ const BookAppointment = () => {
   //   return <h1 className="" style={{paddingTop: "100px"}}>You must be user to perform booking</h1>;
   // }
 
-  return (
-    // <div style={{ padding: "100px" }} className="container book-appointment">
-    //   <h1>Book Appointment</h1>
-
-    //   {appointmentExists ? (
-    //     <div>
-    //       <h3>You have already booked an appointment, continue to Payment. Time Limit: 15 mins</h3>
-    //       <button onClick={handleProceedToPayment}>
-    //         Proceed to Payment
-    //       </button>
-    //     </div>
-    //   ) : (
-    //     <form onSubmit={handleSubmit}>
-    //       <div>
-    //         <label>Date:</label>
-    //         <input
-    //           type="date"
-    //           value={date}
-    //           onChange={(e) => setDate(e.target.value)}
-    //           required
-    //         />
-    //       </div>
-    //       <div>
-    //         <label>Start Time:</label>
-    //         <select
-    //           value={time}
-    //           onChange={(e) => {
-    //             const selectedTime = e.target.value;
-    //             setStartTime(selectedTime);
-    //             const nextSlot = timeSlots[timeSlots.indexOf(selectedTime) + 1];
-    //             setEndTime(nextSlot || selectedTime);
-    //           }}
-    //           required
-    //         >
-    //           <option value="">Select start time</option>
-    //           {timeSlots.map((slot, index) => (
-    //             <option key={index} value={slot}>{slot}</option>
-    //           ))}
-    //         </select>
-    //       </div>
-    //       <div>
-    //         <label>End Time:</label>
-    //         <select
-    //           value={endTime}
-    //           onChange={(e) => setEndTime(e.target.value)}
-    //           required
-    //         >
-    //           <option value="">Select end time</option>
-    //           {timeSlots
-    //             .filter((slot) => slot > time)
-    //             .map((slot, index) => (
-    //               <option key={index} value={slot}>{slot}</option>
-    //             ))}
-    //         </select>
-    //       </div>
-    //       <div>
-    //         <label>Location:</label>
-    //         <select
-    //           value={location}
-    //           onChange={(e) => setLocation(e.target.value)}
-    //           required
-    //         >
-    //           {locations.map((loc, index) => (
-    //             <option key={index} value={loc}>{loc}</option>
-    //           ))}
-    //         </select>
-    //       </div>
-    //       <button type="submit">Submit</button>
-    //     </form>
-    //   )}
-
-    //   <ToastContainer />
-    // </div>
-
+  return (<div style={{width: "100%"}}>
     <div
       className="container-fluid d-flex justify-content-center align-items-start flex-column"
       style={{ paddingTop: "100px" }}
@@ -453,22 +381,6 @@ const BookAppointment = () => {
                   ))}
                 </select>
               </div>
-              {/* <div className="mb-3 form-group text-white">
-                <label className="form-label">End Time:</label>
-                <select
-                  className="form-select"
-                  value={endTime}
-                  onChange={(e) => setEndTime(e.target.value)}
-                  required
-                >
-                  <option value="">Select end time</option>
-                  {timeSlots
-                    .filter((slot) => slot > time)
-                    .map((slot, index) => (
-                      <option key={index} value={slot}>{slot}</option>
-                    ))}
-                </select>
-              </div> */}
               <div className="mb-3 form-group text-white">
                 <label className="form-label">Location:</label>
                 <select
@@ -549,8 +461,10 @@ const BookAppointment = () => {
             </button>
           </div>
         </form>
-      </div>
-      <div class="container123 p-5 w-100 d-md-flex flex-md-row d-flex flex-column">
+      </div></div>
+      <h1 className="text-center fw-5 p-5 w-100" style={{textTransform: "capitalize"}}>Locations</h1>
+      {/* <div style={{width: "100%", minHeight: "50vh"}} class="container123 position-relative w-100 d-md-flex flex-md-row d-flex flex-column">
+        
         <div class="map1">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.28107876955!2d80.20482007588429!3d12.953857387359887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d4044339ec5%3A0x8bca68a2cfd3593d!2sDr.%20E%20Thulasiraam%20Dental%20and%20Orthodontic%20Center!5e0!3m2!1sen!2sin!4v1727241024860!5m2!1sen!2sin"
@@ -568,8 +482,119 @@ const BookAppointment = () => {
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
+      </div> */}
+
+<div style={{minHeight: "fit-content"}} className="container123 position-relative w-100 d-md-flex p-5 flex-md-row d-flex flex-column">
+  <div className="map1 col-md-6 col-12">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.28107876955!2d80.20482007588429!3d12.953857387359887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d4044339ec5%3A0x8bca68a2cfd3593d!2sDr.%20E%20Thulasiraam%20Dental%20and%20Orthodontic%20Center!5e0!3m2!1sen!2sin!4v1727241024860!5m2!1sen!2sin"
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      style={{ width: "100%", height: "100%", border: 0 }}
+    ></iframe>
+  </div>
+
+  <div className="map2 col-md-6 col-12">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.200311225868!2d80.19998547588439!3d12.959030487355188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525db15316369d%3A0x8bd810380c921037!2sDr.E.Thulasiraam%20Dental%26orthodontic%20center%7CSmile%20Design%20in%20Madipakkam%7CRoot%20Canal%20in%20Madipakkam%7CSmile%20Correction%20in%20Madipakkam!5e0!3m2!1sen!2sin!4v1727240997166!5m2!1sen!2sin"
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      style={{ width: "100%", height: "100%", border: 0 }}
+    ></iframe>
+  </div>
+</div>
+
+
+    {/* </div> */}
+
+
+    <div className="position-relative" style={{width: "100%", minHeight: ""}}>
+    <footer style={{background: "#2a4735"}} class="foot">
+      <div style={{background: "#2a4735", color: "white"}} class="container">
+        <div class="row footer-con">
+          <div 
+          data-aos="zoom-in"
+          data-aos-once="true"
+
+          class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
+            <h2 class="footer-logo fw-5 fs-1">Thulasiraam</h2>
+            <img
+              src={logo}
+              alt="Logo"
+              class="footer-logo-img"
+            />
+          </div>
+          {/* <div className="hr"><hr /></div> */}
+          <div
+          
+          data-aos="zoom-in"
+          data-aos-once="true"
+
+          class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
+            <h4>Our Services</h4>
+            <ul class="footer-services" style={{listStyleType: "none"}}>
+              <li className="mt-3">Root Canal</li>
+              <li className="mt-3">Pediatric Dentistry</li>
+              <li className="mt-3">Complete Dentures</li>
+              <li className="mt-3">Orthodontics</li>
+              <li className="mt-3">Flap Surgery</li>
+              <li className="mt-3">Crowns and Bridges</li>
+            </ul>
+          </div>
+        </div><hr />
+        <div className="row">
+        <h2 style={{width: "100%"}} className="w-100 text-md-center text-start fw-5 fs-1">Contact us</h2>
+        <div
+        
+
+        data-aos="zoom-in"
+        data-aos-once="true"
+
+        class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
+                <p>
+                <i class="fa fa-instagram"></i> _mo.nish_ 9
+              </p>
+              <p>
+                <i class="fa fa-envelope"></i> ThulasiRaam@gmail.com
+              </p>
+              <p>
+                <i class="fa fa-map-marker"></i> 18, Venkatesa St,
+                Pallikaranai, Chennai, Tamil Nadu
+              </p>
+              <p>
+                <i class="fa fa-phone"></i> +91-7052-101-786
+              </p>
+              </div>
+              
+              <div
+              
+
+              data-aos="zoom-in"
+              data-aos-once="true"
+
+              
+              className="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
+                <p>
+                <i class="fa fa-instagram"></i> _mo.nish_
+              </p>
+              <p>
+                <i class="fa fa-envelope"></i> ThulasiRaam@gmail.com
+              </p>
+              <p>
+                <i class="fa fa-map-marker"></i> 18, Venkatesa St,
+                Pallikaranai, Chennai, Tamil Nadu
+              </p>
+              <p>
+                <i class="fa fa-phone"></i> +91-7052-101-786
+              </p>
+              </div>
+        </div>
       </div>
-      <ToastContainer />
+    </footer>
+    </div>
+    <ToastContainer />
     </div>
   );
 };

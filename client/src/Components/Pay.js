@@ -194,15 +194,32 @@ const Payment = () => {
   };
 
   return (
-    <div style={{ paddingTop: "100px" }}>
-      <h1>Payment Page</h1>
+    // <div style={{ paddingTop: "100px" }}>
+    //   <h1>Payment Page</h1>
+    //   {appointmentExists ? (
+    //     <div>
+    //       <h3>Time remaining: {formatTime(remainingTime)}</h3>
+    //       <button onClick={handlePayment}>Complete Payment</button>
+    //     </div>
+    //   ) : (
+    //     <h3>No appointment to process.</h3>
+    //   )}
+    //   <ToastContainer />
+    // </div>
+
+
+
+    <div className="container mt-5 text-center">
+      <h1 className="text-primary pt-5">Payment Page</h1>
       {appointmentExists ? (
-        <div>
-          <h3>Time remaining: {formatTime(remainingTime)}</h3>
-          <button onClick={handlePayment}>Complete Payment</button>
+        <div className="mt-4">
+          <h3 className="text-success">Time remaining: {formatTime(remainingTime)}</h3>
+          <button onClick={handlePayment} className="btn btn-dark mt-3">
+            Complete Payment
+          </button>
         </div>
       ) : (
-        <h3>No appointment to process.</h3>
+        <h3 className="text-danger">No appointment to process.</h3>
       )}
       <ToastContainer />
     </div>

@@ -90,6 +90,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 import RatingComponent from "./Components/RatingComponent";
 import Confirmation from "./Components/Confirm";
+import PrintDemo from "./Components/Print";
 
 function App() {
 
@@ -127,6 +128,7 @@ function App() {
             <Route path="/payment" element={<Payment />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/confirmation" element={<Confirmation />} />
+            <Route path='/print' element={<PrintDemo />} />
           </Routes>
 
           <ScrollToTop
