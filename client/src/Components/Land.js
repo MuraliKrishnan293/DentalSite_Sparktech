@@ -21,6 +21,8 @@ import ScrollToTop from "react-scroll-to-top";
 
 import Marquee from "react-fast-marquee";
 
+import { FloatingWhatsApp } from 'react-floating-whatsapp';
+
 
 const Land = () => {
 
@@ -127,6 +129,14 @@ const Land = () => {
 
   return (
     <>
+    <FloatingWhatsApp
+    phoneNumber="9884922333" accountName="Thulasiraam"
+    avatar={d3}
+    darkMode={true}
+    chatboxHeight={500}
+    style={{ bottom: '100px', right: '20px' }}
+    buttonStyle={{ bottom: '100px', right: '20px' }}
+    />
       {/* <Nav /> */}
       <div className="container-fluid d-flex justify-content-center aign-items-center text-center heroimg">
         <div

@@ -208,6 +208,7 @@ const BookAppointment = () => {
   const [endTime, setEndTime] = useState("");
   const [location, setLocation] = useState(locations[0]);
   const [appointmentExists, setAppointmentExists] = useState(false);
+  const [reason, setReason]  =useState("");
   const navigate = useNavigate();
   const TIMER_DURATION = 15 * 60 * 1000; // 1 minute for testing (15 minutes in production)
 
@@ -276,6 +277,7 @@ const BookAppointment = () => {
       const res = await axios.post(
         "http://localhost:5000/app/book",
         {
+          reason,
           date,
           startTime: time,
           location,
@@ -325,6 +327,11 @@ const BookAppointment = () => {
   //   return <h1 className="" style={{paddingTop: "100px"}}>You must be user to perform booking</h1>;
   // }
 
+
+
+
+  const today = new Date().toISOString().split("T")[0];
+
   return (<div style={{width: "100%"}}>
     <div
       className="container-fluid d-flex justify-content-center align-items-start flex-column"
@@ -350,10 +357,21 @@ const BookAppointment = () => {
           ) : (
             <form onSubmit={handleSubmit}>
               <div className="mb-3 form-group text-white">
+                <label className="form-label">Reason for Booking:</label>
+                <textarea
+                rows={5}
+                  className="form-control"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3 form-group text-white">
                 <label className="form-label">Date:</label>
                 <input
                   type="date"
                   className="form-control"
+                  min={today}
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   required
@@ -510,7 +528,7 @@ const BookAppointment = () => {
     {/* </div> */}
 
 
-    <div className="position-relative" style={{width: "100%", minHeight: ""}}>
+    {/* <div className="position-relative" style={{width: "100%", minHeight: ""}}>
     <footer style={{background: "#2a4735"}} class="foot">
       <div style={{background: "#2a4735", color: "white"}} class="container">
         <div class="row footer-con">
@@ -526,7 +544,6 @@ const BookAppointment = () => {
               class="footer-logo-img"
             />
           </div>
-          {/* <div className="hr"><hr /></div> */}
           <div
           
           data-aos="zoom-in"
@@ -593,7 +610,84 @@ const BookAppointment = () => {
         </div>
       </div>
     </footer>
+    </div> */}
+
+
+
+<div className="position-relative" style={{ width: "100%", minHeight: "200px" }}>
+  <footer style={{ background: "#2a4735" }} className="foot">
+    <div style={{ background: "#2a4735", color: "white" }} className="container py-5">
+      <div className="row footer-con">
+        <div
+          data-aos="zoom-in"
+          data-aos-once="true"
+          className="col-md-6 col-sm-12 d-flex justify-content-center align-items-center text-center flex-column mb-4 mb-md-0"
+        >
+          <h2 className="footer-logo fw-5 fs-1">Thulasiraam</h2>
+          <img src={logo} alt="Logo" className="footer-logo-img my-3" style={{ maxWidth: "150px" }} />
+        </div>
+        <div
+          data-aos="zoom-in"
+          data-aos-once="true"
+          className="col-md-6 col-sm-12 d-flex justify-content-center align-items-center text-center flex-column"
+        >
+          <h4>Our Services</h4>
+          <ul className="footer-services list-unstyled mt-3">
+            <li className="mt-3">Root Canal</li>
+            <li className="mt-3">Pediatric Dentistry</li>
+            <li className="mt-3">Complete Dentures</li>
+            <li className="mt-3">Orthodontics</li>
+            <li className="mt-3">Flap Surgery</li>
+            <li className="mt-3">Crowns and Bridges</li>
+          </ul>
+        </div>
+      </div>
+      <hr className="my-4" />
+      <div className="row">
+        <h2 className="w-100 text-center fw-5 fs-1 mb-4">Contact us</h2>
+        <div
+          data-aos="zoom-in"
+          data-aos-once="true"
+          className="col-md-6 col-sm-12 d-flex justify-content-center align-items-center text-center flex-column mb-4 mb-md-0"
+        >
+          <p>
+            <i className="fa fa-instagram"></i> _mo.nish_ 9
+          </p>
+          <p>
+            <i className="fa fa-envelope"></i> ThulasiRaam@gmail.com
+          </p>
+          <p>
+            <i className="fa fa-map-marker"></i> 18, Venkatesa St, Pallikaranai, Chennai, Tamil Nadu
+          </p>
+          <p>
+            <i className="fa fa-phone"></i> +91-7052-101-786
+          </p>
+        </div>
+        <div
+          data-aos="zoom-in"
+          data-aos-once="true"
+          className="col-md-6 col-sm-12 d-flex justify-content-center align-items-center text-center flex-column"
+        >
+          <p>
+            <i className="fa fa-instagram"></i> _mo.nish_
+          </p>
+          <p>
+            <i className="fa fa-envelope"></i> ThulasiRaam@gmail.com
+          </p>
+          <p>
+            <i className="fa fa-map-marker"></i> 18, Venkatesa St, Pallikaranai, Chennai, Tamil Nadu
+          </p>
+          <p>
+            <i className="fa fa-phone"></i> +91-7052-101-786
+          </p>
+        </div>
+      </div>
     </div>
+  </footer>
+</div>
+
+
+
     <ToastContainer />
     </div>
   );

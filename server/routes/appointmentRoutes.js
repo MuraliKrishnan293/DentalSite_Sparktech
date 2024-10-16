@@ -62,7 +62,7 @@ const razorpayInstance = new Razorpay({
 
 
 router.post("/book", middleware, async (req, res) => {
-  const { date, startTime, endTime, location } = req.body;
+  const { date, startTime, endTime, location, reason } = req.body;
 
   try {
     const usernames = await userModel.findById(req.user.id);
@@ -91,6 +91,7 @@ router.post("/book", middleware, async (req, res) => {
 
     const newAppointment = new appointmentModel({
       date,
+      reason,
       startTime,
       // endTime,
       status: "pending_payment", // Updated status
