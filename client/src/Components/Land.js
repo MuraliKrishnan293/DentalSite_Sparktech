@@ -19,6 +19,8 @@ import d4 from '../images/WhatsApp Image 2024-09-21 at 7.09.03 PM.jpeg';
 import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
 import ScrollToTop from "react-scroll-to-top";
 
+import Marquee from "react-fast-marquee";
+
 
 const Land = () => {
 
@@ -320,6 +322,10 @@ const Land = () => {
         </div>
       </div>
 
+      {/* <Marquee> */}
+        <div style={{position: "relative", zIndex: -1}} className="elfsight-app-6dfedcd8-9ff6-499d-83d4-eebd3f359299 d-flex" data-elfsight-app-lazy></div>
+      {/* </Marquee> */}
+      
       <footer style={{background: "#2a4735"}} class="foot">
         <div style={{background: "#2a4735", color: "white"}} class="container">
           <div class="row footer-con">
