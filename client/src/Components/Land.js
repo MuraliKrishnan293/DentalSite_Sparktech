@@ -333,8 +333,21 @@ const Land = () => {
       </div>
 
       {/* <Marquee> */}
-        <div style={{position: "relative", zIndex: -1}} className="elfsight-app-6dfedcd8-9ff6-499d-83d4-eebd3f359299 d-flex" data-elfsight-app-lazy></div>
+        {/* <div style={{position: "relative", zIndex: -1}} className="elfsight-app-6dfedcd8-9ff6-499d-83d4-eebd3f359299 d-flex" data-elfsight-app-lazy></div> */}
       {/* </Marquee> */}
+
+
+
+      {/* <div class='sk-ww-google-reviews' data-embed-id='25480330'></div><script src='https://widgets.sociablekit.com/google-reviews/widget.js' async defer></script> */}
+      <div className="p-5 d-flex flex-row contaier">
+      <iframe className="p-5 d-flex flex-row" src='https://widgets.sociablekit.com/google-reviews/iframe/25480330' frameborder='0' width='100%' height='1000'></iframe>
+      </div>
+
+
+
+
+
+
       
       <footer style={{background: "#2a4735"}} class="foot">
         <div style={{background: "#2a4735", color: "white"}} class="container">

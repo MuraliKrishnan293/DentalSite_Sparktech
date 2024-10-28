@@ -10,7 +10,8 @@ const { EmailHelper } = require("./EmailHelper");
 router.post("/register", async (req, res) => {
   const { username, email, password, role, phoneNumber } = req.body;
   try {
-    if (!username || !email || !password || !role ||!phoneNumber) {
+    if (!username || !email || !password || !role ||!phoneNumber
+    ) {
       return res.status(400).json({ message: "Please fill all the fields" });
     }
     const existingUser = await User.findOne({ email });
@@ -102,7 +103,7 @@ router.post("/login", async (req, res) => {
     }
 
     const authToken = jwt.sign({ id: user.id }, SECRETKEY, {
-      expiresIn: "1h",
+      expiresIn: "1d",
     });
 
     res

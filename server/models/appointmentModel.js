@@ -44,7 +44,7 @@ const appointmentSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
-      required: true,
+      required: false,
     },
     reason: {
       type: String,

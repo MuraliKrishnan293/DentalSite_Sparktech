@@ -5,6 +5,7 @@ const appointmentModel = require("../models/appointmentModel");
 const userModel = require("../models/userModel");
 const middleware = require("../verify");
 const Razorpay = require("razorpay");
+const Appointment = require('../models/appointmentModel');
 
 // router.post("/book", middleware, async (req, res) => {
 //   const { date, startTime, endTime, location } = req.body;
@@ -80,7 +81,6 @@ router.post("/book", middleware, async (req, res) => {
       date,
       time: {
         $gte: startTime,
-        $lt: endTime,
       },
       location,
     });
@@ -165,6 +165,90 @@ router.post("/payment-callback", async (req, res) => {
 });
 
 
+
+router.get('/available-slots', async (req, res) => {
+  const { date } = req.query;
+
+  try {
+    // Define all possible time slots
+    const allSlots = ['06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30'];
+
+    // Count appointments per time slot for the given date and both locations
+    const appointments = await Appointment.aggregate([
+      { $match: { date } },
+      { $group: { _id: { startTime: "$startTime", location: "$location" }, count: { $sum: 1 } } }
+    ]);
+
+    const availableSlots = {
+      vadapalani: {},
+      perambur: {},
+    };
+
+    // Initialize available slots with counts
+    allSlots.forEach(slot => {
+      availableSlots.vadapalani[slot] = 3; // Start with 3 available slots
+      availableSlots.perambur[slot] = 3;   // Start with 3 available slots
+    });
+
+    // Adjust counts based on appointments
+    appointments.forEach(app => {
+      const location = app._id.location;
+      const slot = app._id.startTime;
+
+      if (app.count >= 3) {
+        // If fully booked, set to 0
+        availableSlots[location][slot] = 0;
+      } else {
+        // Subtract the count from 3 to find available slots
+        availableSlots[location][slot] = 3 - app.count;
+      }
+    });
+
+    res.status(200).json({ availableSlots });
+  } catch (error) {
+    console.error("Error fetching available slots:", error); // Log the error
+    res.status(500).json({ message: 'Error fetching available slots', error });
+  }
+});
+
+
+
+router.post("/offline-book", async(req, res)=>{
+  const { userId, userInfo, reason, location, date, startTime } = req.body;
+
+  // Create a new appointment
+  try{
+    const aptmnts = await Appointment.find({
+      date,
+      location,
+      startTime: {
+        $gte: startTime, // Find appointments that start at or after the requested startTime
+      },
+      // endTime: {
+      //   $lt: endTime, // Find appointments that end before the requested endTime
+      // },
+    });
+
+    if (aptmnts.length >= 3) {
+      return res.status(400).json({ message: "This appointment slot is full" });
+    }
+  const newAppointment = new Appointment({ userId, userInfo, reason, location, date, startTime, status:"confirmed" });
+
+    await newAppointment.save();
+
+    // Update available slots (decrease available slot count)
+    // await AvailableSlot.updateOne(
+    //   { date, location },
+    //   { $inc: { [`slots.${startTime}`]: -1 } }
+
+    // res.json(newAppointment);
+    // );
+
+    res.status(201).json({ message: 'Appointment added successfully', newAppointment });
+  } catch (error) {
+    res.status(500).json({ error: 'Error adding appointment' });
+  }
+});
 
 
 

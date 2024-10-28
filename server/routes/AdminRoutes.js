@@ -19,6 +19,7 @@ router.get("/allappointments", middleware, isAdmin, async(req, res)=>{
     try{
         const appointments = await appointmentModel.find({});
         return res.json(appointments);
+        console.log('Appointments found:', appointments);
     }
     catch(e){
         return res.status(400).json(e);
