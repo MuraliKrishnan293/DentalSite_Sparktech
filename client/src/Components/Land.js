@@ -11,13 +11,14 @@ import s5 from '../images/Untitled design (4).png';
 import s6 from '../images/Untitled design (5).png';
 import doc from '../images/doccheck.jpeg';
 
-import d1 from '../images/WhatsApp Image 2024-09-21 at 8.39.36 PM.jpeg';
-import d2 from '../images/WhatsApp Image 2024-09-21 at 7.10.05 PM.jpeg';
-import d3 from '../images/WhatsApp Image 2024-09-21 at 7.09.15 PM.jpeg';
-import d4 from '../images/WhatsApp Image 2024-09-21 at 7.09.03 PM.jpeg';
+import d1 from '../images/Doc1.png';
+import d2 from '../images/Doc2.png';
+import d3 from '../images/Doc3.png';
+import d4 from '../images/Doc4.png';
 
 import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
 import ScrollToTop from "react-scroll-to-top";
+import { FaWhatsapp } from 'react-icons/fa';
 
 import Marquee from "react-fast-marquee";
 
@@ -79,47 +80,27 @@ const Land = () => {
   const dentists = [
     {
       id: 1,
-      name: "Sowmiya",
+      name: "Thulasiraam",
       title: "Dentist",
-      image: d1, // Replace with actual image link
-      social: {
-        facebook: "https://facebook.com",
-        twitter: "https://twitter.com",
-        instagram: "https://instagram.com",
-      },
+      image: d2
     },
     {
       id: 2,
       name: "Sathish",
       title: "Dentist",
-      image: d2, // Replace with actual image link
-      social: {
-        facebook: "https://facebook.com",
-        twitter: "https://twitter.com",
-        instagram: "https://instagram.com",
-      },
+      image: d3
     },
     {
       id: 3,
-      name: "Thulasiraam",
+      name: "Sowmiya",
       title: "Dentist",
-      image: d3, // Replace with actual image link
-      social: {
-        facebook: "https://facebook.com",
-        twitter: "https://twitter.com",
-        instagram: "https://instagram.com",
-      },
+      image: d4
     },
     {
       id: 4,
       name: "Angel",
       title: "Dentist",
-      image: d4, // Replace with actual image link
-      social: {
-        facebook: "https://facebook.com",
-        twitter: "https://twitter.com",
-        instagram: "https://instagram.com",
-      },
+      image: d1
     },
   ];
 
@@ -129,14 +110,20 @@ const Land = () => {
 
   return (
     <>
-    <FloatingWhatsApp
+    {/* <FloatingWhatsApp
     phoneNumber="9884922333" accountName="Thulasiraam"
     avatar={d3}
     darkMode={true}
     chatboxHeight={500}
     style={{ bottom: '100px', right: '20px' }}
     buttonStyle={{ bottom: '100px', right: '20px' }}
-    />
+    /> */}
+    <a href={`https://wa.me/9884922333`} target="_blank" rel="noopener noreferrer">
+            <div className="whatsapp-button">
+              <FaWhatsapp className="whatsapp-icon" />
+            </div>
+          </a>
+
       {/* <Nav /> */}
       <div className="container-fluid d-flex justify-content-center aign-items-center text-center heroimg">
         <div
@@ -322,10 +309,9 @@ const Land = () => {
             data-aos-anchor-placement="center-bottom"
             data-aos-delay={s.id * 10000000}
             >
-              <div className="doccard mt-5 p-4 card mb-4">
-                <img style={{width: "167px", height: "163px"}} src={s.image} alt="doc" className="docimg card-img card-img-top text-center" />
-                <h6 className="text-center">{s.name}</h6>
-                <p className="text-center">{s.description}</p>
+              <div style={{border: "0.1px solid transparent"}} className="doccard mt-5 p-4 card mb-4 d-flex justify-content-center align-items-center text-center">
+                <img style={{width: "167px", height: "163px"}} src={s.image} alt="doc" className="docimg card-img card-img-top" />
+                <h6 className="text-center mt-3">{s.name}</h6>
               </div>
             </div>
           ))}

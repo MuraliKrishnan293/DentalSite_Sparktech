@@ -9,6 +9,7 @@ import "./Login.css"; // import custom CSS file for styles
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // const role =
@@ -24,6 +25,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post("http://localhost:5000/app/login", {
         email: email,
@@ -59,7 +61,10 @@ const Login = () => {
     }
   };
 
+  const auth = localStorage.getItem("authToken");
+
   return (
+    <>{!auth && (
     <div className="login-container">
       <div className="login-box">
         <form onSubmit={handleSubmit}>
@@ -94,20 +99,41 @@ const Login = () => {
             >
               Login
             </button> */}
-            <button style={{background: "none", border: '0.5px solid transparent', borderRadius: "50%"}} href="" type="submit" class="cta">
-              <span className="text-white">Click me</span>
-              <svg width="13px" height="50px" viewBox="0 0 13 10">
+            <button
+              style={{
+                background: "none",
+                border: "0.5px solid transparent",
+                borderRadius: "50%",
+              }}
+              href=""
+              type="submit"
+              className="btn action-link text-white"
+              disabled={loading}
+            >
+              {loading ? "Please wait..." : "Login"}
+              {/* <span className="text-white">Click me</span> */}
+              {/* <svg width="13px" height="50px" viewBox="0 0 13 10">
                 <path d="M1,5 L11,5"></path>
                 <polyline points="8 1 12 5 8 9"></polyline>
-              </svg>
+              </svg> */}
             </button>
           </div>
           <div className="text-start">
             <h5 className="text-white mt-3 w-100 text-start">
-              New User?
+              Forgot Password?
             </h5>
             <a
-              className="text-start w-100"
+              className="text-start w-100 action-link"
+              href="/forgot-password"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Click here to reset
+            </a>
+          </div>
+          <div className="text-start">
+            <h5 className="text-white mt-3 w-100 text-start">New User?</h5>
+            <a
+              className="text-start w-100 action-link"
               href="/register"
               style={{ textDecoration: "none", color: "white" }}
             >
@@ -117,7 +143,7 @@ const Login = () => {
         </form>
       </div>
       <ToastContainer />
-    </div>
+    </div>)}</>
   );
 };
 

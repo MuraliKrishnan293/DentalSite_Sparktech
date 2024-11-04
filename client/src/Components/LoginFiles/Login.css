@@ -103,3 +103,25 @@ a {
 .cta:active {
   transform: scale(0.96);
 }
+
+/* General Button Styles for Links */
+.action-link {
+  display: inline-block;
+  background-color: transparent; /* Background transparent */
+  color: #007bff; /* Bootstrap primary color */
+  border: 2px solid #3acc1d28; /* Bootstrap primary border */
+  padding: 0.5rem 1rem; /* Padding for button look */
+  border-radius: 5px; /* Rounded corners */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Bold text */
+  font-size: 0.9rem; /* Font size */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s; /* Transition for hover effects */
+  margin-top: 10px; /* Space above */
+}
+
+/* Hover Effects for Action Links */
+.action-link:hover {
+  background-color: #2A4735; /* Background color on hover */
+  color: white; /* Text color on hover */
+  transform: scale(1.05); /* Slight scaling */
+}

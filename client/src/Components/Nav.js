@@ -27,11 +27,14 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import '../Styles/Land.css';  // Custom CSS for styling
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';
+import { useLocation } from 'react-router-dom';
 
 const MyNavbar = () => {
     const [scrolling, setScrolling] = useState(false);
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const authToken = localStorage.getItem("authToken");
 
@@ -61,11 +64,34 @@ const MyNavbar = () => {
         window.location.href = "/";
     }
 
+    useEffect(() => {
+        // const token = localStorage.getItem("authToken");
+
+        if (authToken) {
+            const decodedToken = jwtDecode(authToken);
+            const expirationTime = decodedToken.exp * 1000;
+            const currentTime = Date.now();
+            const timeToExpire = expirationTime - currentTime;
+
+            if (timeToExpire > 0) {
+                const logoutTimer = setTimeout(() => {
+                    handleLogout();
+                }, timeToExpire);
+
+                return () => clearTimeout(logoutTimer);
+            } else {
+                handleLogout();
+            }
+        }
+    }, []);
+
     const handleBook = ()=>{
         navigate('/book');
     }
 
     const role = localStorage.getItem("role");
+
+    const isContactPage = location.pathname === '/book';
 
     return (
         <nav style={{top: "0"}} className={`navbar navbar-expand-lg position-fixed w-100 text-dark ${scrolling ? 'scrolled' : ''}`}>
@@ -89,9 +115,9 @@ const MyNavbar = () => {
                         <a style={{ color: "#2A4735" }} className="nav-link" href="/specialities">Specialities</a>
                         <a style={{ color: "#2A4735" }} className="nav-link" href="/book">Contact</a>
                         {/* {role==="user" && ( */}
-                        <a
+                        {!isContactPage && (<a
                         style={{background: "#2A4735", color: "white"}}
-                        className='btn' href='/book'>Book Appointment</a>
+                        className='btn' href='/book'>Book Appointment</a>)}
                         {/* )} */}
                         {role==="admin" && (
                             <a style={{ color: "#2A4735" }} className="nav-link" href="admin">Admin Panel</a>

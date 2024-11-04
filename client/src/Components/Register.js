@@ -876,6 +876,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [otpSent, setOtpSent] = useState(false);
   const [otpExpired, setOtpExpired] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const checkOtpStatus = () => {
@@ -934,12 +935,13 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (handleValidation()) {
+    setLoading(true);
       try {
         const req = await axios.post("http://localhost:5000/app/register", {
           username,
           email,
           password,
-          role,
+          // role,
           phoneNumber,
         });
         if (req.status === 200) {
@@ -1019,14 +1021,14 @@ const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="form-control mb-2"
                 />
-                <select
+                {/* <select
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                   className="form-control mb-2"
                 >
                   <option value="user">User</option>
                   <option value="doctor">Doctor</option>
-                </select>
+                </select> */}
                 <input
                   type="number"
                   placeholder="Phone"
@@ -1034,8 +1036,11 @@ const Register = () => {
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   className="form-control mb-2"
                 />
-                <center><button type="submit" className="btn mt-2 btn-success">
-                  Register
+                <center><button type="submit" className="btn mt-2 btn-success"
+                disabled={loading}
+                >
+                  {/* Register */}
+                  {loading ? "Please wait..." : "Register"}
                 </button></center>
               </form>
             ) : (

@@ -183,6 +183,8 @@ import { CButton } from "@coreui/react";
 import StarRating from "./RatingComponent";
 import "../Styles/Rev.css";
 import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 const timeSlots = [
   "06:00",
@@ -210,7 +212,8 @@ const BookAppointment = () => {
   const [appointmentExists, setAppointmentExists] = useState(false);
   const [reason, setReason]  =useState("");
   const navigate = useNavigate();
-  const TIMER_DURATION = 15 * 60 * 1000; // 1 minute for testing (15 minutes in production)
+  const TIMER_DURATION = 15 * 60 * 1000; // 1 minute
+  const [loadings, setLoadings] = useState(false);
 
   const toastOptions = {
     position: "top-left",
@@ -222,7 +225,7 @@ const BookAppointment = () => {
   };
 
   const Submit = async (e) => {
-    console.log(username, comment, currentValue);
+    // console.log(username, comment, currentValue);
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:5000/app/postreview", {
@@ -273,6 +276,7 @@ const BookAppointment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoadings(true);
     try {
       const res = await axios.post(
         "http://localhost:5000/app/book",
@@ -295,6 +299,7 @@ const BookAppointment = () => {
         localStorage.setItem("appointmentTimestamp", Date.now());
         setAppointmentExists(true); // Update state to reflect appointment exists
         console.log("Appointment booked and state updated.");
+        fetchAvailableSlots();
       }
     } catch (error) {
       toast.error(
@@ -332,7 +337,88 @@ const BookAppointment = () => {
 
   const today = new Date().toISOString().split("T")[0];
 
+  const [availableSlots, setAvailableSlots] = useState({ vadapalani: {}, perambur: {} });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+
+  const [todayDate, setTodayDate] = useState(new Date().toLocaleDateString('en-CA'));
+
+  useEffect(() => {
+    const updateToday = () => {
+      setTodayDate(new Date().toLocaleDateString('en-CA'));
+    };
+
+    updateToday();
+    
+    const intervalId = setInterval(updateToday, 1000 * 60 * 60 * 24);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+ 
+  const timeSlots = ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30"];
+
+
+
+  const fetchAvailableSlots = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/app/available-slots?date=${todayDate}`);
+      setAvailableSlots(response.data.availableSlots);
+      setLoading(false);
+    } catch (error) {
+      setError("Error fetching available slots");
+      console.error("Error:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAvailableSlots();
+    // console.log("Slot date : ", todayDate);
+  }, [todayDate]);
+
   return (<div style={{width: "100%"}}>
+    <div style={{marginTop: "100px"}} className="container"><Tabs><Tab eventKey="home" title="Book Appointment">
+        {/* <AvailableSlots /> */}
+        <div className="available-slots-container">
+      <h3>Available Time Slots for Today</h3>
+
+      <div className="slots row">
+        <div className="col-md-6 location-slots">
+          <h4>Vadapalani</h4>
+          <ul className="list-group">
+            {Object.entries(availableSlots.vadapalani).length > 0 ? (
+              Object.entries(availableSlots.vadapalani).map(([slot, available]) => (
+                <li key={slot} className="list-group-item">
+                  {slot} - {available} slot{available !== 1 ? 's' : ''} left
+                </li>
+              ))
+            ) : (
+              <li className="list-group-item">No available slots</li>
+            )}
+          </ul>
+        </div>
+        <div className="col-md-6 location-slots">
+          <h4>Perambur</h4>
+          <ul className="list-group">
+            {Object.entries(availableSlots.perambur).length > 0 ? (
+              Object.entries(availableSlots.perambur).map(([slot, available]) => (
+                <li key={slot} className="list-group-item">
+                  {slot} - {available} slot{available !== 1 ? 's' : ''} left
+                </li>
+              ))
+            ) : (
+              <li className="list-group-item">No available slots</li>
+            )}
+          </ul>
+        </div>
+      </div>      
+    
+
+    </div>
+      </Tab></Tabs></div>
     <div
       className="container-fluid d-flex justify-content-center align-items-start flex-column"
       style={{ paddingTop: "100px" }}
@@ -415,8 +501,11 @@ const BookAppointment = () => {
                 </select>
               </div>
               {authToken ? (
-                <button type="submit" className="btn btn-light w-100">
-                  Submit
+                <button type="submit" className="btn btn-light w-100"
+                disabled={loadings}
+                >
+                  {loadings ? "Please wait..." : "Book"}
+                  {/* Submit */}
                 </button>
               ) : (
                 <a href="/login">

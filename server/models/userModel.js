@@ -20,10 +20,11 @@ const userSchema = new mongoose.Schema({
 //   },
   role: {
     type: String,
-    enum: [
-        // 'admin',
-         'doctor', 'user'],
+    // enum: [
+    //     // 'admin',
+    //      'doctor', 'user'],
     default: 'user',
+    // required: false
   },
   phoneNumber: {
     type: String,

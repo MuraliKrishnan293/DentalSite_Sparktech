@@ -91,6 +91,7 @@ import './App.css';
 import RatingComponent from "./Components/RatingComponent";
 import Confirmation from "./Components/Confirm";
 import PrintDemo from "./Components/Print";
+import ForgotPassword from "./Components/LoginFiles/ForgotPassword";
 
 function App() {
 
@@ -129,6 +130,7 @@ function App() {
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path='/print' element={<PrintDemo />} />
+            <Route path='/forgot-password' element={<ForgotPassword />} />
           </Routes>
 
           <ScrollToTop

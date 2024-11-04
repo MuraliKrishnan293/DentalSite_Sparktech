@@ -1,3 +1,109 @@
-.ScrollToTop {
-    background-color: #2A4735 !important;
+/* Container styling for centering and responsiveness */
+.prescription-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    width: 100%;
 }
+
+/* Styling for the prescription background image */
+#prescription-container {
+    background-image: url('./images/prescription.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 794px; /* A4 width in pixels at 96 DPI */
+    height: 1123px; /* A4 height in pixels at 96 DPI */
+    position: relative;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin: auto;
+    transition: all 0.3s ease;
+}
+
+#prescription-container:hover {
+    transform: scale(1.02);
+}
+
+/* Input field styling */
+.input-field {
+    position: absolute;
+    font-size: 1rem;
+    border: none;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem;
+    outline: none;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.input-field:focus {
+    background: rgba(255, 255, 255, 1);
+}
+
+/* Specific positioning for each input field */
+.patient-name {
+    top: 300px;
+    left: 50px;
+    width: 80%;
+}
+
+.medications {
+    top: 600px;
+    left: 50px;
+    width: 80%;
+    height: 200px;
+}
+
+/* Download button styling */
+.download-button {
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #2A4735;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+    background-color: #1f3326;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+    #prescription-container {
+        width: 90%;
+        height: 580px;
+        background-position: center;
+        background-size: cover;
+        padding-top: 56.25%; /* Maintain aspect ratio */
+    }
+
+    .input-field {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+    }
+
+    .download-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+  
+  .appointments-table th, .appointments-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .appointments-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }  

@@ -80,8 +80,33 @@ const appointmentSchema = new mongoose.Schema(
     paymentExpiry: { // New field for payment expiration
       type: Date,
       required: false,
-    }
+    },
+    visited: { // New field to track the patient's visit status
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    prescriptionPath: { // New field for storing the prescription file path
+      type: String,
+      required: false,
+      default: ""
+    },
+    fileId: {  // This can be the filename or path
+      type: String,
+      required: false,
+      default: null
   },
+  fileName: {  // Optional: Store the original file name
+      type: String,
+      required: false,
+      default: null
+  },
+  fileSize: {  // Optional: Store the size of the file
+      type: Number,
+      required: false,
+      default: null
+  }
+},
   { timestamps: true }
 );
 

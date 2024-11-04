@@ -5,9 +5,12 @@ const cors = require('cors')
 const PORT = 5000
 const User = require("./models/userModel");
 const appointmentModel = require('./models/appointmentModel');
+const bodyParser = require('body-parser');
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(PORT,()=>{
     console.log('App connected to PORT 5000');
 });

@@ -6,6 +6,13 @@ const userModel = require("../models/userModel");
 const middleware = require("../verify");
 const Razorpay = require("razorpay");
 const Appointment = require('../models/appointmentModel');
+const multer = require("multer");
+const path = require('path');
+const Grid = require('gridfs-stream');
+const mongoose = require('mongoose');
+const mimePromise = import('mime');
+
+// const { upload, gfs } = require('../routes/FileUpload');
 
 // router.post("/book", middleware, async (req, res) => {
 //   const { date, startTime, endTime, location } = req.body;
@@ -77,12 +84,23 @@ router.post("/book", middleware, async (req, res) => {
       return res.status(400).json({ message: "You already have an appointment booked for today" });
     }
 
+    const endTimeDate = moment(`${date} ${startTime}`).add(30, 'minutes'); // Assuming startTime is in HH:mm format
+    const endTime = endTimeDate.format('HH:mm');
+
     const aptmnts = await appointmentModel.find({
       date,
-      time: {
-        $gte: startTime,
-      },
+      // time: {
+      //   $gte: startTime,
+      // },
       location,
+      $or: [
+        {
+          startTime: { $gte: startTime, $lt: endTime } // Appointments starting in the requested time slot
+        },
+        {
+          endTime: { $gt: startTime } // Appointments ending after the requested startTime
+        }
+      ]
     });
 
     if (aptmnts.length >= 3) {
@@ -216,17 +234,29 @@ router.get('/available-slots', async (req, res) => {
 router.post("/offline-book", async(req, res)=>{
   const { userId, userInfo, reason, location, date, startTime } = req.body;
 
+  const endTimeDate = moment(`${date} ${startTime}`).add(30, 'minutes'); // Assuming startTime is in HH:mm format
+  const endTime = endTimeDate.format('HH:mm');
+
   // Create a new appointment
   try{
     const aptmnts = await Appointment.find({
       date,
       location,
-      startTime: {
-        $gte: startTime, // Find appointments that start at or after the requested startTime
-      },
-      // endTime: {
-      //   $lt: endTime, // Find appointments that end before the requested endTime
+      // startTime: {
+      //   $gte: startTime, // Find appointments that start at or after the requested startTime
       // },
+      // // endTime: {
+      // //   $lt: endTime, // Find appointments that end before the requested endTime
+      // // },
+
+      $or: [
+        {
+          startTime: { $gte: startTime, $lt: endTime } // Appointments starting in the requested time slot
+        },
+        {
+          endTime: { $gt: startTime } // Appointments ending after the requested startTime
+        }
+      ]
     });
 
     if (aptmnts.length >= 3) {
@@ -251,6 +281,263 @@ router.post("/offline-book", async(req, res)=>{
 });
 
 
+// In your routes file
+router.put('/appointment/:id', async (req, res) => {
+  const { id } = req.params;
+  const { visited } = req.body;
+
+  try {
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      id,
+      { visited },
+      { new: true }
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ error: 'Appointment not found' });
+    }
+
+    res.status(200).json(updatedAppointment);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update visited status' });
+  }
+});
+
+
+
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(__dirname, 'Prescription_Files'));
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, `${Date.now()}-${file.originalname}`);
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+
+
+
+// router.post("/upload-prescription", upload.single("prescription"), async (req, res) => {
+//   const { appointmentId } = req.body;
+//   const filePath = req.file ? req.file.path : null;
+
+//   if (!filePath) {
+//     return res.status(400).json({ success: false, message: "File not uploaded" });
+//   }
+
+//   try {
+//     await appointmentModel.findByIdAndUpdate(appointmentId, { prescriptionPath: filePath }, { new: true });
+//     res.json({ success: true, message: "Prescription uploaded successfully" });
+//   } catch (error) {
+//     console.error("Error saving prescription to DB:", error);
+//     res.status(500).json({ success: false, message: "Error saving prescription" });
+//   }
+// });
+
+
+
+
+// Route to upload a prescription file and update the appointment
+// router.post('/appointments/:id/upload', upload.single('Prescription_Files'), async (req, res) => {
+//   try {
+//       const appointmentId = req.params.id;
+
+//       // Log the uploaded file for debugging
+//       console.log('Uploaded file:', req.file);
+
+//       // Check if the appointment exists
+//       const appointment = await Appointment.findById(appointmentId);
+//       if (!appointment) {
+//           return res.status(404).json({ message: 'Appointment not found' });
+//       }
+
+//       // Check if a file was uploaded
+//       if (req.file) {
+//           // Update the appointment with the file ID
+//           appointment.fileId = req.file.id; // Access the file ID from req.file
+//       } else {
+//           return res.status(400).json({ message: 'No file uploaded' });
+//       }
+
+//       await appointment.save();
+
+//       res.status(200).json({ message: 'File uploaded and appointment updated successfully', appointment });
+//   } catch (error) {
+//       console.error('Error uploading file:', error);
+//       res.status(500).json({ message: 'Error uploading file and updating appointment', error });
+//   }
+// });
+
+const fs = require('fs');
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir);
+}
+
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, uploadsDir); // Save to uploads directory
+  },
+  filename: async(req, file, cb) => {
+      // // Use the original filename but enforce .pdf extension
+      // const name = path.basename(file.originalname, path.extname(file.originalname)); // Get the base name without extension
+      const appointment = await Appointment.findById(req.params.id);
+      if (!appointment) { return cb(new Error('Appointment not found'), false); 
+      }
+      const userInfo = appointment.userInfo.replace(/\s/g, '_');
+      // Replace spaces with underscores
+      const originalName = path.basename(file.originalname, path.extname(file.originalname)); // Get the base name without extension cb(null, `${userInfo}_${originalName}.pdf`
+      cb(null, `${userInfo}_${originalName}.pdf`); // Save as .pdf
+  }
+});
+
+
+const upload = multer({ 
+  // dest: uploadsDir, 
+  // limits: { fileSize: 5 * 1024 * 1024 }, // Limit to 5 MB
+    storage: storage, // Use the custom storage
+    limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+      const filetypes = /jpeg|jpg|png|gif|pdf/; // Allowed file types
+      const mimetype = filetypes.test(file.mimetype);
+      const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+      if (mimetype && extname) {
+          return cb(null, true);
+      } else {
+          cb(new Error('Error: File type not supported!'), false);
+      }
+  }
+});
+
+// POST route for file upload
+router.post('/appointments/:id/upload', upload.single('Prescription_Files'), async (req, res) => {
+  const appointmentId = req.params.id;
+  const file = req.file;
+
+  if (!file) {
+      return res.status(400).send('No file uploaded.');
+  }
+
+  try {
+      // Update the appointment with the file information
+      await Appointment.findByIdAndUpdate(appointmentId, {
+          fileId: file.filename, // Save the path to the uploaded file
+          fileName: file.originalname, // Save the original file name
+          fileSize: file.size // Save the file size
+      });
+
+      res.status(200).send({ message: 'File uploaded successfully!', appointmentId });
+  } catch (error) {
+      console.error('Error updating appointment:', error);
+      res.status(500).send('Server error');
+  }
+});
+
+
+
+
+
+
+
+// router.get('/app/appointments', async (req, res) => {
+//   try {
+//       const appointments = await Appointment.find(); // Fetch all appointments
+//       res.status(200).json(appointments);
+//   } catch (error) {
+//       console.error('Error fetching appointments:', error);
+//       res.status(500).send('Server error');
+//   }
+// });
+
+
+
+
+
+
+
+
+
+// router.get('/appointments/:id/file', async (req, res) => {
+//   const appointmentId = req.params.id;
+
+//   console.log('Appointment ID:', appointmentId);
+
+//   if (!mongoose.Types.ObjectId.isValid(appointmentId) || appointmentId.length !== 24) {
+//       return res.status(400).send('Invalid appointment ID format');
+//   }
+
+//   try {
+//       // Retrieve the appointment with the binary PDF data
+//       const appointment = await Appointment.findById(appointmentId);
+
+//       if (!appointment || !appointment.fileId) {
+//           return res.status(404).send('Appointment or file not found.');
+//       }
+
+//       // Set the correct content type and disposition for PDF download
+//       res.setHeader('Content-Type', 'application/pdf');
+//       res.setHeader('Content-Disposition', `attachment; filename="${appointment.fileId}.pdf"`);
+
+//       // Send the binary data directly to the response
+//       res.send(appointment.fileId);
+      
+//   } catch (error) {
+//       console.error('Error fetching appointment:', error);
+//       res.status(500).send('Server error');
+//   }
+// });
+
+
+
+router.get('/appointments/:id/file', async (req, res) => {
+  const appointmentId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).send('Invalid appointment ID format');
+  }
+
+  try {
+      // Retrieve the appointment record from the database
+      const appointment = await Appointment.findById(appointmentId);
+
+      if (!appointment || !appointment.fileId) {
+          return res.status(404).send('File not found for this appointment.');
+      }
+
+      const filePath = path.join(__dirname, 'uploads', appointment.fileId);
+
+      // Check if the file exists on the server
+      fs.access(filePath, fs.constants.F_OK, (err) => {
+          if (err) {
+              console.error(`File not found at path: ${filePath}`);
+              return res.status(404).send('File not found.');
+          }
+
+          // Set headers to serve the file as a downloadable PDF
+          res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('Content-Disposition', `inline; filename="${appointment.fileName}.pdf"`); // Change to 'attachment' if you want a download
+
+          // Stream the file to the response
+          const fileStream = fs.createReadStream(filePath);
+          fileStream.pipe(res);
+      });
+  } catch (error) {
+      console.error('Error fetching file:', error);
+      res.status(500).send('Server error');
+  }
+});
+
+
+
+router.delete('/appointments/:id/delete', async (req, res) => { 
+  const appointmentId = req.params.id; 
+  try { const appointment = await Appointment.findById(appointmentId); if (!appointment) { return res.status(404).send('Appointment not found.'); } if (appointment.fileId) { const oldFilePath = path.join(uploadsDir, appointment.fileId); fs.access(oldFilePath, fs.constants.F_OK, (err) => { if (!err) { fs.unlink(oldFilePath, (err) => { if (err) { console.error('Error deleting old file:', err); return res.status(500).send('Error deleting old file.'); } }); } else { console.log('File does not exist, nothing to delete.'); } }); } appointment.fileId = null; appointment.fileName = null; appointment.fileSize = null; await appointment.save(); res.status(200).send({ message: 'File deleted successfully!', appointmentId }); } catch (error) { console.error('Error updating appointment:', error); if (!res.headersSent) { res.status(500).send('Server error'); } } 
+          });
 
 
 module.exports = router;

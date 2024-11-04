@@ -10,6 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from 'react-redux';
 // import { fetchAvailableSlots, addAppointment } from '../Redux/appointmentSlice';
 import { fetchAppointments } from '../Redux/appointmentSlice';
+import PrescriptionForm from './Prescription';
+import '../../App.css';
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -22,6 +24,112 @@ const AdminPanel = () => {
   const [searchDate, setSearchDate] = useState('');
   const [searchTime, setSearchTime] = useState('');
   const [filteredAppointments, setFilteredAppointments] = useState(appointments);
+  const [fileData, setFileData] = useState({});
+  const [file, setFile] = useState(null);
+
+  // const toastOptions = {
+  //   position: "top-left",
+  //   autoClose: 5000,
+  //   closeOnClick: true,
+  //   pauseOnHover: true,
+  //   draggable: true,
+  //   theme: "dark",
+  // };
+
+
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+};
+
+const handleSubmit = async (event, appointmentId) => {
+  event.preventDefault(); // Prevent default form submission
+  // alert(`Uploading to: http://localhost:5000/app/appointments/${appointmentId}/upload`);
+
+  if (!file) {
+      alert('Please select a file before uploading.');
+      return;
+  }
+
+  const formData = new FormData();
+  formData.append('Prescription_Files', file); // Ensure you have the file variable defined
+
+  try {
+      const response = await axios.post(`http://localhost:5000/app/appointments/${appointmentId}/upload`, formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+              // 'Authorization': 
+          },
+      });
+
+      setAppointments((prevAppointments) =>
+        prevAppointments.map((appt) =>
+            appt._id === appointmentId
+                ? { ...appt, fileId: file.name, fileName: file.name } // Update the fileId and fileName
+                : appt
+        )
+    );
+      console.log(response.data); // Log the server response
+      // alert(`File uploaded successfully!`); // Optional success message
+      toast.success("File uploaded successfully!", toastOptions);
+  } catch (error) {
+      console.error('Error uploading file:', error.response || error); // Log error response
+      alert('Failed to upload file: ' + (error.response ? error.response.data : error.message));
+      toast.error('Failed to upload file: ' + (error.response ? error.response.data : error.message), toastOptions);
+  }
+};
+
+
+
+
+
+
+
+
+const handleDownloadFile = async (e, appointmentId) => {
+  e.preventDefault();
+  // alert("Id: " + appointmentId);
+  try {
+      // Make a GET request to the server to fetch the file
+      const response = await axios.get(`http://localhost:5000/app/appointments/${appointmentId}/file`, {
+          responseType: 'blob', // Important for handling binary data
+      });
+
+      // Create a URL for the blob file
+      const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+      const fileLink = document.createElement('a');
+      fileLink.href = fileURL;
+
+      // Get the file name from the Content-Disposition header, if available
+      const disposition = response.headers['content-disposition'];
+      const fileName = "downloaded_file.pdf";
+
+
+
+      if (disposition) {
+        const filenameMatch = disposition.match(/filename="?(.+?)"?;?/);
+        if (filenameMatch.length > 1) {
+            fileName = filenameMatch[1];
+        }
+    }
+
+      fileLink.setAttribute('download', fileName);
+      document.body.appendChild(fileLink);
+      fileLink.click();
+
+      // Clean up
+      document.body.removeChild(fileLink);
+      window.URL.revokeObjectURL(fileURL);
+  } catch (error) {
+      console.error('Error downloading file:', error);
+      alert('Failed to download the file.');
+  }
+};
+
+
+
+
+  
 
 
 
@@ -130,8 +238,22 @@ const AdminPanel = () => {
 
 
 
+//   const handleFileChange = (e, appointmentId) => {
+//     setFileData({ ...fileData, [appointmentId]: e.target.files[0] }); // Make sure this is consistent with your state management
+// };
 
+// const handleUpload = async (appointmentId) => {
+//     const formData = new FormData();
+//     formData.append('Prescription_Files', fileData[appointmentId]);
 
+//     try {
+//         await axios.post(`http://localhost:5000/app/appointments/${appointmentId}/upload`, formData);
+//         alert('File uploaded successfully!');
+//     } catch (error) {
+//         console.error('Error uploading file', error);
+//         alert('Error uploading file');
+//     }
+// };
 
 
 
@@ -145,13 +267,15 @@ const AdminPanel = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
   const [successModal, setSuccessModal] = useState(false); // New state for success modal
   const [newAppointment, setNewAppointment] = useState({
     userId: '',
     userInfo: "",
     reason: '',
     location: 'vadapalani',
-    date: new Date().toISOString().split('T')[0],
+    date: new Date().toLocaleDateString('en-CA'),
     startTime: '',
   });
 
@@ -166,10 +290,29 @@ const AdminPanel = () => {
 
   // const dispatch = useDispatch();
   // const { appointments, status } = useSelector((state) => state.appointments);
+  const [todayDate, setTodayDate] = useState(new Date().toLocaleDateString('en-CA'));
 
-  const todayDate = new Date().toISOString().split('T')[0];
+  useEffect(() => {
+    const updateToday = () => {
+      setTodayDate(new Date().toLocaleDateString('en-CA'));
+    };
+
+    updateToday();
+    
+    const intervalId = setInterval(updateToday, 1000 * 60 * 60 * 24);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+ 
   const timeSlots = ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30"];
-  const today = new Date().toISOString().split("T")[0];
+  // const today = new Date().toISOString().split("T")[0];
+
+  useEffect(()=>{
+    console.log(todayDate);
+  },[]);
+
+  
 
   const fetchAvailableSlots = async () => {
     try {
@@ -185,7 +328,9 @@ const AdminPanel = () => {
 
   useEffect(() => {
     fetchAvailableSlots();
+    console.log("Slot date : ", todayDate);
   }, [todayDate]);
+  console.log("Slot date : ", todayDate);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -197,13 +342,12 @@ const AdminPanel = () => {
     fetchAppointments();
   }, [authToken]);
 
-  // if(appointments.length<1){
-  //   return <div className='p-5 text-center' style={{marginTop: "300px"}}><h1>No appointments found</h1></div>;
-  // }
+  const [load, setLoad] = useState(false);
   
 
   const handleAddAppointment = async () => {
     try {
+      setLoad(true);
       await axios.post('http://localhost:5000/app/offline-book', newAppointment);
       toast.success("Appointment added successfully!", toastOptions);
       setShowModal(false); // Close the modal after successful addition
@@ -219,6 +363,7 @@ const AdminPanel = () => {
         startTime: '',
       });
       fetchAppointments();
+      closeModal();
     } catch (error) {
       toast.error("Error adding appointment", toastOptions);
       console.error('Error adding appointment:', error);
@@ -229,6 +374,127 @@ const AdminPanel = () => {
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+
+
+
+  const handleToggleVisited = async (appointmentId, currentStatus) => {
+    try {
+        const response = await axios.put(
+            `http://localhost:5000/app/appointment/${appointmentId}`,
+            { visited: !currentStatus },
+            {
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                },
+            }
+        );
+
+        // Check the response and handle unexpected formats
+        // if (!response || !response.data || typeof response.data.visited !== 'boolean') {
+        //     console.error("Unexpected response data:", response);
+        //     return;
+        // }
+
+        // If data is valid, update the state
+        setAppointments((prevAppointments) =>
+            prevAppointments.map((appointment) =>
+                appointment._id === appointmentId
+                    ? { ...appointment, visited: response.data.visited }
+                    : appointment
+            )
+        );
+    } catch (error) {
+        console.error("Error updating visited status:", error.message);
+        // Display more specific errors based on the error type
+        console.log(error);
+        if (error.response) {
+            console.error("Server responded with error:", error.response.status);
+        } else if (error.request) {
+            console.error("No response from server, possible network issue");
+        } else {
+            console.error("Unexpected error:", error.message);
+        }
+    }
+};
+
+
+
+
+// const handleFileUpload = async (e, appointmentId) => {
+//   const file = e.target.files[0];
+//   if (file) {
+//     const formData = new FormData();
+//     formData.append("prescription", file);
+//     formData.append("appointmentId", appointmentId);
+
+//     try {
+//       const response = await axios.post("/upload-prescription", formData, {
+//         headers: {
+//           'Content-Type': 'multipart/form-data',
+//         },
+//       });
+
+//       if (response.data.success) {
+//         alert("Prescription uploaded successfully.");
+        
+//       } else {
+//         alert("Failed to upload prescription.");
+//       }
+//     } catch (error) {
+//       console.error("Error uploading file:", error);
+//       alert("An error occurred while uploading the prescription.");
+//     }
+//   }
+// };
+
+// const handleDeleteFile = async (e, appointmentId) => {
+//   e.preventDefault();
+
+//   try {
+//     const response = await axios.delete(`http://localhost:5000/app/appointments/${appointmentId}/upload`,{
+//       headers:{
+//         Authorization: `Bearer ${localStorage.getItem("authToken")}`
+//       }
+//     });
+
+//     if (response.ok) {
+//       // Handle successful file deletion, e.g., updating the state
+//       // Remove the file information from the state
+//       setAppointments((prevAppointments) =>
+//         prevAppointments.map((appointment) =>
+//           appointment._id === appointmentId
+//             ? { ...appointment, fileName: null, fileId: null, fileSize: null }
+//             : appointment
+//         )
+//       );
+//       alert('File deleted successfully!');
+//     } else {
+//       const errorData = await response.json();
+//       alert(`Error deleting file: ${errorData.message}`);
+//     }
+//   } catch (error) {
+//     console.error('Error deleting file:', error);
+//     alert('Server error. Unable to delete file.');
+//   }
+// };
+
+const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try { const response = await axios.delete(`http://localhost:5000/app/appointments/${appointmentId}/delete`);
+ if (response.status === 200) { // Handle successful file deletion, e.g., updating the state 
+  setAppointments((prevAppointments) => prevAppointments.map((appointment) => appointment._id === appointmentId ? { ...appointment, fileName: null, fileId: null, fileSize: null } : appointment ) ); 
+  // alert('File deleted successfully!'); 
+  toast.success("File deleted Successfully!", toastOptions);
+} 
+  else { 
+    // alert(`Error deleting file: ${response.statusText}`); 
+    toast.error(`Error deleting file: ${response.statusText}`, toastOptions);
+} }
+ catch (error) { 
+  console.error('Error deleting file:', error); 
+  // alert('Server error. Unable to delete file.');
+  toast.error('Failed to delete file: ' + (error.response ? error.response.data : error.message), toastOptions);
+ }};
+
+  
   
 
   return (
@@ -247,7 +513,7 @@ const AdminPanel = () => {
         {/* <AvailableSlots /> */}
         <div className="available-slots-container">
       <h3>Available Time Slots for Today</h3>
-      <button className="btn btn-primary mb-3" onClick={toggleModal}>
+      <button className="btn btn-success mb-3" onClick={toggleModal}>
         Add Appointment
       </button>
 
@@ -327,7 +593,7 @@ const AdminPanel = () => {
                     <label className='text-white'>Date</label>
                     <input
                       type="date"
-                      min={today}
+                      min={todayDate}
                       className="form-control"
                       name="date"
                       value={newAppointment.date}
@@ -359,11 +625,13 @@ const AdminPanel = () => {
                 </form>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={toggleModal}>
+                <button type="button" className="btn btn-secondary" onClick={closeModal}>
                   Close
                 </button>
-                <button type="button" className="btn btn-primary" onClick={handleAddAppointment}>
-                  Save Appointment
+                <button type="button" className="btn btn-success" onClick={handleAddAppointment}
+                disabled={load}
+                >
+                  {load ? <>Saving Appointment</> : <>Save Appointment</>}
                 </button>
               </div>
             </div>
@@ -394,39 +662,19 @@ const AdminPanel = () => {
           </div>
         </div>
       )}
+    
 
-      <ToastContainer />
     </div>
       </Tab>
-      <Tab eventKey="profile" title="Users">
-      <div className="table-responsive">
-         <h4>All Users</h4>
-        <table className="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      </Tab>
-      <Tab id="app" eventKey="contact" title="Appointments">
-      {appointments.length===0 ? (<h1 className='text-center w-100' style={{marginTop: "100px"}}>No Appointmnets Booked</h1>)
+      <Tab eventKey="profile" title="Patient Records">
+      {/* <div style={{overflowX: "hidden"}} className="table-responsive"> */}
+        {/* <table className="table table-bordered table-striped"> */}
+          {/* <tbody> */}
+            {appointments.length===0 ? (<h1 className='text-center w-100' style={{marginTop: "100px"}}>No Appointments Booked</h1>)
     :
     (<>
     <div className="row mb-4">
-        <div className="col-md-2">
+        <div className="col-md-3">
           <input
             type="text"
             value={searchName}
@@ -435,7 +683,7 @@ const AdminPanel = () => {
             className="form-control"
           />
         </div>
-        <div className="col-md-2">
+        <div className="col-md-3">
           <input
             type="text"
             value={searchReason}
@@ -444,7 +692,237 @@ const AdminPanel = () => {
             className="form-control"
           />
         </div>
-        <div className="col-md-2">
+        <div className="col-md-3">
+          {/* <input
+            type="text"
+            value={searchLocation}
+            onChange={(e) => setSearchLocation(e.target.value)}
+            placeholder="Search by Location"
+            className="form-control"
+          /> */}
+          <select
+                      className="form-select"
+                      value={searchLocation}
+                      onChange={(e) => setSearchLocation(e.target.value)}
+                      required
+                    >
+                      <option value="">Select Location</option>
+                        <option value="vadapalani">
+                          Vadapalani
+                        </option>
+                        <option value="perambur">
+                          Perambur
+                        </option>
+                    </select>
+        </div>
+        {/* <div className="col-md-3">
+          <input
+            type="date"
+            value={searchDate}
+            onChange={(e) => setSearchDate(e.target.value)}
+            className="form-control"
+          />
+        </div> */}
+        <div className="col-md-3">
+          {/* <input
+            type="time"
+            value={searchTime}
+            onChange={(e) => setSearchTime(e.target.value)}
+            className="form-control"
+          /> */}
+          <select
+                      className="form-select"
+                      value={searchTime}
+                      onChange={(e) => setSearchTime(e.target.value)}
+                      required
+                    >
+                      <option value="">Select start time</option>
+                      {timeSlots.map((slot, index) => (
+                        <option key={index} value={slot}>
+                          {slot}
+                        </option>
+                      ))}
+                    </select>
+        </div>
+      </div>
+    <div className="table-responsive">
+    
+      <div className="row">
+        <div className="col">
+          <table className="table table-bordered table-black table-striped appointments-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Reason</th>
+                <th>Payment</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Location</th>
+                <th>Visited</th>
+                <th>Upload</th>
+                <th>Download</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+
+              {filteredAppointments
+                // .filter(appointment => appointment.location === "vadapalani"
+                  
+                // )
+                .map(appointment => (
+                  <tr key={appointment._id}>
+                    <td className='text-nowrap text-no-wrap'>{appointment.userInfo}</td>
+                    <td>{appointment.reason}</td>
+                    <td>
+                      <span className={appointment.status === "confirmed" ? "bg-success btn btn-rounded" : "bg-danger"}>
+                        {appointment.status}
+                      </span>
+                    </td>
+                    <td>{appointment.date}</td>
+                    <td>{appointment.startTime}</td>
+                    <td>{appointment.location}</td>
+                    <td className='text-center'>
+                  <input
+                    type="checkbox"
+                    // className='w-100'
+                    checked={appointment.visited || false}
+                    onChange={() => handleToggleVisited(appointment._id, appointment.visited)}
+                    style={{ 
+                      transform: 'scale(1.5)',
+                      margin: '10px',
+                      cursor: 'pointer'
+                    }}
+                  />
+                </td>
+                {/* <td>{appointment.fileId && (
+                            <div>
+                                <td>
+                                <button onClick={(e) => handleDownloadFile(e, appointment._id)}>
+                                    Download File
+                                </button>
+                            </td>
+                            </div>
+                        )}</td>
+                <td>{appointment.fileName === null ? (<><input type="file" onChange={handleFileChange} />
+    <button 
+        type="button" // Change to "button" to prevent default form submission
+        onClick={(e) => handleSubmit(e, appointment._id)} // Call handleSubmit on click
+    >
+        Upload
+    </button></>):(<>{appointment.fileName}</>)}
+    
+</td> */}
+            <td>
+                {appointment.fileName === null ? (
+                    <>
+                        <input type="file" onChange={handleFileChange} />
+                        <button
+                            type="button" className='btn btn-success mt-2' // Change to "button" to prevent default form submission
+                            onClick={(e) => handleSubmit(e, appointment._id)} // Call handleSubmit on click
+                        >
+                            Upload
+                        </button>
+                    </>
+                ) : (
+                    <>{appointment.fileName}</>
+                )}
+            </td>
+            <td>
+                {appointment.fileId ? (
+                    <div>
+                        <td>
+                            <button className='btn btn-success' onClick={(e) => handleDownloadFile(e, appointment._id)}>
+                                Download
+                            </button>
+                        </td>
+                        <td>
+                        <button className='btn btn-danger' onClick={(e) => handleDeleteFile(e, appointment._id)}> Delete</button>
+                        </td>
+                    </div>
+                ) : null}
+            </td>
+                  </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+  
+        {/* <div className="col">
+          <h5>Perambur</h5>
+          <table className="table table-bordered table-black table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Reason</th>
+                <th>Payment</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Visited</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredAppointments
+                // .filter(appointment => appointment.location === "perambur")
+                .map(appointment => (
+                  <tr key={appointment._id}>
+                    <td>{appointment.userInfo}</td>
+                    <td>{appointment.reason}</td>
+                    <td>
+                      <span className={appointment.status === "confirmed" ? "bg-success btn btn-rounded" : "bg-danger"}>
+                        {appointment.status}
+                      </span>
+                    </td>
+                    <td>{appointment.date}</td>
+                    <td>{appointment.startTime}</td>
+                    <td className='text-center'>
+                  <input
+                    type="checkbox"
+                    checked={appointment.visited || false}
+                    onChange={() => handleToggleVisited(appointment._id, appointment.visited)}
+                    style={{ 
+                      transform: 'scale(1.5)',
+                      margin: '10px',
+                      cursor: 'pointer'
+                    }}
+                  />
+                </td>
+                  </tr>
+              ))}
+            </tbody>
+          </table>
+        </div> */}
+      </div>
+    </div></>)  
+    }
+          {/* </tbody> */}
+        {/* </table> */}
+      {/* </div> */}
+      </Tab>
+      <Tab id="app" eventKey="contact" title="Appointments">
+      {appointments.length===0 || appointments.filter(app => app.date === todayDate).length === 0 ? (<h1 className='text-center w-100' style={{marginTop: "100px"}}>No Appointmnets Booked for Today</h1>)
+    :
+    (<>
+    <div className="row mb-4">
+        <div className="col-md-3">
+          <input
+            type="text"
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+            placeholder="Search by Name"
+            className="form-control"
+          />
+        </div>
+        <div className="col-md-3">
+          <input
+            type="text"
+            value={searchReason}
+            onChange={(e) => setSearchReason(e.target.value)}
+            placeholder="Search by Reason"
+            className="form-control"
+          />
+        </div>
+        <div className="col-md-3">
           <input
             type="text"
             value={searchLocation}
@@ -453,15 +931,15 @@ const AdminPanel = () => {
             className="form-control"
           />
         </div>
-        <div className="col-md-3">
+        {/* <div className="col-md-3">
           <input
             type="date"
             value={searchDate}
             onChange={(e) => setSearchDate(e.target.value)}
             className="form-control"
           />
-        </div>
-        <div className="col-md-2">
+        </div> */}
+        <div className="col-md-3">
           {/* <input
             type="time"
             value={searchTime}
@@ -488,19 +966,22 @@ const AdminPanel = () => {
       <div className="row">
         <div className="col">
           <h5>Vadapalani</h5>
-          <table className="table table-bordered table-black table-striped">
+          <table className="table table-bordered table-black table-striped appointments-table">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Reason</th>
-                <th>Status</th>
+                <th>Payment</th>
                 <th>Date</th>
+                <th>Time</th>
+                <th>Visited</th>
+                
               </tr>
             </thead>
             <tbody>
-              
+
               {filteredAppointments
-                .filter(appointment => appointment.location === "vadapalani")
+                .filter(appointment => appointment.location === "vadapalani" && appointment.date === new Date().toLocaleDateString('en-CA'))
                 .map(appointment => (
                   <tr key={appointment._id}>
                     <td>{appointment.userInfo}</td>
@@ -511,6 +992,20 @@ const AdminPanel = () => {
                       </span>
                     </td>
                     <td>{appointment.date}</td>
+                    <td>{appointment.startTime}</td>
+                    <td className='text-center'>
+                  <input
+                    type="checkbox"
+                    // className='w-100'
+                    checked={appointment.visited || false}
+                    onChange={() => handleToggleVisited(appointment._id, appointment.visited)}
+                    style={{ 
+                      transform: 'scale(1.5)',
+                      margin: '10px',
+                      cursor: 'pointer'
+                    }}
+                  />
+                </td>
                   </tr>
               ))}
             </tbody>
@@ -524,13 +1019,15 @@ const AdminPanel = () => {
               <tr>
                 <th>Name</th>
                 <th>Reason</th>
-                <th>Status</th>
+                <th>Payment</th>
                 <th>Date</th>
+                <th>Time</th>
+                <th>Visited</th>
               </tr>
             </thead>
             <tbody>
               {filteredAppointments
-                .filter(appointment => appointment.location === "perambur") // Replace with actual location
+                .filter(appointment => appointment.location === "perambur" && appointment.date === new Date().toLocaleDateString('en-CA'))
                 .map(appointment => (
                   <tr key={appointment._id}>
                     <td>{appointment.userInfo}</td>
@@ -541,6 +1038,19 @@ const AdminPanel = () => {
                       </span>
                     </td>
                     <td>{appointment.date}</td>
+                    <td>{appointment.startTime}</td>
+                    <td className='text-center'>
+                  <input
+                    type="checkbox"
+                    checked={appointment.visited || false}
+                    onChange={() => handleToggleVisited(appointment._id, appointment.visited)}
+                    style={{ 
+                      transform: 'scale(1.5)',
+                      margin: '10px',
+                      cursor: 'pointer'
+                    }}
+                  />
+                </td>
                   </tr>
               ))}
             </tbody>
@@ -550,6 +1060,10 @@ const AdminPanel = () => {
     </div></>)  
     }
   
+</Tab>
+
+<Tab id="app" eventKey="PrescriptionPage" title="Prescription">
+  <PrescriptionForm />
 </Tab>
     </Tabs>
   {/* ); */}
