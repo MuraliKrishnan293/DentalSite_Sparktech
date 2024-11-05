@@ -119,18 +119,17 @@ const AboutUs = () => {
 
 <div class="conta">
     <div class="fill w-100">
-        <h1 className='bg-succes w-100 p-5 text-white'><center data-aos='zoom-in' data-aos-once="true" data-aos-duration="2000">
+        <h1 className='bg-succes w-100 p-5 text-white'><center data-aos='zoom-in' data-aos-once="true" data-aos-duration="1000">
         <br />
         ABOUT US
         <br /><br />
         </center></h1>
         
     </div>
-    <div class="content container p-5" data-aos="fade-up"
-     data-aos-anchor-placement="center-bottom" data-aos-once="true">
+    <div class="content container p-5" data-aos="fade-up" data-aos-once="true">
         
         <h3><span id="sp" style={{color: "#2A4735"}} className=''
-        data-aos-once="true" data-aos-duration="2000" data-aos="fade-in-right"
+        data-aos-once="true" data-aos-duration="1000" data-aos="fade-in-right"
         >ABOUT US</span></h3>
         <h1 data-aos="fade-in-right">Welcome to ThulasiRaam</h1>
         <p>ThulasiRaam is a newly established dental initiative focused on delivering high-quality oral healthcare through our two branches and a dedicated dental hospital. We aim to be a cornerstone of dental excellence in our community.</p>

@@ -33,3 +33,65 @@
     width: 100%;
     padding-top: 100px;
 }
+
+
+
+/* SpecialtiesPage.css */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .section-full {
+    min-height: 100vh; /* Each section takes full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 1rem; /* Add padding for mobile */
+  }
+  
+  .section-overlay {
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for text contrast */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .section-content {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+  }
+  
+  .btn-cta {
+    background-color: #fcb800; /* Eye-catching CTA button */
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .card-custom {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card-custom:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-body {
+    text-align: center; /* Center text for card body */
+  }
+  
+  .faq-title {
+    font-size: 1.25rem;
+  }
+  
+  @media (max-width: 576px) {
+    .section-full {
+      padding: 3rem 1rem; /* Reduce padding on small screens */
+    }
+  }  
