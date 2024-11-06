@@ -919,7 +919,7 @@ const Register = () => {
     if (username.length < 4) {
       toast.error("Name must be at least 4 characters", toastOptions);
       return false;
-    } else if (email === "") {
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       toast.error("Email is required", toastOptions);
       return false;
     } else if (password.length < 8) {
@@ -935,23 +935,27 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (handleValidation()) {
-    setLoading(true);
+      // setLoading(true);
       try {
+        setLoading(true);
         const req = await axios.post("http://localhost:5000/app/register", {
           username,
           email,
           password,
-          // role,
           phoneNumber,
         });
+        
         if (req.status === 200) {
+          
           toast.success("Registered Successfully", toastOptions);
           localStorage.setItem("otpStatus", "sent");
           localStorage.setItem("otpSentTime", new Date().getTime());
           setOtpSent(true);
           navigate("/confirm-otp", { state: { email } });
         }
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         handleError(error);
       }
     }
@@ -959,9 +963,10 @@ const Register = () => {
 
   const handleError = (error) => {
     if (error.response) {
-      if (error.response.data === "Username Exists") {
+      const errorMessage = error.response.data.message;
+      if (errorMessage === "Username Exists") {
         toast.error("Username already exists", toastOptions);
-      } else if (error.response.data === "Email Exists") {
+      } else if (errorMessage === "User already exists") {
         toast.error("Email already exists", toastOptions);
       } else {
         toast.error("Registration failed.", toastOptions);
@@ -970,6 +975,7 @@ const Register = () => {
       toast.error("Registration failed.", toastOptions);
     }
   };
+  
 
   const handleGoToOtp = () => {
     if (!otpExpired) {

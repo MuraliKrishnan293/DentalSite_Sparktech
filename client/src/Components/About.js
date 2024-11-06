@@ -9,7 +9,7 @@ const AboutUs = () => {
   const dentists = [
     {
       id: 1,
-      name: "Nigga Holmes",
+      name: "Thulasiraam",
       title: "Dentist",
       // image: d1, // Replace with actual image link
       social: {
@@ -64,7 +64,7 @@ const AboutUs = () => {
     },
     {
       id: 2,
-      name: "Paaraa",
+      name: "Thaaraa",
       title: "Dentist",
       // image: d2, // Replace with actual image link
       social: {
@@ -97,7 +97,7 @@ const AboutUs = () => {
     },
     {
       id: 4,
-      name: "Director Nesar Kaaviyan",
+      name: "Dentist Nesar Kaaviyan",
       title: "Dentist",
       // image: d4, // Replace with actual image link
       social: {

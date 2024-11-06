@@ -27,11 +27,13 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      
       const res = await axios.post("http://localhost:5000/app/login", {
         email: email,
         password: password,
       });
       if (res.status === 200) {
+        
         toast.success("Logged In Successfully", toastOptions);
         localStorage.setItem("authToken", res.data.authToken);
         localStorage.setItem("username", res.data.name);
@@ -46,8 +48,10 @@ const Login = () => {
       if (res.status === 400) {
         toast.error(res.data, toastOptions);
       }
+      setLoading(false);
       alert("Successfully Logged in");
     } catch (e) {
+      setLoading(false);
       if (e.response) {
         const er = e.response.data;
         if (er.message) {

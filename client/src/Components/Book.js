@@ -257,7 +257,7 @@ const BookAppointment = () => {
           localStorage.removeItem("rzp_checkout_anon_id");
           localStorage.removeItem("rzp_device_id");
           setAppointmentExists(false);
-          toast.danger(
+          toast.error(
             "Your appointment has been canceled as Payment was incomplete",
             toastOptions
           );
@@ -274,9 +274,11 @@ const BookAppointment = () => {
     checkAppointment();
   }, [navigate]);
 
+  const orderId = null;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoadings(true);
+    // setLoadings(true);
     try {
       const res = await axios.post(
         "http://localhost:5000/app/book",
@@ -292,16 +294,30 @@ const BookAppointment = () => {
           },
         }
       );
+      setLoadings(true);
 
       if (res.status === 200) {
-        toast.success("Appointment available, confirm booking", toastOptions);
+        toast.success("Appointment available, confirm booking", res.data.orderId, toastOptions);
+        alert(res.data.orderId);
         localStorage.setItem("appointment", "payment_pending");
         localStorage.setItem("appointmentTimestamp", Date.now());
         setAppointmentExists(true); // Update state to reflect appointment exists
         console.log("Appointment booked and state updated.");
         fetchAvailableSlots();
+        
       }
+      const orderId = res.data.orderId; // Ensure you are retrieving orderId correctly
+      const apptId = res.data.appointmentId;
+      if (orderId && apptId) {
+        localStorage.setItem("orderId", orderId); // Save orderId to localStorage
+        localStorage.setItem("apptId", apptId);
+        handleProceedToPayment(orderId); // Pass orderId to proceed to payment
+      } else {
+        console.error("Order ID is undefined in the response.");
+      }
+      setLoadings(false);
     } catch (error) {
+      setLoadings(false);
       toast.error(
         error.response?.data?.message || "Failed to book appointment",
         toastOptions
@@ -309,11 +325,15 @@ const BookAppointment = () => {
       console.error("Error booking appointment:", error.response);
     }
   };
-
+  // localStorage.setItem("orderId", orderId);
   const handleProceedToPayment = () => {
+    
+    // console.log(orderId);
     navigate("/payment", {
       state: {
         exists: true,
+        
+        // orderId: orderId,
         timestamp: localStorage.getItem("appointmentTimestamp"),
       },
     });
@@ -379,6 +399,8 @@ const BookAppointment = () => {
     // console.log("Slot date : ", todayDate);
   }, [todayDate]);
 
+  const appointment = localStorage.getItem("appointment");
+
   return (<div style={{width: "100%"}}>
     <div style={{marginTop: "100px"}} className="container"><Tabs><Tab eventKey="home" title="Book Appointment">
         {/* <AvailableSlots /> */}
@@ -426,7 +448,7 @@ const BookAppointment = () => {
       <h1 className="text-center mb-4">Book Appointment</h1>
       <div className="row w-100">
         <div className="col-md-6">
-          {appointmentExists ? (
+          {appointmentExists && appointment==="payment_pending" ? (
             <div className="text-center">
               <h3>
                 You have already booked an appointment, continue to Payment.

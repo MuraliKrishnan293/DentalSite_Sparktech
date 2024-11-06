@@ -22,112 +22,174 @@
 
 // export default Nav;
 
-import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import '../Styles/Land.css';  // Custom CSS for styling
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import "../Styles/Land.css"; // Custom CSS for styling
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { useLocation } from "react-router-dom";
 
 const MyNavbar = () => {
-    const [scrolling, setScrolling] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
 
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const authToken = localStorage.getItem("authToken");
+  const authToken = localStorage.getItem("authToken");
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolling(true);
-            } else {
-                setScrolling(false);
-            }
-        };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    const handleLogout = ()=>{
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("id");
-        localStorage.removeItem("role");
-        localStorage.removeItem("username");
-        localStorage.removeItem("email");
-        localStorage.removeItem("appointment");
-        localStorage.removeItem("appointmentTimestamp");
-        // localStorage.removeItem("otpSentTime");
-        // localStorage.removeItem("otpStatus");
-        window.location.href = "/";
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("id");
+    localStorage.removeItem("role");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("appointment");
+    localStorage.removeItem("appointmentTimestamp");
+    localStorage.removeItem("rzp_checkout_anon_id");
+    localStorage.removeItem("rzp_device_id");
+    localStorage.clear();
+    // localStorage.removeItem("otpSentTime");
+    // localStorage.removeItem("otpStatus");
+    window.location.href = "/";
+  };
+
+  useEffect(() => {
+    // const token = localStorage.getItem("authToken");
+
+    if (authToken) {
+      const decodedToken = jwtDecode(authToken);
+      const expirationTime = decodedToken.exp * 1000;
+      const currentTime = Date.now();
+      const timeToExpire = expirationTime - currentTime;
+
+      if (timeToExpire > 0) {
+        const logoutTimer = setTimeout(() => {
+          handleLogout();
+        }, timeToExpire);
+
+        return () => clearTimeout(logoutTimer);
+      } else {
+        handleLogout();
+      }
     }
+  }, []);
 
-    useEffect(() => {
-        // const token = localStorage.getItem("authToken");
+  const handleBook = () => {
+    navigate("/book");
+  };
 
-        if (authToken) {
-            const decodedToken = jwtDecode(authToken);
-            const expirationTime = decodedToken.exp * 1000;
-            const currentTime = Date.now();
-            const timeToExpire = expirationTime - currentTime;
+  const role = localStorage.getItem("role");
 
-            if (timeToExpire > 0) {
-                const logoutTimer = setTimeout(() => {
-                    handleLogout();
-                }, timeToExpire);
+  const isContactPage = location.pathname === "/book";
 
-                return () => clearTimeout(logoutTimer);
-            } else {
-                handleLogout();
-            }
-        }
-    }, []);
-
-    const handleBook = ()=>{
-        navigate('/book');
-    }
-
-    const role = localStorage.getItem("role");
-
-    const isContactPage = location.pathname === '/book';
-
-    return (
-        <nav style={{top: "0"}} className={`navbar navbar-expand-lg position-fixed w-100 text-dark ${scrolling ? 'scrolled' : ''}`}>
-            <div className="container-fluid">
-                <div className='' style={{width: "50%"}}><a className="navbar-brand text-md-start text-start" style={{ color: "#2A4735", fontWeight: "500", fontSize: "34px"}} href="/"><b>ThulasiRaam</b></a>
-                </div><button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div style={{width: "60%"}} className="collapse navbar-collapse w-100 gap-md-5" id="navbarNavAltMarkup">
-                    <div className="navbar-nav justify-content-center text-end gap-1 gap-sm-2 gap-md-3">
-                        <a style={{ color: "#2A4735" }} className="nav-link" aria-current="page" href="/">Home</a>
-                        <a style={{ color: "#2A4735" }} className="nav-link" href="/about">About</a>
-                        <a style={{ color: "#2A4735" }} className="nav-link" href="/specialities">Specialities</a>
-                        <a style={{ color: "#2A4735" }} className="nav-link" href="/book">Contact</a>
-                        {/* {role==="user" && ( */}
-                        {!isContactPage && (<a
-                        style={{background: "#2A4735", color: "white"}}
-                        className='btn' href='/book'>Book Appointment</a>)}
-                        {/* )} */}
-                        {role==="admin" && (
-                            <a style={{ color: "#2A4735" }} className="nav-link" href="admin">Admin Panel</a>
-                        )}
-                        {!authToken ? (<a style={{textDecoration: "none"}} href='/login' className='loginbtn mx-md-5'>Login</a>):(<a style={{textDecoration: "none"}} href='/' onClick={handleLogout} className='loginbtn mx-md-5'>Logout</a>)}
-                    </div>
-                </div>
-            </div>
-        </nav>
-    );
+  return (
+    <nav
+      style={{ top: "0" }}
+      className={`navbar navbar-expand-lg position-fixed w-100 text-dark ${
+        scrolling ? "scrolled" : ""
+      }`}
+    >
+      <div className="container-fluid">
+        <div className="" style={{ width: "50%" }}>
+          <a
+            className="navbar-brand text-md-start text-start"
+            style={{ color: "#2A4735", fontWeight: "500", fontSize: "34px" }}
+            href="/"
+          >
+            <b>ThulasiRaam</b>
+          </a>
+        </div>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div
+          style={{ width: "60%" }}
+          className="collapse navbar-collapse w-100 gap-md-5"
+          id="navbarNavAltMarkup"
+        >
+          <div className="navbar-nav justify-content-center text-end gap-1 gap-sm-2 gap-md-3">
+            <a
+              style={{ color: "#2A4735" }}
+              className="nav-link"
+              aria-current="page"
+              href="/"
+            >
+              Home
+            </a>
+            <a style={{ color: "#2A4735" }} className="nav-link" href="/about">
+              About
+            </a>
+            <a
+              style={{ color: "#2A4735" }}
+              className="nav-link"
+              href="/specialities"
+            >
+              Specialities
+            </a>
+            <a style={{ color: "#2A4735" }} className="nav-link" href="/book">
+              Contact
+            </a>
+            {/* {role==="user" && ( */}
+            {!isContactPage && (
+              <a
+                style={{ background: "#2A4735", color: "white" }}
+                className="btn"
+                href="/book"
+              >
+                Book Appointment
+              </a>
+            )}
+            {/* )} */}
+            {role === "admin" && (
+              <a style={{ color: "#2A4735" }} className="nav-link" href="admin">
+                Admin Panel
+              </a>
+            )}
+            {!authToken ? (
+              <a
+                style={{ textDecoration: "none" }}
+                href="/login"
+                className="loginbtn mx-md-5"
+              >
+                Login
+              </a>
+            ) : (
+              <a
+                style={{ textDecoration: "none" }}
+                href="/"
+                onClick={handleLogout}
+                className="loginbtn mx-md-5"
+              >
+                Logout
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default MyNavbar;

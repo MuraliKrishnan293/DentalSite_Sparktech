@@ -71,6 +71,7 @@
 // export default App;
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import AboutUs from "./Components/About";
 import Register from "./Components/Register";
 import Login from './Components/LoginFiles/Login';
@@ -78,20 +79,28 @@ import Home from "./Components/Home";
 import Book from './Components/Book';
 import Land from "./Components/Land";
 import Nav from "./Components/Nav";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, lazy, Suspense } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
 import Payment from "./Components/Pay";
 import AdminPanel from "./Components/AdminFiles/AdminPanel";
 import ConfirmOtp from "./Components/ConfirmOtp";
 import Specialities from "./Components/Specialities";
+
 import ScrollToTop from "react-scroll-to-top";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
+
 import RatingComponent from "./Components/RatingComponent";
 import Confirmation from "./Components/Confirm";
 import PrintDemo from "./Components/Print";
 import ForgotPassword from "./Components/LoginFiles/ForgotPassword";
+
+
+
+// const AboutUs = lazy(() => import("./Components/About")); const Register = lazy(() => import("./Components/Register")); const Login = lazy(() => import('./Components/LoginFiles/Login')); const Home = lazy(() => import("./Components/Home")); const Book = lazy(() => import('./Components/Book')); const Land = lazy(() => import("./Components/Land")); const Payment = lazy(() => import("./Components/Pay")); const AdminPanel = lazy(() => import("./Components/AdminFiles/AdminPanel")); const ConfirmOtp = lazy(() => import("./Components/ConfirmOtp")); const Specialities = lazy(() => import("./Components/Specialities")); const Confirmation = lazy(() => import("./Components/Confirm")); const PrintDemo = lazy(() => import("./Components/Print")); const ForgotPassword = lazy(() => import("./Components/LoginFiles/ForgotPassword"));
 
 function App() {
 
@@ -117,6 +126,7 @@ function App() {
       ) : (
         <BrowserRouter>
           <Nav />
+          {/* <Suspense fallback={<div className="loading-screen"><div className="spinner"></div></div>}> */}
           <Routes>
             <Route path='/' element={<Land />} />
             <Route path='/specialities' element={<Specialities />} />
@@ -132,6 +142,7 @@ function App() {
             <Route path='/print' element={<PrintDemo />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
           </Routes>
+          {/* </Suspense> */}
 
           <ScrollToTop
             smooth

@@ -6,6 +6,7 @@ const PORT = 5000
 const User = require("./models/userModel");
 const appointmentModel = require('./models/appointmentModel');
 const bodyParser = require('body-parser');
+const cron = require('node-cron');
 
 app.use(express.json());
 app.use(cors());
@@ -17,7 +18,7 @@ app.listen(PORT,()=>{
 
 app.use('/app', require('./routes/userRoutes'));
 app.use('/app', require('./routes/appointmentRoutes'));
-app.use('/app', require('./routes/appointmentRoutes'));
+// app.use('/app', require('./routes/appointmentRoutes'));
 app.use('/app', require('./routes/AdminRoutes'));
 app.use('/app/', require('./routes/ReviewsRoutes'));
 
@@ -40,7 +41,7 @@ try{
     // Function to clean up expired OTPs
     async function cleanupExpiredUsers() {
     try {
-      const now = Date.now();
+      const now = new Date().toISOString();;
       // Find users with expired OTPs and delete them
       await User.deleteMany({ otpExpires: { $lt: now }, isVerified: false });
       console.log("Expired OTPs cleaned up.");
@@ -70,7 +71,7 @@ try{
       // }
 
       try {
-        const now = new Date();
+        const now = new Date().toISOString();;
         
         // Delete appointments that are expired
         const appointmentsToDelete = await appointmentModel.find({
@@ -95,3 +96,24 @@ try{
     } catch (e) {
       console.log(e);
     }
+
+
+
+    cron.schedule('* * * * *', async () => {
+      try {
+        const currentDateTime = new Date();
+        const expiredAppointments = await appointmentModel.find({
+          status: "pending_payment",
+          paymentExpiry: { $lt: currentDateTime }
+        });
+    
+        if (expiredAppointments.length > 0) {
+          for (const appointment of expiredAppointments) {
+            await appointmentModel.deleteOne({ _id: appointment._id });
+            console.log(`Deleted expired appointment with ID ${appointment._id}`);
+          }
+        }
+      } catch (err) {
+        console.error("Error while checking expired appointments:", err);
+      }
+    });

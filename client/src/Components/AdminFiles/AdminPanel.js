@@ -821,7 +821,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                             type="button" className='btn btn-success mt-2' // Change to "button" to prevent default form submission
                             onClick={(e) => handleSubmit(e, appointment._id)} // Call handleSubmit on click
                         >
-                            Upload
+                            Upload File
                         </button>
                     </>
                 ) : (

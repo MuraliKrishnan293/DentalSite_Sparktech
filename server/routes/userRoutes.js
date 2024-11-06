@@ -49,7 +49,7 @@ router.post("/register", async (req, res) => {
       res.status(200).json(newUser);
     }
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(401).json({ message: err.message });
   }
 });
 
