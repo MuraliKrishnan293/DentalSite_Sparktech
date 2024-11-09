@@ -236,14 +236,14 @@ router.get('/available-slots', async (req, res) => {
     ]);
 
     const availableSlots = {
-      vadapalani: {},
-      perambur: {},
+      madipakkam: {},
+      balajinagar: {},
     };
 
     // Initialize available slots with counts
     allSlots.forEach(slot => {
-      availableSlots.vadapalani[slot] = 3; // Start with 3 available slots
-      availableSlots.perambur[slot] = 3;   // Start with 3 available slots
+      availableSlots.madipakkam[slot] = 3; // Start with 3 available slots
+      availableSlots.balajinagar[slot] = 3;   // Start with 3 available slots
     });
 
     // Adjust counts based on appointments

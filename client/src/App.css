@@ -1,4 +1,3 @@
-/* Container styling for centering and responsiveness */
 .prescription-form-container {
     display: flex;
     flex-direction: column;
@@ -7,53 +6,54 @@
     width: 100%;
 }
 
-/* Styling for the prescription background image */
 #prescription-container {
     background-image: url('./images/prescription.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    width: 794px; /* A4 width in pixels at 96 DPI */
+    width: 796px; /* A4 width in pixels at 96 DPI */
     height: 1123px; /* A4 height in pixels at 96 DPI */
     position: relative;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
     margin: auto;
-    transition: all 0.3s ease;
 }
 
-#prescription-container:hover {
-    transform: scale(1.02);
-}
-
-/* Input field styling */
 .input-field {
     position: absolute;
-    font-size: 1rem;
-    border: none;
+    font-size: 24px;
     background: rgba(255, 255, 255, 0.8);
-    padding: 0.5rem;
     outline: none;
+    border: none;
     border-radius: 4px;
-    transition: background 0.3s ease;
+    resize: none;
+    overflow: hidden;
+    white-space: pre-wrap; /* Preserve line breaks */
+    line-height: 1.4;
+    margin-bottom: 10px; /* Space between fields */
+    padding: 8px;
+    width: 100%;
 }
 
-.input-field:focus {
-    background: rgba(255, 255, 255, 1);
-}
-
-/* Specific positioning for each input field */
+/* Position each field where it should appear on the prescription */
 .patient-name {
-    top: 300px;
-    left: 50px;
-    width: 80%;
+    top: 220px;
+    right: 50px;
+    width: 50%; /* Adjust width to fit content */
+}
+
+.patient-date {
+    top: 280px;
+    right: 50px;
+    width: 50%; /* Adjust width to fit content */
+    padding: 8px;
+    box-sizing: border-box;
 }
 
 .medications {
-    top: 600px;
+    top: 500px;
     left: 50px;
-    width: 80%;
-    height: 200px;
+    width: 90%;
+    min-height: 200px; /* Start with a minimum height */
 }
 
 /* Download button styling */
@@ -77,33 +77,115 @@
 /* Responsive styling for smaller screens */
 @media (max-width: 768px) {
     #prescription-container {
-        width: 90%;
-        height: 580px;
-        background-position: center;
-        background-size: cover;
-        padding-top: 56.25%; /* Maintain aspect ratio */
+        width: 100%; /* Full width on smaller screens */
+        height: auto;
+        aspect-ratio: 794 / 1123; /* Maintain A4 aspect ratio */
     }
 
     .input-field {
-        font-size: 0.9rem;
-        padding: 0.4rem;
+        font-size: 18px; /* Reduce font size */
+        padding: 0.3rem;
     }
 
     .download-button {
         padding: 0.6rem 1.2rem;
         font-size: 0.9rem;
     }
+
+    .patient-name, .patient-date, .medications {
+        width: 85%; /* Adjust input fields width for smaller screens */
+    }
+
+    /* Adjust position of fields */
+    .patient-name {
+        top: 120px; /* Move the patient name slightly down */
+        right: -60px;
+        width: 80%;
+    }
+
+    .patient-date {
+        top: 170px; /* Move date field slightly down */
+        right: -60px;
+        width: 80%;
+    }
+
+    .medications {
+        top: 300px; /* Adjust medication field's position */
+        left: 20px;
+        width: 85%;
+    }
 }
-  
-  .appointments-table th, .appointments-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+
+/* Further responsiveness for very small screens (like mobile portrait) */
+@media (max-width: 480px) {
+    .input-field {
+        font-size: 16px; /* Further reduce font size */
+        padding: 0.2rem;
+    }
+
+    .download-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .patient-name, .patient-date, .medications {
+        width: 90%; /* Make input fields even wider for smaller screens */
+    }
+
+    /* Adjust position of fields */
+    .patient-name {
+        top: 220px; /* Move it further up */
+        right: 10px;
+        width: 90%;
+    }
+
+    .patient-date {
+        top: 290px; /* Move date field closer */
+        right: 10px;
+        width: 90%;
+    }
+
+    .medications {
+        top: 500px; /* Adjust medications field further */
+        left: 10px;
+        width: 90%;
+    }
+}
+
+.input-field[contenteditable="true"]::before {
+    content: attr(data-placeholder); /* Use custom attribute for placeholder text */
+    color: #888; /* Placeholder color */
+    font-size: 24px;
+    position: absolute;
+    top: 8px; /* Adjust top to align with the input */
+    left: 10px;
+    pointer-events: none;
+}
+
+.input-field[contenteditable="true"]:empty::before {
+    display: block; /* Show placeholder when empty */
+}
+
+.input-field[contenteditable="true"]:not(:empty)::before {
+    display: none; /* Hide placeholder when there is content */
+}
+
+
+
+.input-field .placeholder {
+    color: #aaa;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    font-size: 16px;
+    user-select: none; /* Prevent user from selecting placeholder */
   }
   
-  .appointments-table th {
-    background-color: #f2f2f2;
-    text-align: left;
-  }  
+  .input-field:empty .placeholder {
+    display: block;
+  }
+  
+  .input-field:not(:empty) .placeholder {
+    display: none;
+  }

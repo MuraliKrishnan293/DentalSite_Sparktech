@@ -263,7 +263,7 @@ const handleDownloadFile = async (e, appointmentId) => {
 
 
 
-  const [availableSlots, setAvailableSlots] = useState({ vadapalani: {}, perambur: {} });
+  const [availableSlots, setAvailableSlots] = useState({ madipakkam: {}, balajinagar: {} });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -274,7 +274,7 @@ const handleDownloadFile = async (e, appointmentId) => {
     userId: '',
     userInfo: "",
     reason: '',
-    location: 'vadapalani',
+    location: 'madipakkam',
     date: new Date().toLocaleDateString('en-CA'),
     startTime: '',
   });
@@ -358,7 +358,7 @@ const handleDownloadFile = async (e, appointmentId) => {
         userId: '',
         userInfo: "",
         reason: '',
-        location: 'vadapalani',
+        location: 'madipakkam',
         date: todayDate,
         startTime: '',
       });
@@ -513,16 +513,16 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
         {/* <AvailableSlots /> */}
         <div className="available-slots-container">
       <h3>Available Time Slots for Today</h3>
-      <button className="btn btn-success mb-3" onClick={toggleModal}>
-        Add Appointment
+      <button className="btn mb-3" style={{background: "#2a4735"}} onClick={toggleModal}>
+       <article className='text-white'>Add Appointment</article>
       </button>
 
       <div className="slots row">
         <div className="col-md-6 location-slots">
-          <h4>Vadapalani</h4>
+          <h4>Madipakkam</h4>
           <ul className="list-group">
-            {Object.entries(availableSlots.vadapalani).length > 0 ? (
-              Object.entries(availableSlots.vadapalani).map(([slot, available]) => (
+            {Object.entries(availableSlots.madipakkam).length > 0 ? (
+              Object.entries(availableSlots.madipakkam).map(([slot, available]) => (
                 <li key={slot} className="list-group-item">
                   {slot} - {available} slot{available !== 1 ? 's' : ''} left
                 </li>
@@ -533,10 +533,10 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
           </ul>
         </div>
         <div className="col-md-6 location-slots">
-          <h4>Perambur</h4>
+          <h4>Balaji nagar</h4>
           <ul className="list-group">
-            {Object.entries(availableSlots.perambur).length > 0 ? (
-              Object.entries(availableSlots.perambur).map(([slot, available]) => (
+            {Object.entries(availableSlots.balajinagar).length > 0 ? (
+              Object.entries(availableSlots.balajinagar).map(([slot, available]) => (
                 <li key={slot} className="list-group-item">
                   {slot} - {available} slot{available !== 1 ? 's' : ''} left
                 </li>
@@ -585,8 +585,8 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                       value={newAppointment.location}
                       onChange={handleInputChange}
                     >
-                      <option value="vadapalani">Vadapalani</option>
-                      <option value="perambur">Perambur</option>
+                      <option value="madipakkam">Madipakkam</option>
+                      <option value="balajinagar">Balaji nagar</option>
                     </select>
                   </div>
                   <div className="form-group">
@@ -628,8 +628,8 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                 <button type="button" className="btn btn-secondary" onClick={closeModal}>
                   Close
                 </button>
-                <button type="button" className="btn btn-success" onClick={handleAddAppointment}
-                disabled={load}
+                <button type="button" className="btn text-white" style={{background: "#2a4735"}} onClick={handleAddAppointment}
+                // disabled={load}
                 >
                   {load ? <>Saving Appointment</> : <>Save Appointment</>}
                 </button>
@@ -707,11 +707,11 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                       required
                     >
                       <option value="">Select Location</option>
-                        <option value="vadapalani">
-                          Vadapalani
+                        <option value="madipakkam">
+                          Madipakkam
                         </option>
-                        <option value="perambur">
-                          Perambur
+                        <option value="balajinagar">
+                          Balaji nagar
                         </option>
                     </select>
         </div>
@@ -767,7 +767,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
             <tbody>
 
               {filteredAppointments
-                // .filter(appointment => appointment.location === "vadapalani"
+                // .filter(appointment => appointment.location === "madipakkam"
                   
                 // )
                 .map(appointment => (
@@ -775,7 +775,9 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                     <td className='text-nowrap text-no-wrap'>{appointment.userInfo}</td>
                     <td>{appointment.reason}</td>
                     <td>
-                      <span className={appointment.status === "confirmed" ? "bg-success btn btn-rounded" : "bg-danger"}>
+                      <span className={appointment.status === "confirmed" ? "text-white btn btn-rounded" : "bg-danger"}
+                      style={{ backgroundColor: appointment.status === "confirmed" ? '#2A4735' : '' }}
+                      >
                         {appointment.status}
                       </span>
                     </td>
@@ -814,11 +816,11 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
     
 </td> */}
             <td>
-                {appointment.fileName === null ? (
+                {appointment.fileName == null ? (
                     <>
                         <input type="file" onChange={handleFileChange} />
                         <button
-                            type="button" className='btn btn-success mt-2' // Change to "button" to prevent default form submission
+                            type="button" style={{background: "#2A4735"}} className='text-white btn mt-2' // Change to "button" to prevent default form submission
                             onClick={(e) => handleSubmit(e, appointment._id)} // Call handleSubmit on click
                         >
                             Upload File
@@ -832,12 +834,12 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                 {appointment.fileId ? (
                     <div>
                         <td>
-                            <button className='btn btn-success' onClick={(e) => handleDownloadFile(e, appointment._id)}>
+                            <button className='btn' style={{background: "#2A4735", color: "white"}} onClick={(e) => handleDownloadFile(e, appointment._id)}>
                                 Download
                             </button>
                         </td>
                         <td>
-                        <button className='btn btn-danger' onClick={(e) => handleDeleteFile(e, appointment._id)}> Delete</button>
+                        <button className='btn btn-danger' style={{background: "#FF0000", color: "white"}} onClick={(e) => handleDeleteFile(e, appointment._id)}> Delete</button>
                         </td>
                     </div>
                 ) : null}
@@ -849,7 +851,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
         </div>
   
         {/* <div className="col">
-          <h5>Perambur</h5>
+          <h5>balajinagar</h5>
           <table className="table table-bordered table-black table-striped">
             <thead>
               <tr>
@@ -863,7 +865,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
             </thead>
             <tbody>
               {filteredAppointments
-                // .filter(appointment => appointment.location === "perambur")
+                // .filter(appointment => appointment.location === "balajinagar")
                 .map(appointment => (
                   <tr key={appointment._id}>
                     <td>{appointment.userInfo}</td>
@@ -965,7 +967,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
     
       <div className="row">
         <div className="col">
-          <h5>Vadapalani</h5>
+          <h5>Madipakkam</h5>
           <table className="table table-bordered table-black table-striped appointments-table">
             <thead>
               <tr>
@@ -981,13 +983,15 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
             <tbody>
 
               {filteredAppointments
-                .filter(appointment => appointment.location === "vadapalani" && appointment.date === new Date().toLocaleDateString('en-CA'))
+                .filter(appointment => appointment.location === "madipakkam" && appointment.date === new Date().toLocaleDateString('en-CA'))
                 .map(appointment => (
                   <tr key={appointment._id}>
                     <td>{appointment.userInfo}</td>
                     <td>{appointment.reason}</td>
                     <td>
-                      <span className={appointment.status === "confirmed" ? "bg-success btn btn-rounded" : "bg-danger"}>
+                      <span className={appointment.status === "confirmed" ? "text-white btn btn-rounded" : "bg-danger"}
+                      style={{background: "#2A4735"}}
+                      >
                         {appointment.status}
                       </span>
                     </td>
@@ -1013,7 +1017,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
         </div>
   
         <div className="col">
-          <h5>Perambur</h5>
+          <h5>Balaji nagar</h5>
           <table className="table table-bordered table-black table-striped">
             <thead>
               <tr>
@@ -1027,7 +1031,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
             </thead>
             <tbody>
               {filteredAppointments
-                .filter(appointment => appointment.location === "perambur" && appointment.date === new Date().toLocaleDateString('en-CA'))
+                .filter(appointment => appointment.location === "balajinagar" && appointment.date === new Date().toLocaleDateString('en-CA'))
                 .map(appointment => (
                   <tr key={appointment._id}>
                     <td>{appointment.userInfo}</td>

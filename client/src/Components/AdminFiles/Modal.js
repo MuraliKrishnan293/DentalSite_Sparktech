@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAvailableSlots, addAppointment } from '../Redux/appointmentSlice';
 
 const AvailableSlots = () => {
-  const [availableSlots, setAvailableSlots] = useState({ vadapalani: {}, perambur: {} });
+  const [availableSlots, setAvailableSlots] = useState({ madipakkam: {}, balajinagar: {} });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +15,7 @@ const AvailableSlots = () => {
     userId: '',
     userInfo: "",
     reason: '',
-    location: 'vadapalani',
+    location: 'madipakkam',
     date: new Date().toISOString().split('T')[0],
     startTime: '',
   });
@@ -99,7 +99,7 @@ const handleAddAppointment = async () => {
         userId: '',
         userInfo: "",
         reason: '',
-        location: 'vadapalani',
+        location: 'madipakkam',
         date: todayDate,
         startTime: '',
       });
@@ -153,10 +153,10 @@ const handleAddAppointment = async () => {
 
       <div className="slots row">
         <div className="col-md-6 location-slots">
-          <h4>Vadapalani</h4>
+          <h4>Madipakkam</h4>
           <ul className="list-group">
-            {Object.entries(availableSlots.vadapalani).length > 0 ? (
-              Object.entries(availableSlots.vadapalani).map(([slot, available]) => (
+            {Object.entries(availableSlots.madipakkam).length > 0 ? (
+              Object.entries(availableSlots.madipakkam).map(([slot, available]) => (
                 <li key={slot} className="list-group-item">
                   {slot} - {available} slot{available !== 1 ? 's' : ''} left
                 </li>
@@ -167,10 +167,10 @@ const handleAddAppointment = async () => {
           </ul>
         </div>
         <div className="col-md-6 location-slots">
-          <h4>Perambur</h4>
+          <h4>Balaji nagar</h4>
           <ul className="list-group">
-            {Object.entries(availableSlots.perambur).length > 0 ? (
-              Object.entries(availableSlots.perambur).map(([slot, available]) => (
+            {Object.entries(availableSlots.balajinagar).length > 0 ? (
+              Object.entries(availableSlots.balajinagar).map(([slot, available]) => (
                 <li key={slot} className="list-group-item">
                   {slot} - {available} slot{available !== 1 ? 's' : ''} left
                 </li>
@@ -222,8 +222,8 @@ const handleAddAppointment = async () => {
                       value={newAppointment.location}
                       onChange={handleInputChange}
                     >
-                      <option value="vadapalani">Vadapalani</option>
-                      <option value="perambur">Perambur</option>
+                      <option value="madipakkam">Madipakkam</option>
+                      <option value="balajinagar">Balaji nagar</option>
                     </select>
                   </div>
                   <div className="form-group">

@@ -197,7 +197,7 @@ const timeSlots = [
   "09:30",
 ];
 
-const locations = ["vadapalani", "perambur"];
+const locations = ["madipakkam", "balajinagar"];
 
 const BookAppointment = () => {
   const [username, setUsername] = useState("");
@@ -357,7 +357,7 @@ const BookAppointment = () => {
 
   const today = new Date().toISOString().split("T")[0];
 
-  const [availableSlots, setAvailableSlots] = useState({ vadapalani: {}, perambur: {} });
+  const [availableSlots, setAvailableSlots] = useState({ madipakkam: {}, balajinagar: {} });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -409,10 +409,10 @@ const BookAppointment = () => {
 
       <div className="slots row">
         <div className="col-md-6 location-slots">
-          <h4>Vadapalani</h4>
+          <h4>madipakkam</h4>
           <ul className="list-group">
-            {Object.entries(availableSlots.vadapalani).length > 0 ? (
-              Object.entries(availableSlots.vadapalani).map(([slot, available]) => (
+            {Object.entries(availableSlots.madipakkam).length > 0 ? (
+              Object.entries(availableSlots.madipakkam).map(([slot, available]) => (
                 <li key={slot} className="list-group-item">
                   {slot} - {available} slot{available !== 1 ? 's' : ''} left
                 </li>
@@ -423,10 +423,10 @@ const BookAppointment = () => {
           </ul>
         </div>
         <div className="col-md-6 location-slots">
-          <h4>Perambur</h4>
+          <h4>Balaji nagar</h4>
           <ul className="list-group">
-            {Object.entries(availableSlots.perambur).length > 0 ? (
-              Object.entries(availableSlots.perambur).map(([slot, available]) => (
+            {Object.entries(availableSlots.balajinagar).length > 0 ? (
+              Object.entries(availableSlots.balajinagar).map(([slot, available]) => (
                 <li key={slot} className="list-group-item">
                   {slot} - {available} slot{available !== 1 ? 's' : ''} left
                 </li>

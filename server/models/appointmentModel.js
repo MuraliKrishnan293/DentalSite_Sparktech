@@ -53,7 +53,7 @@ const appointmentSchema = new mongoose.Schema(
     location: {
       type: String,
       required: true,
-      enum: ['vadapalani', 'perambur']
+      enum: ['madipakkam', 'balajinagar']
     },
     userInfo: {
       type: String,

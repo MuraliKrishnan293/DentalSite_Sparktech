@@ -80,25 +80,25 @@ const Land = () => {
   const dentists = [
     {
       id: 1,
-      name: "Thulasiraam",
+      name: "Dr Thulasiraam",
       title: "Dentist",
       image: d2
     },
     {
       id: 2,
-      name: "Sathish",
+      name: "Dr Sathish",
       title: "Dentist",
       image: d3
     },
     {
       id: 3,
-      name: "Sowmiya",
+      name: "Dr Sowmiya",
       title: "Dentist",
       image: d4
     },
     {
       id: 4,
-      name: "Angel",
+      name: "Dr Angel",
       title: "Dentist",
       image: d1
     },
@@ -253,7 +253,7 @@ const Land = () => {
         positive impact on your dental health. At ThulasiRaam, your smile
         is in expert hands.
       </p>
-      <a href='/about' className="read-more-button">READ MORE</a>
+      <a href='/about' className="read-more-button" style={{textDecoration: "none"}}>READ MORE</a>
     </div>
   </div>
 </section>
@@ -335,7 +335,7 @@ const Land = () => {
 
 
       
-      <footer style={{background: "#2a4735"}} class="foot">
+      {/* <footer style={{background: "#2a4735"}} class="foot">
         <div style={{background: "#2a4735", color: "white"}} class="container">
           <div class="row footer-con">
             <div 
@@ -350,7 +350,6 @@ const Land = () => {
                 class="footer-logo-img"
               />
             </div>
-            {/* <div className="hr"><hr /></div> */}
             <div
             
             data-aos="zoom-in"
@@ -358,8 +357,8 @@ const Land = () => {
 
             class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
               <h4>Our Services</h4>
-              <ul class="footer-services" style={{listStyleType: "none"}}>
-                <li className="mt-3">Root Canal</li>
+              <ul class="footer-services list-unstyles" style={{listStyleType: "none"}}>
+              <li className="mt-3">Root Canal</li>
                 <li className="mt-3">Pediatric Dentistry</li>
                 <li className="mt-3">Complete Dentures</li>
                 <li className="mt-3">Orthodontics</li>
@@ -373,13 +372,12 @@ const Land = () => {
           <div
           
 
-          data-aos="zoom-in"
-          data-aos-once="true"
+          // data-aos="zoom-in"
+          // data-aos-once="true"
 
           class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
 {/*               
-              <div class="contact-details"> */}
-                {/* <div className="col-md-6 col-12"> */}
+              <div class="contact-details"> 
                   <p>
                   <i class="fa fa-instagram"></i> _mo.nish_ 9
                 </p>
@@ -398,8 +396,8 @@ const Land = () => {
                 <div
                 
 
-                data-aos="zoom-in"
-                data-aos-once="true"
+                // data-aos="zoom-in"
+                // data-aos-once="true"
 
                 
                 className="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
@@ -417,13 +415,127 @@ const Land = () => {
                   <i class="fa fa-phone"></i> +91-7052-101-786
                 </p>
                 </div>
-
-              {/* </div> */}
-            {/* </div> */}
           </div>
         </div>
-      </footer>
-      {/* <ScrollToTop smooth /> */}
+      </footer> */}
+      
+      <div
+      id="b37456c4530be810dc040f50da72eda09addfb0b"
+      style={{ minHeight: "50vh", backgroundColor: "#2A4735" }}
+      className="container-fluid text-light"
+    >
+      <div className="row pt-5">
+        <div
+          className="col-12 col-sm-6 col-md-6 col-lg-2"
+        >
+          <h3 transition={{ duration: 2, delay: 1 }}>
+            Thulasiraam
+          </h3>
+          <img
+                src={logo}
+                alt="Logo"
+                class="footer-logo-img"
+              />
+        </div>
+
+        <div
+          className="col-12 col-sm-6 col-md-6 col-lg-3"
+        >
+          <h4 className="text-center">Our Services</h4><hr />
+              <ul class="footer-services list-unstyled text-center" style={{listStyleType: "none"}}>
+              <li className="mt-3">Root Canal</li>
+                <li className="mt-3">Pediatric Dentistry</li>
+                <li className="mt-3">Complete Dentures</li>
+                <li className="mt-3">Orthodontics</li>
+                <li className="mt-3">Flap Surgery</li>
+                <li className="mt-3">Crowns and Bridges</li>
+              </ul>
+        </div>
+        <div
+          className="col-12 col-sm-12 col-md-12 col-lg-7"
+        ><h4 className="text-center">Contact us</h4><hr />
+          <div className="row">
+            <div className="col-12 col-sm-6 col-md-6 col-lg-6">
+              <ul className="list-unstyled">
+              {/* <li>
+                _mo.nish_
+              </li> */}
+              {/* <li>
+                ThulasiRaam@gmail.com
+              </li> */}
+              <li style={{lineHeight: "30px"}}>
+              No: 6th St, Kuberan Nagar, Madipakkam, Chennai, Tamil Nadu 600091<br/> <br /><br/>
+              </li>
+              <li>
+               +91 9840812127
+              </li></ul>
+              <br /><br /></div>
+
+              <div className="col-12 col-sm-6 col-md-6 col-lg-6"><ul className="list-unstyled">
+              {/* <li>
+                _mo.nish_
+              </li>
+              <li>
+                 ThulasiRaam@gmail.com
+              </li> */}
+              <li style={{lineHeight: "30px"}}>
+              18, Venkatesa St, Ram Nagar South Extension, Alaiamman Nagar, Pallikaranai, Chennai, Tamil Nadu 600100<br/><br/>
+              </li>
+              <li>
+                +91 9884922333
+              </li></ul>
+              </div>
+
+              
+            
+          </div>
+        </div>
+
+        
+        <div className="display d-flex flex-row justify-content-center align-items-center text-center"><div
+          className="col-12 col-sm-12 col-md-12 col-lg-12 d-flex flex-row justify-content-center align-items-center text-center"
+        >
+          
+              <p className="mt-3 mx-2">
+                FOLLOW US ON 
+              </p>
+              {/* <hr /> */}
+           
+            <a style={{width:"60px", backgroundColor: '#dd4b39'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#dd4b39' }}
+                  href="#!"
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-google"></i>
+                </a>
+
+                <a style={{width:"60px", backgroundColor: '#ac2bac'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#ac2bac' }}
+                  href="https://www.instagram.com/sparktech_st?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-instagram"></i>
+                </a>
+
+                <a style={{width:"60px", backgroundColor: '#0082ca'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#0082ca' }}
+                  href="https://www.linkedin.com/company/sparktech-sparktech/"
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-linkedin-in"></i>
+                </a>
+          
+        </div></div>
+        </div>
+
+
+
+        
+        </div>
+        
     </>
   );
 };
