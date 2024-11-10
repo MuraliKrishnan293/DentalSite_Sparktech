@@ -7,7 +7,7 @@
 }
 
 #prescription-container {
-    background-image: url('./images/prescription.jpg');
+    background-image: url('./images/presc.jpeg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -20,7 +20,7 @@
 
 .input-field {
     position: absolute;
-    font-size: 24px;
+    /* font-size: 24px; */
     background: rgba(255, 255, 255, 0.8);
     outline: none;
     border: none;
@@ -36,23 +36,39 @@
 
 /* Position each field where it should appear on the prescription */
 .patient-name {
-    top: 220px;
-    right: 50px;
+    top: 190px;
+    right: -40px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
     width: 50%; /* Adjust width to fit content */
 }
 
-.patient-date {
-    top: 280px;
-    right: 50px;
+.patient-age {
+    top: 230px;
+    right: -40px;
     width: 50%; /* Adjust width to fit content */
     padding: 8px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.patient-date {
+    top: 200px;
+    left: 55px;
+    width: 20%; /* Adjust width to fit content */
+    padding: 8px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
     box-sizing: border-box;
 }
 
 .medications {
     top: 500px;
-    left: 50px;
+    left: 55px;
     width: 90%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
     min-height: 200px; /* Start with a minimum height */
 }
 
@@ -188,4 +204,14 @@
   
   .input-field:not(:empty) .placeholder {
     display: none;
+  }
+
+
+
+  .register{
+    background-image: url('./images/bgf2.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
   }

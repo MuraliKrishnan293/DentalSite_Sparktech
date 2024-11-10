@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.listen(PORT,()=>{
+app.listen(PORT, '0.0.0.0', ()=>{
     console.log('App connected to PORT 5000');
 });
 

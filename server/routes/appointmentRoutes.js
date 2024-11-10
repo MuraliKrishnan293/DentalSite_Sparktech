@@ -13,6 +13,20 @@ const mongoose = require('mongoose');
 const mimePromise = import('mime');
 const crypto = require("crypto");
 
+
+
+router.post("/myappointment", async(req, res)=>{
+  const {id} = req.user;
+
+  try{
+    const appointments = await appointmentModel.find({userId: id});
+    res.json(appointments);
+  }catch(error){
+    console.error(error);
+    res.status(500).json({message: "Server Error"});
+  }
+})
+
 // const { upload, gfs } = require('../routes/FileUpload');
 
 // router.post("/book", middleware, async (req, res) => {
@@ -175,6 +189,28 @@ router.post("/book", middleware, async (req, res) => {
     return res.status(500).json(e);
   }
 });
+
+router.put("/appointments/:id/update-payment", middleware, async (req, res) => {
+  const { amountPaid } = req.body;
+  const appointmentId = req.params.id;
+
+  try {
+    const updatedAppointment = await appointmentModel.findByIdAndUpdate(
+      appointmentId,
+      { amountPaid },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    return res.status(200).json({ message: "Payment updated successfully", appointment: updatedAppointment });
+  } catch (error) {
+    return res.status(500).json({ message: "Error updating payment", error });
+  }
+});
+
 
 
 

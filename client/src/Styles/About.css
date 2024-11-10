@@ -30,8 +30,18 @@ h1 {
 
 /*Here, i added the padding to get below the navbar that i gave as fixed as it is overlayed*/
 .containerd {
-    padding-top: 100px;
+    /* padding-top: 100px; */
     width: 100%;
+    
+}
+
+.bg{
+  background-image: url('../images/Screenshot\ 2024-11-09\ 175515.png');
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  min-height: 100vh;
+  background-attachment: fixed;
 }
   
   .bg-succes {

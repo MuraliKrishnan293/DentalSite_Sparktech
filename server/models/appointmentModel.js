@@ -105,6 +105,11 @@ const appointmentSchema = new mongoose.Schema(
       type: Number,
       required: false,
       default: null
+  },
+  amountPaid: { // New field for storing the amount paid
+    type: Number,
+    required: false,
+    default: null
   }
 },
   { timestamps: true }

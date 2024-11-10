@@ -273,7 +273,8 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div style={{marginTop: "200px"}} className="forgot-password-container">
+    <div className="bgf1">
+    <div className="forgot-password-container">
       <h2 className="forgot-password-title">Forgot Password</h2>
       {step === 1 && (
         <div className="d-flex flex-column align-items-center">
@@ -324,6 +325,7 @@ const ForgotPassword = () => {
         </div>
       )}
       <ToastContainer />
+    </div>
     </div>
   );
 };

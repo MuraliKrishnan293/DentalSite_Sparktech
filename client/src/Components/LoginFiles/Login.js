@@ -49,7 +49,7 @@ const Login = () => {
         toast.error(res.data, toastOptions);
       }
       setLoading(false);
-      alert("Successfully Logged in");
+      toast.success("Successfully Logged in", toastOptions);
     } catch (e) {
       setLoading(false);
       if (e.response) {
@@ -106,10 +106,9 @@ const Login = () => {
             <button
               style={{
                 background: "none",
-                border: "0.5px solid transparent",
-                borderRadius: "50%",
+                border: "0.5px solid white",
+                // borderRadius: "50%",
               }}
-              href=""
               type="submit"
               className="btn action-link text-white"
               disabled={loading}
@@ -123,25 +122,25 @@ const Login = () => {
             </button>
           </div>
           <div className="text-start">
-            <h5 className="text-white mt-3 w-100 text-start">
-              Forgot Password?
-            </h5>
+            
             <a
               className="text-start w-100 action-link"
               href="/forgot-password"
               style={{ textDecoration: "none", color: "white" }}
             >
-              Click here to reset
+              <h5 className="text-white mt-3 w-100 text-start">
+              Forgot Password?
+            </h5>
             </a>
           </div>
           <div className="text-start">
-            <h5 className="text-white mt-3 w-100 text-start">New User?</h5>
+            
             <a
               className="text-start w-100 action-link"
               href="/register"
               style={{ textDecoration: "none", color: "white" }}
             >
-              Click here
+              <h5 className="text-white mt-3 w-100 text-start">New User?</h5>
             </a>
           </div>
         </form>

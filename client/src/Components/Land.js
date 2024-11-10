@@ -16,7 +16,7 @@ import d2 from '../images/Doc2.png';
 import d3 from '../images/Doc3.png';
 import d4 from '../images/Doc4.png';
 
-import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
+import logo from '../images/WhatsApp Image 2024-11-09 at 8.25.43 PM (1).jpeg';
 import ScrollToTop from "react-scroll-to-top";
 import { FaWhatsapp } from 'react-icons/fa';
 
@@ -235,7 +235,7 @@ const Land = () => {
     </div>
     <div data-aos="fade-left" className="about-us-text">
       
-      <h3>We Care For Your Dental Health</h3>
+      <h4 className="wecare">We Care For Your Dental Health</h4>
       <p>
         At ThulasiRaam, we believe that every smile deserves the best
         care. Our dedicated team is committed to providing exceptional
@@ -244,7 +244,7 @@ const Land = () => {
         comfortable and stress-free experience. Our mission is to make
         top-quality dental care accessible and enjoyable.
       </p>
-      <p>
+      {/* <p>
         We combine advanced technology with compassionate service to help
         you achieve optimal oral health and a beautiful smile. From
         preventive care to restorative treatments, we are here to support
@@ -252,7 +252,7 @@ const Land = () => {
         for excellence, we aim to exceed your expectations and make a
         positive impact on your dental health. At ThulasiRaam, your smile
         is in expert hands.
-      </p>
+      </p> */}
       <a href='/about' className="read-more-button" style={{textDecoration: "none"}}>READ MORE</a>
     </div>
   </div>
@@ -325,9 +325,15 @@ const Land = () => {
 
 
       {/* <div class='sk-ww-google-reviews' data-embed-id='25480330'></div><script src='https://widgets.sociablekit.com/google-reviews/widget.js' async defer></script> */}
-      <div className="p-5 d-flex flex-row contaier">
-      <iframe className="p-5 d-flex flex-row" src='https://widgets.sociablekit.com/google-reviews/iframe/25480330' frameborder='0' width='100%' height='1000'></iframe>
-      </div>
+      <div className="horizontal-scroll-container">
+  <iframe
+    src="https://widgets.sociablekit.com/google-reviews/iframe/25480330"
+    frameBorder="0"
+    className="p-md-5 p-sm-5 p-lg-5 p-0"
+  ></iframe>
+  {/* Add more iframes as needed */}
+</div>
+
 
 
 
@@ -426,23 +432,24 @@ const Land = () => {
     >
       <div className="row pt-5">
         <div
-          className="col-12 col-sm-6 col-md-6 col-lg-2"
+          className="col-12 d-flex flex-column text-center align-items-center justify-content-center col-sm-6 col-md-6 col-lg-2"
         >
-          <h3 transition={{ duration: 2, delay: 1 }}>
+          <h3 className="text-md-center mt-5" transition={{ duration: 2, delay: 1 }}>
             Thulasiraam
           </h3>
           <img
                 src={logo}
                 alt="Logo"
                 class="footer-logo-img"
+                style={{width: "180px", height: "0100px", borderRadius: "20px"}}
               />
         </div>
 
         <div
           className="col-12 col-sm-6 col-md-6 col-lg-3"
         >
-          <h4 className="text-center">Our Services</h4><hr />
-              <ul class="footer-services list-unstyled text-center" style={{listStyleType: "none"}}>
+          <h4 className="text-md-center pt-5 mt-md-0 mt-sm-0 mt-lg-0 text-start">Our Services</h4><hr />
+              <ul class="footer-services list-unstyled text-md-center" style={{listStyleType: "none"}}>
               <li className="mt-3">Root Canal</li>
                 <li className="mt-3">Pediatric Dentistry</li>
                 <li className="mt-3">Complete Dentures</li>
@@ -453,7 +460,7 @@ const Land = () => {
         </div>
         <div
           className="col-12 col-sm-12 col-md-12 col-lg-7"
-        ><h4 className="text-center">Contact us</h4><hr />
+        ><h4 className="text-md-center pt-5 mt-md-0 mt-sm-0 mt-lg-0 text-start">Contact us</h4><hr />
           <div className="row">
             <div className="col-12 col-sm-6 col-md-6 col-lg-6">
               <ul className="list-unstyled">
@@ -464,7 +471,7 @@ const Land = () => {
                 ThulasiRaam@gmail.com
               </li> */}
               <li style={{lineHeight: "30px"}}>
-              No: 6th St, Kuberan Nagar, Madipakkam, Chennai, Tamil Nadu 600091<br/> <br /><br/>
+              No: 6th St, Kuberan Nagar, Madipakkam, Chennai, Tamil Nadu 600091
               </li>
               <li>
                +91 9840812127
@@ -479,7 +486,7 @@ const Land = () => {
                  ThulasiRaam@gmail.com
               </li> */}
               <li style={{lineHeight: "30px"}}>
-              18, Venkatesa St, Ram Nagar South Extension, Alaiamman Nagar, Pallikaranai, Chennai, Tamil Nadu 600100<br/><br/>
+              18, Venkatesa St, Ram Nagar South Extension, Alaiamman Nagar, Pallikaranai, Chennai, Tamil Nadu 600100
               </li>
               <li>
                 +91 9884922333
@@ -493,14 +500,14 @@ const Land = () => {
 
         
         <div className="display d-flex flex-row justify-content-center align-items-center text-center"><div
-          className="col-12 col-sm-12 col-md-12 col-lg-12 d-flex flex-row justify-content-center align-items-center text-center"
+          className="col-12 col-sm-12 col-md-12 col-lg-12 d-flex flex-column flex-sm-row flex-md-row justify-content-center align-items-center text-center"
         >
           
               <p className="mt-3 mx-2">
                 FOLLOW US ON 
               </p>
               {/* <hr /> */}
-           
+           <div className="d-flex flex-row">
             <a style={{width:"60px", backgroundColor: '#dd4b39'}}
                   className="btn btn-primary btn-floating m-1"
                   // style={{ backgroundColor: '#dd4b39' }}
@@ -526,7 +533,7 @@ const Land = () => {
                   role="button" rel="noopener noreferrer" target="_blank"
                 >
                   <i className="fab fa-linkedin-in"></i>
-                </a>
+                </a></div>
           
         </div></div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../Styles/Specialities.css";
-import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
+import logo from '../images/WhatsApp Image 2024-11-09 at 8.25.43 PM (1).jpeg';
 import ScrollToTop from "react-scroll-to-top";
 import i1 from '../images/service-icon-1.png';
 import i2 from '../images/service-icon-2.png';
@@ -80,31 +80,20 @@ const Specialities = () => {
 
   return (
     <div>
-        <div style={{width: "100%", paddingTop: "100px"}} class="fill w-100">
-          <h1 className="bg-succes w-100 p-5 text-white">
-            <center
-              data-aos="zoom-in"
-              data-aos-once="true"
-              data-aos-duration="2000"
-            >
+      <div className="spec">
+      
               <br />
-              SPECIALITIES
+              <h1 style={{marginTop: "300px", fontWeight: "800", color: "#2A4735"}} className="d-flex justify-content-center align-items-center text-center">SPECIALITIES</h1>
               <br />
               <br />
-            </center>
-          </h1>
         </div>
+        
 
         <div class="content container p-5" data-aos="fade-up" data-aos-once="true">
         
         <p> At our dental practice, we are committed to delivering exceptional care across a wide range of dental specialties, ensuring that all your oral health needs are met under one roof. Our orthodontic specialists focus on correcting misaligned teeth and jaws, providing solutions like braces and clear aligners to enhance both function and aesthetics. For those seeking to improve the appearance of their smiles, our cosmetic dentistry experts offer innovative treatments, including teeth whitening, veneers, and smile makeovers, tailored to your unique desires.</p>
 
-        <p> We understand that children require special attention when it comes to dental care. Our pediatric dentistry team is dedicated to creating a comfortable and friendly environment for your little ones, teaching them the importance of oral hygiene while addressing their specific dental needs. Additionally, our restorative specialists are skilled in repairing damaged teeth and restoring functionality through crowns, bridges, and implants, ensuring you can enjoy a confident smile once again.</p>
-
-        <p> Our endodontists specialize in root canal therapy, providing relief from dental pain and preserving natural teeth whenever possible. Moreover, our periodontists are focused on maintaining gum health, offering treatments for gum disease and implementing preventive care strategies. With the incorporation of cutting-edge technology and advanced techniques, we prioritize your comfort and the efficacy of our treatments.</p>
-
-        <p> As part of our holistic approach to dental health, we also emphasize the importance of preventive care, offering regular check-ups and cleanings to help you maintain optimal oral health. Our dedicated team collaborates closely to create personalized treatment plans that align with your goals and lifestyle. At our practice, we believe that everyone deserves a healthy, beautiful smile, and we are here to support you every step of the way.</p>
-    </div>
+        <p> We understand that children require special attention when it comes to dental care. Our pediatric dentistry team is dedicated to creating a comfortable and friendly environment for your little ones, teaching them the importance of oral hygiene while addressing their specific dental needs. Additionally, our restorative specialists are skilled in repairing damaged teeth and restoring functionality through crowns, bridges, and implants, ensuring you can enjoy a confident smile once again.</p> </div>
 
         {/* <div className="first" style={{ display: 'flex', justifyContent: 'center' }}>
             <div>
@@ -176,15 +165,14 @@ const Specialities = () => {
 
 
           <div>
-          <div id="218887269ad5946d9dc53238651c90472884f234" className="teams justify-content-md-center justify-content-center" style={{ position: "relative", borderRadius:"70px" }}>
-      <div className="hello card">
-      </div>
-        <h1 className="text-center text-white mx-md-5">WE OFFER</h1>
+          <div id="218887269ad5946d9dc53238651c90472884f234" className="teams justify-content-md-center justify-content-center">
+      
+        <h1 style={{marginTop: "300px"}} className="text-center text-black mx-md-5 my-5 mt-5 pt-5 py-5">WE OFFER</h1>
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 d-flex justify-content-center align-items-center text-center flex-wrap g-4">
         {specmap.map((item) => (
-          <div className="col" key={item.id}>
+          <div className="col d-flex justify-content-center align-items-center text-center" key={item.id}>
             <div
-              style={{ cursor: "pointer", height:"250px" }}
+              style={{ cursor: "pointer", background: "#2A4735", width: "240px", height:"180px", border: "1px solid transparent" }}
               className="card teamcard m-3 p-4"
               onClick={() => handleCardClick(item)}
               data-bs-toggle="modal"
@@ -192,7 +180,7 @@ const Specialities = () => {
             >
               
               {/* <h5>{item.id}</h5> */}
-              <center><h5>{item.title}</h5></center>
+              <center><h5 className="text-white" style={{fontWeight: "700", textWrap: "nowrap"}}>{item.title}</h5></center>
               <center><img src={item.image} alt={item.title} style={{ width: "100px", height: "auto" }} /></center>
               {/* <img src={imageMap[item.image]} alt={item.title} style={{ width: "100px", height: "auto" }} /> */}
             </div>
@@ -389,7 +377,7 @@ const Specialities = () => {
         <div className="step col-md-3 col-sm-6 col-12">
           <img src={a1} alt="Step 1" className="step-image" />
           <div className="step-number">1</div>
-          <p className="step-description">Schedule an exam now first!</p>
+          <p className="step-description">Schedule an appointment now!</p>
         </div>
         <div className="step col-md-3 col-sm-6 col-12">
           <img src={a2} alt="Step 2" className="step-image" />
@@ -405,94 +393,129 @@ const Specialities = () => {
       </div>
           <>
           
-          <footer style={{background: "#2a4735"}} class="foot">
-        <div style={{background: "#2a4735", color: "white"}} class="container">
-          <div class="row footer-con">
-            <div 
-            data-aos="zoom-in"
-            data-aos-once="true"
+          {/*  */}
 
-            class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
-              <h2 class="footer-logo fw-5 fs-1">Thulasiraam</h2>
-              <img
+
+
+          <div
+      id="b37456c4530be810dc040f50da72eda09addfb0b"
+      style={{ minHeight: "50vh", backgroundColor: "#2A4735" }}
+      className="container-fluid text-light"
+    >
+      <div className="row pt-5">
+        <div
+          className="col-12 d-flex flex-column text-center align-items-center justify-content-center col-sm-6 col-md-6 col-lg-2"
+        >
+          <h3 className="text-md-center mt-5" transition={{ duration: 2, delay: 1 }}>
+            Thulasiraam
+          </h3>
+          <img
                 src={logo}
                 alt="Logo"
                 class="footer-logo-img"
+                style={{width: "180px", height: "0100px", borderRadius: "20px"}}
               />
-            </div>
-            {/* <div className="hr"><hr /></div> */}
-            <div
-            
-            data-aos="zoom-in"
-            data-aos-once="true"
+        </div>
 
-            class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
-              <h4>Our Services</h4>
-              <ul class="footer-services" style={{listStyleType: "none"}}>
-                <li className="mt-3">Root Canal</li>
+        <div
+          className="col-12 col-sm-6 col-md-6 col-lg-3"
+        >
+          <h4 className="text-md-center pt-5 mt-md-0 mt-sm-0 mt-lg-0 text-start">Our Services</h4><hr />
+              <ul class="footer-services list-unstyled text-md-center" style={{listStyleType: "none"}}>
+              <li className="mt-3">Root Canal</li>
                 <li className="mt-3">Pediatric Dentistry</li>
                 <li className="mt-3">Complete Dentures</li>
                 <li className="mt-3">Orthodontics</li>
                 <li className="mt-3">Flap Surgery</li>
                 <li className="mt-3">Crowns and Bridges</li>
               </ul>
-            </div>
-          </div><hr />
+        </div>
+        <div
+          className="col-12 col-sm-12 col-md-12 col-lg-7"
+        ><h4 className="text-md-center pt-5 mt-md-0 mt-sm-0 mt-lg-0 text-start">Contact us</h4><hr />
           <div className="row">
-          <h2 style={{width: "100%"}} className="w-100 text-md-center text-start fw-5 fs-1">Contact us</h2>
-          <div
-          
+            <div className="col-12 col-sm-6 col-md-6 col-lg-6">
+              <ul className="list-unstyled">
+              {/* <li>
+                _mo.nish_
+              </li> */}
+              {/* <li>
+                ThulasiRaam@gmail.com
+              </li> */}
+              <li style={{lineHeight: "30px"}}>
+              No: 6th St, Kuberan Nagar, Madipakkam, Chennai, Tamil Nadu 600091
+              </li>
+              <li>
+               +91 9840812127
+              </li></ul>
+              <br /><br /></div>
 
-          data-aos="zoom-in"
-          data-aos-once="true"
+              <div className="col-12 col-sm-6 col-md-6 col-lg-6"><ul className="list-unstyled">
+              {/* <li>
+                _mo.nish_
+              </li>
+              <li>
+                 ThulasiRaam@gmail.com
+              </li> */}
+              <li style={{lineHeight: "30px"}}>
+              18, Venkatesa St, Ram Nagar South Extension, Alaiamman Nagar, Pallikaranai, Chennai, Tamil Nadu 600100
+              </li>
+              <li>
+                +91 9884922333
+              </li></ul>
+              </div>
 
-          class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
-{/*               
-              <div class="contact-details"> */}
-                {/* <div className="col-md-6 col-12"> */}
-                  <p>
-                  <i class="fa fa-instagram"></i> _mo.nish_ 9
-                </p>
-                <p>
-                  <i class="fa fa-envelope"></i> ThulasiRaam@gmail.com
-                </p>
-                <p>
-                  <i class="fa fa-map-marker"></i> 18, Venkatesa St,
-                  Pallikaranai, Chennai, Tamil Nadu
-                </p>
-                <p>
-                  <i class="fa fa-phone"></i> +91-7052-101-786
-                </p>
-                </div>
-                
-                <div
-                
-
-                data-aos="zoom-in"
-                data-aos-once="true"
-
-                
-                className="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
-                  <p>
-                  <i class="fa fa-instagram"></i> _mo.nish_
-                </p>
-                <p>
-                  <i class="fa fa-envelope"></i> ThulasiRaam@gmail.com
-                </p>
-                <p>
-                  <i class="fa fa-map-marker"></i> 18, Venkatesa St,
-                  Pallikaranai, Chennai, Tamil Nadu
-                </p>
-                <p>
-                  <i class="fa fa-phone"></i> +91-7052-101-786
-                </p>
-                </div>
-
-              {/* </div> */}
-            {/* </div> */}
+              
+            
           </div>
         </div>
-      </footer>
+
+        
+        <div className="display d-flex flex-row justify-content-center align-items-center text-center"><div
+          className="col-12 col-sm-12 col-md-12 col-lg-12 d-flex flex-column flex-sm-row flex-md-row justify-content-center align-items-center text-center"
+        >
+          
+              <p className="mt-3 mx-2">
+                FOLLOW US ON 
+              </p>
+              {/* <hr /> */}
+           <div className="d-flex flex-row">
+            <a style={{width:"60px", backgroundColor: '#dd4b39'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#dd4b39' }}
+                  href="#!"
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-google"></i>
+                </a>
+
+                <a style={{width:"60px", backgroundColor: '#ac2bac'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#ac2bac' }}
+                  href="https://www.instagram.com/sparktech_st?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-instagram"></i>
+                </a>
+
+                <a style={{width:"60px", backgroundColor: '#0082ca'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#0082ca' }}
+                  href="https://www.linkedin.com/company/sparktech-sparktech/"
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-linkedin-in"></i>
+                </a></div>
+          
+        </div></div>
+        </div>
+
+
+
+        
+        </div>
+
+
           </>
           <style jsx>
             {`
@@ -518,6 +541,8 @@ const Specialities = () => {
     font-size: 30px;
     font-weight: bold;
   }
+
+  
             `}
           </style>
     </div>

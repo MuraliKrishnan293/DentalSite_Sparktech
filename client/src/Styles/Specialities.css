@@ -94,4 +94,19 @@ body {
     .section-full {
       padding: 3rem 1rem; /* Reduce padding on small screens */
     }
-  }  
+  }
+
+  .spec{
+    background-image: url('../images//spec.png');
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    min-height: 100vh;
+    background-attachment: fixed;
+  }
+
+  @media screen and (max-width: 768px) {
+    .content p{
+      font-size: 13px;
+    }
+  }

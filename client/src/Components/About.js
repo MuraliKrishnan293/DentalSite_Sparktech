@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
+import logo from '../images/WhatsApp Image 2024-11-09 at 8.25.43 PM (1).jpeg';
 import '../Styles/About.css';
 import Nav from './Nav';
 import ScrollToTop from 'react-scroll-to-top';
@@ -118,14 +118,16 @@ const AboutUs = () => {
       </div> */}
 
 <div class="conta">
-    <div class="fill w-100">
-        <h1 className='bg-succes w-100 p-5 text-white'><center data-aos='zoom-in' data-aos-once="true" data-aos-duration="1000">
+  <div className='bg'><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div class="fill py-5 pt-5 w-100">
+        <h1 className='py-5 pt-5'><center data-aos='zoom-in' data-aos-once="true" data-aos-duration="1000">
         <br />
-        ABOUT US
+        <strong style={{color: "white"}}>ABOUT US</strong>
         <br /><br />
         </center></h1>
-        
-    </div>
+    </div></div>
+    
+
     <div class="content container p-5" data-aos="fade-up" data-aos-once="true">
         
         <h3><span id="sp" style={{color: "#2A4735"}} className=''
@@ -135,17 +137,12 @@ const AboutUs = () => {
         <p>ThulasiRaam is a newly established dental initiative focused on delivering high-quality oral healthcare through our two branches and a dedicated dental hospital. We aim to be a cornerstone of dental excellence in our community.</p>
 <p>Our mission is to provide comprehensive services that prioritize patient comfort and satisfaction. From routine check-ups to advanced treatments, we are dedicated to meeting the diverse needs of our patients.</p>
 <p>With a commitment to continuous education, we ensure our team stays updated with the latest advancements in dentistry. This dedication enables us to offer innovative solutions and techniques for optimal care.</p>
-<p>At ThulasiRaam, we strive to create a welcoming environment where every patient feels valued. Our friendly staff is here to assist you at every step of your dental journey.</p>
-<p>Our services include preventive care, restorative treatments, and specialized procedures, ensuring all your dental needs are met under one roof. We believe in a holistic approach to oral health.</p>
-<p>We believe in fostering strong relationships with our patients to achieve optimal oral health. Open communication is key to understanding your needs and ensuring a positive experience.</p>
-<p>Join us in our journey to enhance oral health and promote brighter smiles in our community. Together, we can create a healthier future, one smile at a time.</p>
 
     </div></div>
 
 
 
-      <h4 className='text-center w-100' data-aos="fade-up"
-     data-aos-anchor-placement="center-center">Our Team</h4>
+      {/* <h4 className='text-center w-100' data-aos="fade-up">Our Team</h4>
       <div className='container d-flex justify-content-center w-100 align-items-center text-center'>
         
       <div className='row sec mb-3 pt-5 d-flex justify-content-center w-100 align-items-center text-center'>
@@ -161,95 +158,126 @@ const AboutUs = () => {
           </div>
         ))}
         </div>
-      </div>
-      <footer style={{background: "#2a4735"}} class="foot">
-        <div style={{background: "#2a4735", color: "white"}} class="container">
-          <div class="row footer-con">
-            <div 
-            data-aos="zoom-in"
-            data-aos-once="true"
+      </div> */}
+      {/*  */}
 
-            class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
-              <h2 class="footer-logo fw-5 fs-1">Thulasiraam</h2>
-              <img
+      <div
+      id="b37456c4530be810dc040f50da72eda09addfb0b"
+      style={{ minHeight: "50vh", backgroundColor: "#2A4735" }}
+      className="container-fluid text-light"
+    >
+      <div className="row pt-5">
+        <div
+          className="col-12 d-flex flex-column text-center align-items-center justify-content-center col-sm-6 col-md-6 col-lg-2"
+        >
+          <h3 className="text-md-center mt-5" transition={{ duration: 2, delay: 1 }}>
+            Thulasiraam
+          </h3>
+          <img
                 src={logo}
                 alt="Logo"
                 class="footer-logo-img"
+                style={{width: "180px", height: "0100px", borderRadius: "20px"}}
               />
-            </div>
-            {/* <div className="hr"><hr /></div> */}
-            <div
-            
-            data-aos="zoom-in"
-            data-aos-once="true"
+        </div>
 
-            class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
-              <h4>Our Services</h4>
-              <ul class="footer-services" style={{listStyleType: "none"}}>
-                <li className="mt-3">Root Canal</li>
+        <div
+          className="col-12 col-sm-6 col-md-6 col-lg-3"
+        >
+          <h4 className="text-md-center pt-5 mt-md-0 mt-sm-0 mt-lg-0 text-start">Our Services</h4><hr />
+              <ul class="footer-services list-unstyled text-md-center" style={{listStyleType: "none"}}>
+              <li className="mt-3">Root Canal</li>
                 <li className="mt-3">Pediatric Dentistry</li>
                 <li className="mt-3">Complete Dentures</li>
                 <li className="mt-3">Orthodontics</li>
                 <li className="mt-3">Flap Surgery</li>
                 <li className="mt-3">Crowns and Bridges</li>
               </ul>
-            </div>
-          </div><hr />
+        </div>
+        <div
+          className="col-12 col-sm-12 col-md-12 col-lg-7"
+        ><h4 className="text-md-center pt-5 mt-md-0 mt-sm-0 mt-lg-0 text-start">Contact us</h4><hr />
           <div className="row">
-          <h2 style={{width: "100%"}} className="w-100 text-md-center text-start fw-5 fs-1">Contact us</h2>
-          <div
-          
+            <div className="col-12 col-sm-6 col-md-6 col-lg-6">
+              <ul className="list-unstyled">
+              {/* <li>
+                _mo.nish_
+              </li> */}
+              {/* <li>
+                ThulasiRaam@gmail.com
+              </li> */}
+              <li style={{lineHeight: "30px"}}>
+              No: 6th St, Kuberan Nagar, Madipakkam, Chennai, Tamil Nadu 600091
+              </li>
+              <li>
+               +91 9840812127
+              </li></ul>
+              <br /><br /></div>
 
-          data-aos="zoom-in"
-          data-aos-once="true"
+              <div className="col-12 col-sm-6 col-md-6 col-lg-6"><ul className="list-unstyled">
+              {/* <li>
+                _mo.nish_
+              </li>
+              <li>
+                 ThulasiRaam@gmail.com
+              </li> */}
+              <li style={{lineHeight: "30px"}}>
+              18, Venkatesa St, Ram Nagar South Extension, Alaiamman Nagar, Pallikaranai, Chennai, Tamil Nadu 600100
+              </li>
+              <li>
+                +91 9884922333
+              </li></ul>
+              </div>
 
-          class="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
-{/*               
-              <div class="contact-details"> */}
-                {/* <div className="col-md-6 col-12"> */}
-                  <p>
-                  <i class="fa fa-instagram"></i> _mo.nish_ 9
-                </p>
-                <p>
-                  <i class="fa fa-envelope"></i> ThulasiRaam@gmail.com
-                </p>
-                <p>
-                  <i class="fa fa-map-marker"></i> 18, Venkatesa St,
-                  Pallikaranai, Chennai, Tamil Nadu
-                </p>
-                <p>
-                  <i class="fa fa-phone"></i> +91-7052-101-786
-                </p>
-                </div>
-                
-                <div
-                
-
-                data-aos="zoom-in"
-                data-aos-once="true"
-
-                
-                className="col-md-6 col-sm-12 col-12 d-flex justify-content-md-center align-items-md-center text-md-center text-start flex-column">
-                  <p>
-                  <i class="fa fa-instagram"></i> _mo.nish_
-                </p>
-                <p>
-                  <i class="fa fa-envelope"></i> ThulasiRaam@gmail.com
-                </p>
-                <p>
-                  <i class="fa fa-map-marker"></i> 18, Venkatesa St,
-                  Pallikaranai, Chennai, Tamil Nadu
-                </p>
-                <p>
-                  <i class="fa fa-phone"></i> +91-7052-101-786
-                </p>
-                </div>
-
-              {/* </div> */}
-            {/* </div> */}
+              
+            
           </div>
         </div>
-      </footer>
+
+        
+        <div className="display d-flex flex-row justify-content-center align-items-center text-center"><div
+          className="col-12 col-sm-12 col-md-12 col-lg-12 d-flex flex-column flex-sm-row flex-md-row justify-content-center align-items-center text-center"
+        >
+          
+              <p className="mt-3 mx-2">
+                FOLLOW US ON 
+              </p>
+              {/* <hr /> */}
+           <div className="d-flex flex-row">
+            <a style={{width:"60px", backgroundColor: '#dd4b39'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#dd4b39' }}
+                  href="#!"
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-google"></i>
+                </a>
+
+                <a style={{width:"60px", backgroundColor: '#ac2bac'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#ac2bac' }}
+                  href="https://www.instagram.com/sparktech_st?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-instagram"></i>
+                </a>
+
+                <a style={{width:"60px", backgroundColor: '#0082ca'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#0082ca' }}
+                  href="https://www.linkedin.com/company/sparktech-sparktech/"
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-linkedin-in"></i>
+                </a></div>
+          
+        </div></div>
+        </div>
+
+
+
+        
+        </div>
     </div>
     {/* <ScrollToTop smooth /> */}
     </>

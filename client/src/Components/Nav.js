@@ -29,6 +29,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useLocation } from "react-router-dom";
+import logo from '../images/WhatsApp_Image_2024-11-09_at_8.25.43_PM-removebg-preview.png';
 
 const MyNavbar = () => {
   const [scrolling, setScrolling] = useState(false);
@@ -110,8 +111,10 @@ const MyNavbar = () => {
             style={{ color: "#2A4735", fontWeight: "500", fontSize: "34px" }}
             href="/"
           >
-            <b>ThulasiRaam</b>
+             <img src={logo} style={{width: "200px", borderRadius: "10px"}}/>
           </a>
+          {/* <b>ThulasiRaam</b> */}
+         
         </div>
         <button
           className="navbar-toggler"

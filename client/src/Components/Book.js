@@ -182,7 +182,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { CButton } from "@coreui/react";
 import StarRating from "./RatingComponent";
 import "../Styles/Rev.css";
-import logo from '../images/Screenshot_2024-09-19_104956-removebg-preview.png';
+import logo from '../images/WhatsApp Image 2024-11-09 at 8.25.43 PM (1).jpeg';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
@@ -409,7 +409,7 @@ const BookAppointment = () => {
 
       <div className="slots row">
         <div className="col-md-6 location-slots">
-          <h4>madipakkam</h4>
+          <h4>Madipakkam</h4>
           <ul className="list-group">
             {Object.entries(availableSlots.madipakkam).length > 0 ? (
               Object.entries(availableSlots.madipakkam).map(([slot, available]) => (
@@ -463,7 +463,7 @@ const BookAppointment = () => {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form className="fr" onSubmit={handleSubmit}>
               <div className="mb-3 form-group text-white">
                 <label className="form-label">Reason for Booking:</label>
                 <textarea
@@ -725,7 +725,7 @@ const BookAppointment = () => {
 
 
 
-<div className="position-relative" style={{ width: "100%", minHeight: "200px" }}>
+{/* <div className="position-relative" style={{ width: "100%", minHeight: "200px" }}>
   <footer style={{ background: "#2a4735" }} className="foot">
     <div style={{ background: "#2a4735", color: "white" }} className="container py-5">
       <div className="row footer-con">
@@ -795,8 +795,126 @@ const BookAppointment = () => {
       </div>
     </div>
   </footer>
-</div>
+</div> */}
 
+
+<div
+      id="b37456c4530be810dc040f50da72eda09addfb0b"
+      style={{ minHeight: "50vh", backgroundColor: "#2A4735" }}
+      className="container-fluid text-light"
+    >
+      <div className="row pt-5">
+        <div
+          className="col-12 d-flex flex-column text-center align-items-center justify-content-center col-sm-6 col-md-6 col-lg-2"
+        >
+          <h3 className="text-md-center mt-5" transition={{ duration: 2, delay: 1 }}>
+            Thulasiraam
+          </h3>
+          <img
+                src={logo}
+                alt="Logo"
+                class="footer-logo-img"
+                style={{width: "180px", height: "0100px", borderRadius: "20px"}}
+              />
+        </div>
+
+        <div
+          className="col-12 col-sm-6 col-md-6 col-lg-3"
+        >
+          <h4 className="text-md-center pt-5 mt-md-0 mt-sm-0 mt-lg-0 text-start">Our Services</h4><hr />
+              <ul class="footer-services list-unstyled text-md-center" style={{listStyleType: "none"}}>
+              <li className="mt-3">Root Canal</li>
+                <li className="mt-3">Pediatric Dentistry</li>
+                <li className="mt-3">Complete Dentures</li>
+                <li className="mt-3">Orthodontics</li>
+                <li className="mt-3">Flap Surgery</li>
+                <li className="mt-3">Crowns and Bridges</li>
+              </ul>
+        </div>
+        <div
+          className="col-12 col-sm-12 col-md-12 col-lg-7"
+        ><h4 className="text-md-center pt-5 mt-md-0 mt-sm-0 mt-lg-0 text-start">Contact us</h4><hr />
+          <div className="row">
+            <div className="col-12 col-sm-6 col-md-6 col-lg-6">
+              <ul className="list-unstyled">
+              {/* <li>
+                _mo.nish_
+              </li> */}
+              {/* <li>
+                ThulasiRaam@gmail.com
+              </li> */}
+              <li style={{lineHeight: "30px"}}>
+              No: 6th St, Kuberan Nagar, Madipakkam, Chennai, Tamil Nadu 600091
+              </li>
+              <li>
+               +91 9840812127
+              </li></ul>
+              <br /><br /></div>
+
+              <div className="col-12 col-sm-6 col-md-6 col-lg-6"><ul className="list-unstyled">
+              {/* <li>
+                _mo.nish_
+              </li>
+              <li>
+                 ThulasiRaam@gmail.com
+              </li> */}
+              <li style={{lineHeight: "30px"}}>
+              18, Venkatesa St, Ram Nagar South Extension, Alaiamman Nagar, Pallikaranai, Chennai, Tamil Nadu 600100
+              </li>
+              <li>
+                +91 9884922333
+              </li></ul>
+              </div>
+
+              
+            
+          </div>
+        </div>
+
+        
+        <div className="display d-flex flex-row justify-content-center align-items-center text-center"><div
+          className="col-12 col-sm-12 col-md-12 col-lg-12 d-flex flex-column flex-sm-row flex-md-row justify-content-center align-items-center text-center"
+        >
+          
+              <p className="mt-3 mx-2">
+                FOLLOW US ON 
+              </p>
+              {/* <hr /> */}
+           <div className="d-flex flex-row">
+            <a style={{width:"60px", backgroundColor: '#dd4b39'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#dd4b39' }}
+                  href="#!"
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-google"></i>
+                </a>
+
+                <a style={{width:"60px", backgroundColor: '#ac2bac'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#ac2bac' }}
+                  href="https://www.instagram.com/sparktech_st?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-instagram"></i>
+                </a>
+
+                <a style={{width:"60px", backgroundColor: '#0082ca'}}
+                  className="btn btn-primary btn-floating m-1"
+                  // style={{ backgroundColor: '#0082ca' }}
+                  href="https://www.linkedin.com/company/sparktech-sparktech/"
+                  role="button" rel="noopener noreferrer" target="_blank"
+                >
+                  <i className="fab fa-linkedin-in"></i>
+                </a></div>
+          
+        </div></div>
+        </div>
+
+
+
+        
+        </div>
 
 
     <ToastContainer />

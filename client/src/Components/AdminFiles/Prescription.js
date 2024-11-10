@@ -5,6 +5,7 @@ import '../../App.css';
 const PrescriptionForm = () => {
   const [formData, setFormData] = useState({
     patientName: '',
+    Age:'',
     Date: '',
     medications: ''
   });
@@ -54,16 +55,30 @@ const PrescriptionForm = () => {
   return (
     <div className="prescription-form-container">
       <div id="prescription-container" className="prescription-image">
-        <div
-          contentEditable="true"
+         
+        {/* <p className='patient-name'>Name:</p> */}
+         <div
+          
           onInput={handleInputChange}
           name="patientName"
           placeholder="Patient Name"
           data-placeholder="Patient Name"
           className="input-field patient-name mt-3"
+          suppressContentEditableWarning={true}>
+          <span contentEditable="false">Name: </span>
+          <span style={{width: "50%"}} contentEditable="true">{formData.patientName}</span>
+        </div>
+        <div
+          
+          onInput={handleInputChange}
+          name="patientAge"
+          placeholder="Age"
+          data-placeholder="Patient Age"
+          className="input-field patient-age mt-3"
           suppressContentEditableWarning={true}
         >
-          {formData.patientName}
+         <span contentEditable="false">Age:    </span>
+         <span style={{width: "50%"}} contentEditable="true">{formData.Age}</span>
         </div>
         <div
           contentEditable="true"

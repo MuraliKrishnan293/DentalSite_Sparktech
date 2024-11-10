@@ -866,6 +866,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import '../App.css';
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -1003,8 +1004,8 @@ const Register = () => {
           </div>
         ) : (
           <>
-            {!otpSent ? (
-              <form className="form mt-5" onSubmit={handleSubmit}>
+            {!otpSent ? (<>
+              <form className="mt-5" onSubmit={handleSubmit}>
                 <h1 className="fw-bold text-center text-white">Signup</h1>
                 <input
                   type="text"
@@ -1042,13 +1043,19 @@ const Register = () => {
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   className="form-control mb-2"
                 />
-                <center><button type="submit" className="btn mt-2 btn-success"
+                <center><button type="submit" className="btn mt-2 p-2" style={{backgroundColor: "#2A4735", color: "#FFFFFF", border: "0.5px solid white"}}
                 disabled={loading}
                 >
                   {/* Register */}
                   {loading ? "Please wait..." : "Register"}
                 </button></center>
+                <div className="text-start">
+              <a href="/login" style={{ textDecoration: "none", color: "white" }}>
+                <center className="mt-3">Already a User?</center>
+              </a>
+            </div>
               </form>
+              </>
             ) : (
               <div>
                 <h3>OTP sent! Please check your email.</h3>
@@ -1063,14 +1070,25 @@ const Register = () => {
             )}
           </>
         )}
-        <div className="text-start">
-          <h5 className="text-white mt-3">Already a user?</h5>
-          <a href="/login" style={{ textDecoration: "none", color: "white" }}>
-            Click here
-          </a>
-        </div>
+        
       </div>
       <ToastContainer />
+
+      <style jsx>
+        {`
+        form {
+  max-width: 700px;
+  width: 100%;
+  padding: 5rem;
+  background: #2a47357e;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+        `}
+      </style>
     </div>
   );
 };

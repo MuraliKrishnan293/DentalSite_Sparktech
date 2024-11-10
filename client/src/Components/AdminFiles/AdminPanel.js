@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAppointments } from '../Redux/appointmentSlice';
 import PrescriptionForm from './Prescription';
 import '../../App.css';
+import Reviews from '../Reviews';
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -346,8 +347,30 @@ const handleDownloadFile = async (e, appointmentId) => {
   
 
   const handleAddAppointment = async () => {
+    // setLoad(true);
+    setLoad(false);
+
+    if (!newAppointment.userInfo || !newAppointment.reason || !newAppointment.date || !newAppointment.startTime) {
+      toast.error("Please fill in all required fields.", toastOptions);
+      setLoad(false);
+      return; // Exit function if validation fails
+    }
+
+    // setLoad(false);
+  
+    // Validate available slot for the selected location
+    const availableSlotsForLocation = availableSlots[newAppointment.location];
+    if (!availableSlotsForLocation || availableSlotsForLocation[newAppointment.startTime] === 0) {
+      toast.error("Selected time slot is not available.", toastOptions);
+      setLoad(false);
+      return; // Exit function if the slot is not available
+      
+    }
+
+    
     try {
       setLoad(true);
+      document.getElementById("lo").disabled = true;
       await axios.post('http://localhost:5000/app/offline-book', newAppointment);
       toast.success("Appointment added successfully!", toastOptions);
       setShowModal(false); // Close the modal after successful addition
@@ -364,7 +387,9 @@ const handleDownloadFile = async (e, appointmentId) => {
       });
       fetchAppointments();
       closeModal();
+      setLoad(false);
     } catch (error) {
+      setLoad(false);
       toast.error("Error adding appointment", toastOptions);
       console.error('Error adding appointment:', error);
     }
@@ -416,6 +441,52 @@ const handleDownloadFile = async (e, appointmentId) => {
         }
     }
 };
+
+
+
+const [amountsPaid, setAmountsPaid] = useState({});
+
+const handleAmountChange = (e, appointmentId) => {
+  const updatedAmount = Number(e.target.value);
+  setAmountsPaid((prevAmounts) => ({
+    ...prevAmounts,
+    [appointmentId]: updatedAmount,
+  }));
+};
+
+
+
+
+const handleUpdatePayment = async (appointmentId) => {
+  const updatedAmount = amountsPaid[appointmentId];  // Get the specific amount for the appointment
+
+  if (updatedAmount === undefined || updatedAmount === null) {
+    alert("Please enter a valid amount.");
+    return;
+  }
+  try {
+    const response = await fetch(`http://localhost:5000/app/appointments/${appointmentId}/update-payment`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${authToken}` },
+      body: JSON.stringify({ amountPaid: updatedAmount })
+    });
+    // setAmountsPaid(null);
+    const data = await response.json();
+    if (response.ok) {
+      toast.success("Payment updated successfully", toastOptions);
+      setAmountsPaid((prevAmounts) => {
+        const { [appointmentId]: _, ...rest } = prevAmounts; // Remove updated appointment's amount
+        return rest;});
+    } else {
+      alert(data.message || "Failed to update payment");
+    }
+    setAmountsPaid(null);
+  } catch (error) {
+    setAmountsPaid(null);
+    console.error("Error updating payment:", error);
+  }
+};
+
 
 
 
@@ -629,7 +700,8 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                   Close
                 </button>
                 <button type="button" className="btn text-white" style={{background: "#2a4735"}} onClick={handleAddAppointment}
-                // disabled={load}
+                disabled={load}
+                id="lo"
                 >
                   {load ? <>Saving Appointment</> : <>Save Appointment</>}
                 </button>
@@ -761,6 +833,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                 <th>Visited</th>
                 <th>Upload</th>
                 <th>Download</th>
+                <th>Amount paid</th>
                 
               </tr>
             </thead>
@@ -773,7 +846,8 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                 .map(appointment => (
                   <tr key={appointment._id}>
                     <td className='text-nowrap text-no-wrap'>{appointment.userInfo}</td>
-                    <td>{appointment.reason}</td>
+                    <td style={{width: "103px",
+                        display: "inline-block"}}>{appointment.reason}</td>
                     <td>
                       <span className={appointment.status === "confirmed" ? "text-white btn btn-rounded" : "bg-danger"}
                       style={{ backgroundColor: appointment.status === "confirmed" ? '#2A4735' : '' }}
@@ -815,10 +889,13 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
     </button></>):(<>{appointment.fileName}</>)}
     
 </td> */}
-            <td>
+            <td style={{ width: "200px", padding: "5px" }}>
                 {appointment.fileName == null ? (
                     <>
-                        <input type="file" onChange={handleFileChange} />
+                        <input type="file" onChange={handleFileChange} 
+                        style={{width: "103px",
+                        display: "inline-block"}}
+                        />
                         <button
                             type="button" style={{background: "#2A4735"}} className='text-white btn mt-2' // Change to "button" to prevent default form submission
                             onClick={(e) => handleSubmit(e, appointment._id)} // Call handleSubmit on click
@@ -844,6 +921,27 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                     </div>
                 ) : null}
             </td>
+
+            <td>
+  {
+    <div className='text-center'>
+    <input
+      type="number"
+      placeholder="Enter amount paid"
+      value={appointment.amountPaid}  // Bind value to the specific appointment's amount
+      onChange={(e) => handleAmountChange(e, appointment._id)}  // Update specific appointment's amount on change
+    />
+    <button
+      className="btn mt-2"
+      style={{ backgroundColor: "#2A4735", color: "#FFFFFF" }}
+      onClick={() => handleUpdatePayment(appointment._id)}  // Update payment for specific appointment
+    >
+      Update Payment
+    </button>
+  </div>  
+  }
+</td>
+
                   </tr>
               ))}
             </tbody>
@@ -986,7 +1084,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                 .filter(appointment => appointment.location === "madipakkam" && appointment.date === new Date().toLocaleDateString('en-CA'))
                 .map(appointment => (
                   <tr key={appointment._id}>
-                    <td>{appointment.userInfo}</td>
+                    <td >{appointment.userInfo}</td>
                     <td>{appointment.reason}</td>
                     <td>
                       <span className={appointment.status === "confirmed" ? "text-white btn btn-rounded" : "bg-danger"}
@@ -995,7 +1093,8 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                         {appointment.status}
                       </span>
                     </td>
-                    <td>{appointment.date}</td>
+                    <td style={{width: "103px",
+                        display: "inline-block"}}>{appointment.date}</td>
                     <td>{appointment.startTime}</td>
                     <td className='text-center'>
                   <input
@@ -1068,6 +1167,10 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
 
 <Tab id="app" eventKey="PrescriptionPage" title="Prescription">
   <PrescriptionForm />
+</Tab>
+
+<Tab id="rev" eventKey="reviews" title="Reviews">
+  <Reviews />
 </Tab>
     </Tabs>
   {/* ); */}
