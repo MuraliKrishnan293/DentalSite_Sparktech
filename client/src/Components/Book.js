@@ -298,7 +298,7 @@ const BookAppointment = () => {
 
       if (res.status === 200) {
         toast.success("Appointment available, confirm booking", res.data.orderId, toastOptions);
-        alert(res.data.orderId);
+        // alert(res.data.orderId);
         localStorage.setItem("appointment", "payment_pending");
         localStorage.setItem("appointmentTimestamp", Date.now());
         setAppointmentExists(true); // Update state to reflect appointment exists
