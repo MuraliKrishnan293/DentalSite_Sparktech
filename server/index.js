@@ -9,7 +9,9 @@ const bodyParser = require('body-parser');
 const cron = require('node-cron');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://thulasiraam.netlify.app'
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(PORT, '0.0.0.0', ()=>{
