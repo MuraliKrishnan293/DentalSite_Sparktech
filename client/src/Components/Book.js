@@ -57,7 +57,7 @@
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const res = await axios.post("http://localhost:5000/app/book", {
+//       const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/book", {
 //         date,
 //         startTime: time,
 //         location,
@@ -228,7 +228,7 @@ const BookAppointment = () => {
     // console.log(username, comment, currentValue);
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/app/postreview", {
+      const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/postreview", {
         username,
         comment,
         rating: currentValue,
@@ -281,7 +281,7 @@ const BookAppointment = () => {
     // setLoadings(true);
     try {
       const res = await axios.post(
-        "http://localhost:5000/app/book",
+        "https://dentalsite-sparktech-2.onrender.com/app/book",
         {
           reason,
           date,
