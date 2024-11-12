@@ -78,7 +78,7 @@ const Payment = () => {
           const { razorpay_payment_id, razorpay_signature } = response;
 
           const paymentResponse = await axios.post(
-            "http://localhost:5000/app/payment-callback",
+            "https://dentalsite-sparktech-2.onrender.com/app/payment-callback",
             {
               appointmentId: appointmentId,
               razorpay_payment_id: response.razorpay_payment_id,

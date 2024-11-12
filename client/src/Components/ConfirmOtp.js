@@ -46,7 +46,7 @@ const ConfirmOtp = () => {
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/app/verify-otp", {
+      const response = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/verify-otp", {
         email,
         otp,
       });

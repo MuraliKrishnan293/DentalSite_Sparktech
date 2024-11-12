@@ -45,7 +45,7 @@ const AdminPanel = () => {
 
 const handleSubmit = async (event, appointmentId) => {
   event.preventDefault(); // Prevent default form submission
-  // alert(`Uploading to: http://localhost:5000/app/appointments/${appointmentId}/upload`);
+  // alert(`Uploading to: https://dentalsite-sparktech-2.onrender.com/app/appointments/${appointmentId}/upload`);
 
   if (!file) {
       alert('Please select a file before uploading.');
@@ -56,7 +56,7 @@ const handleSubmit = async (event, appointmentId) => {
   formData.append('Prescription_Files', file); // Ensure you have the file variable defined
 
   try {
-      const response = await axios.post(`http://localhost:5000/app/appointments/${appointmentId}/upload`, formData, {
+      const response = await axios.post(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${appointmentId}/upload`, formData, {
           headers: {
               'Content-Type': 'multipart/form-data',
               // 'Authorization': 
@@ -92,7 +92,7 @@ const handleDownloadFile = async (e, appointmentId) => {
   // alert("Id: " + appointmentId);
   try {
       // Make a GET request to the server to fetch the file
-      const response = await axios.get(`http://localhost:5000/app/appointments/${appointmentId}/file`, {
+      const response = await axios.get(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${appointmentId}/file`, {
           responseType: 'blob', // Important for handling binary data
       });
 
@@ -161,7 +161,7 @@ const handleDownloadFile = async (e, appointmentId) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/app/allusers', {
+        const response = await axios.get('https://dentalsite-sparktech-2.onrender.com/app/allusers', {
           headers: {
             'Authorization': `Bearer ${authToken}`
           }
@@ -199,7 +199,7 @@ const handleDownloadFile = async (e, appointmentId) => {
   // useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const res1 = await axios.get('http://localhost:5000/app/allappointments',{
+        const res1 = await axios.get('https://dentalsite-sparktech-2.onrender.com/app/allappointments',{
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -220,7 +220,7 @@ const handleDownloadFile = async (e, appointmentId) => {
   // useEffect(() => {
   //   const fetchReviews = async () => {
   //     try {
-  //       const res1 = await axios.get('http://localhost:5000/app/getreviews',{
+  //       const res1 = await axios.get('https://dentalsite-sparktech-2.onrender.com/app/getreviews',{
   //           headers: {
   //             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
   //           }
@@ -248,7 +248,7 @@ const handleDownloadFile = async (e, appointmentId) => {
 //     formData.append('Prescription_Files', fileData[appointmentId]);
 
 //     try {
-//         await axios.post(`http://localhost:5000/app/appointments/${appointmentId}/upload`, formData);
+//         await axios.post(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${appointmentId}/upload`, formData);
 //         alert('File uploaded successfully!');
 //     } catch (error) {
 //         console.error('Error uploading file', error);
@@ -317,7 +317,7 @@ const handleDownloadFile = async (e, appointmentId) => {
 
   const fetchAvailableSlots = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/app/available-slots?date=${todayDate}`);
+      const response = await axios.get(`https://dentalsite-sparktech-2.onrender.com/app/available-slots?date=${todayDate}`);
       setAvailableSlots(response.data.availableSlots);
       setLoading(false);
     } catch (error) {
@@ -371,7 +371,7 @@ const handleDownloadFile = async (e, appointmentId) => {
     try {
       setLoad(true);
       document.getElementById("lo").disabled = true;
-      await axios.post('http://localhost:5000/app/offline-book', newAppointment);
+      await axios.post('https://dentalsite-sparktech-2.onrender.com/app/offline-book', newAppointment);
       toast.success("Appointment added successfully!", toastOptions);
       setShowModal(false); // Close the modal after successful addition
       fetchAvailableSlots(); // Refresh available slots after adding an appointment
@@ -405,7 +405,7 @@ const handleDownloadFile = async (e, appointmentId) => {
   const handleToggleVisited = async (appointmentId, currentStatus) => {
     try {
         const response = await axios.put(
-            `http://localhost:5000/app/appointment/${appointmentId}`,
+            `https://dentalsite-sparktech-2.onrender.com/app/appointment/${appointmentId}`,
             { visited: !currentStatus },
             {
                 headers: {
@@ -465,7 +465,7 @@ const handleUpdatePayment = async (appointmentId) => {
     return;
   }
   try {
-    const response = await fetch(`http://localhost:5000/app/appointments/${appointmentId}/update-payment`, {
+    const response = await fetch(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${appointmentId}/update-payment`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${authToken}` },
       body: JSON.stringify({ amountPaid: updatedAmount })
@@ -522,7 +522,7 @@ const handleUpdatePayment = async (appointmentId) => {
 //   e.preventDefault();
 
 //   try {
-//     const response = await axios.delete(`http://localhost:5000/app/appointments/${appointmentId}/upload`,{
+//     const response = await axios.delete(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${appointmentId}/upload`,{
 //       headers:{
 //         Authorization: `Bearer ${localStorage.getItem("authToken")}`
 //       }
@@ -549,7 +549,7 @@ const handleUpdatePayment = async (appointmentId) => {
 //   }
 // };
 
-const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try { const response = await axios.delete(`http://localhost:5000/app/appointments/${appointmentId}/delete`);
+const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try { const response = await axios.delete(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${appointmentId}/delete`);
  if (response.status === 200) { // Handle successful file deletion, e.g., updating the state 
   setAppointments((prevAppointments) => prevAppointments.map((appointment) => appointment._id === appointmentId ? { ...appointment, fileName: null, fileId: null, fileSize: null } : appointment ) ); 
   // alert('File deleted successfully!'); 

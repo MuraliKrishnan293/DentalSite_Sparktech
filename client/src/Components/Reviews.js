@@ -9,7 +9,7 @@ const Reviews = () => {
     // Fetch reviews from the backend
     const fetchReviews = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/app/getreviews',{
+        const response = await axios.get('https://dentalsite-sparktech-2.onrender.com/app/getreviews',{
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }

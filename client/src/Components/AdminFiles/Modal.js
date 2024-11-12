@@ -38,7 +38,7 @@ const AvailableSlots = () => {
 
   const fetchAvailableSlots = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/app/available-slots?date=${todayDate}`);
+      const response = await axios.get(`https://dentalsite-sparktech-2.onrender.com/app/available-slots?date=${todayDate}`);
       setAvailableSlots(response.data.availableSlots);
       setLoading(false);
     } catch (error) {
@@ -89,7 +89,7 @@ const AvailableSlots = () => {
 
 const handleAddAppointment = async () => {
     try {
-      await axios.post('http://localhost:5000/app/offline-book', newAppointment);
+      await axios.post('https://dentalsite-sparktech-2.onrender.com/app/offline-book', newAppointment);
       toast.success("Appointment added successfully!", toastOptions);
       setShowModal(false); // Close the modal after successful addition
       fetchAvailableSlots(); // Refresh available slots after adding an appointment
@@ -114,7 +114,7 @@ const handleAddAppointment = async () => {
 
 
     // try {
-    //   const response = await axios.post('http://localhost:5000/app/offline-book', newAppointment);
+    //   const response = await axios.post('https://dentalsite-sparktech-2.onrender.com/app/offline-book', newAppointment);
     //   console.log('Appointment added:', response.data);
     //   setShowModal(false);
 

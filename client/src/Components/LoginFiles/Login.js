@@ -28,7 +28,7 @@ const Login = () => {
     setLoading(true);
     try {
       
-      const res = await axios.post("http://localhost:5000/app/login", {
+      const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/login", {
         email: email,
         password: password,
       });

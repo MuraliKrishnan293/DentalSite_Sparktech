@@ -24,7 +24,7 @@
 //   // Step 1: Request OTP
 //   const handleRequestOtp = async () => {
 //     try {
-//       const res = await axios.post("http://localhost:5000/app/forgot-password", {
+//       const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/forgot-password", {
 //         email: email,
 //       });
 //       if (res.status === 200) {
@@ -39,7 +39,7 @@
 //   // Step 2: Verify OTP and Reset Password
 //   const handleResetPassword = async () => {
 //     try {
-//       const res = await axios.post("http://localhost:5000/app/reset-password", {
+//       const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/reset-password", {
 //         email: email,
 //         otp: otp,
 //         newPassword: newPassword,
@@ -131,7 +131,7 @@
 // //   // Step 1: Request OTP
 // //   const handleRequestOtp = async () => {
 // //     try {
-// //       const res = await axios.post("http://localhost:5000/app/forgot-password", { email });
+// //       const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/forgot-password", { email });
 // //       if (res.status === 200) {
 // //         toast.success("OTP sent to email", toastOptions);
 // //         setStep(2);
@@ -144,7 +144,7 @@
 // //   // Step 2: Verify OTP and Reset Password
 // //   const handleResetPassword = async () => {
 // //     try {
-// //       const res = await axios.post("http://localhost:5000/app/reset-password", {
+// //       const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/reset-password", {
 // //         email,
 // //         otp,
 // //         newPassword,
@@ -243,7 +243,7 @@ const ForgotPassword = () => {
   const handleRequestOtp = async () => {
     setLoading(true); // Disable the button
     try {
-      const res = await axios.post("http://localhost:5000/app/forgot-password", { email });
+      const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/forgot-password", { email });
       if (res.status === 200) {
         toast.success("OTP sent to email", toastOptions);
         setStep(2);
@@ -258,7 +258,7 @@ const ForgotPassword = () => {
   // Step 2: Verify OTP and Reset Password
   const handleResetPassword = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/app/reset-password", {
+      const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/reset-password", {
         email,
         otp,
         newPassword,

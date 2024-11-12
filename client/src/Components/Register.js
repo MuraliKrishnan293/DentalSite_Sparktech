@@ -48,7 +48,7 @@
 //     e.preventDefault();
 //     try {
 //       if (handleValidation()) {
-//         const req = await axios.post("http://localhost:5000/app/register", {
+//         const req = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/register", {
 //           username: username,
 //           email: email,
 //           password: password,
@@ -92,7 +92,7 @@
 //   const handleotp = async(e)=>{
 //     e.preventDefault();
 //     try{
-//       const req = await axios.post("http://localhost:5000/app/verify-otp", {
+//       const req = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/verify-otp", {
 //         email: email,
 //         otp: otp
 //       });
@@ -250,7 +250,7 @@
 //     e.preventDefault();
 //     if (handleValidation()) {
 //       try {
-//         const req = await axios.post("http://localhost:5000/app/register", {
+//         const req = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/register", {
 //           username,
 //           email,
 //           password,
@@ -271,7 +271,7 @@
 //   const handleotp = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const req = await axios.post("http://localhost:5000/app/verify-otp", {
+//       const req = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/verify-otp", {
 //         email,
 //         otp,
 //       });
@@ -469,7 +469,7 @@
 //     e.preventDefault();
 //     if (handleValidation()) {
 //       try {
-//         const req = await axios.post("http://localhost:5000/app/register", {
+//         const req = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/register", {
 //           username,
 //           email,
 //           password,
@@ -492,7 +492,7 @@
 //   const handleotp = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const req = await axios.post("http://localhost:5000/app/verify-otp", {
+//       const req = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/verify-otp", {
 //         email,
 //         otp,
 //       });
@@ -731,7 +731,7 @@
 //     e.preventDefault();
 //     if (handleValidation()) {
 //       try {
-//         const req = await axios.post("http://localhost:5000/app/register", {
+//         const req = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/register", {
 //           username,
 //           email,
 //           password,
@@ -939,7 +939,7 @@ const Register = () => {
       // setLoading(true);
       try {
         setLoading(true);
-        const req = await axios.post("http://localhost:5000/app/register", {
+        const req = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/register", {
           username,
           email,
           password,
