@@ -12,7 +12,7 @@ const Payment = () => {
   const appointmentId = localStorage.getItem("apptId"); // Ensure this ID is available in state
   const orderId = localStorage.getItem("orderId"); // The order ID returned from your backend
   console.log(appointmentId);
-  const amount = 100;
+  const amount = 20000;
   const appointmentTimestamp = location.state?.timestamp;
 
   const TIMER_DURATION = 15 * 60 * 1000; // 15 minutes in milliseconds

@@ -144,7 +144,7 @@ router.post("/book", middleware, async (req, res) => {
     });
 
     const options = {
-      amount: 100,  // amount in the smallest currency unit (paise for INR, so 50000 paise = ₹500)
+      amount: 20000,  // amount in the smallest currency unit (paise for INR, so 50000 paise = ₹500)
       currency: "INR",
       receipt: `receipt_order_${newAppointment._id}`,
     };
