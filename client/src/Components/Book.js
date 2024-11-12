@@ -384,7 +384,7 @@ const BookAppointment = () => {
 
   const fetchAvailableSlots = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/app/available-slots?date=${todayDate}`);
+      const response = await axios.get(`https://dentalsite-sparktech-2.onrender.com/app/available-slots?date=${todayDate}`);
       setAvailableSlots(response.data.availableSlots);
       setLoading(false);
     } catch (error) {
