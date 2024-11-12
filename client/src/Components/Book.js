@@ -278,7 +278,7 @@ const BookAppointment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setLoadings(true);
+    setLoadings(true);
     try {
       const res = await axios.post(
         "https://dentalsite-sparktech-2.onrender.com/app/book",
@@ -294,7 +294,7 @@ const BookAppointment = () => {
           },
         }
       );
-      setLoadings(true);
+      setLoadings(false);
 
       if (res.status === 200) {
         toast.success("Appointment available, confirm booking", res.data.orderId, toastOptions);
@@ -304,6 +304,7 @@ const BookAppointment = () => {
         setAppointmentExists(true); // Update state to reflect appointment exists
         console.log("Appointment booked and state updated.");
         fetchAvailableSlots();
+        setLoadings(false);
         
       }
       const orderId = res.data.orderId; // Ensure you are retrieving orderId correctly
