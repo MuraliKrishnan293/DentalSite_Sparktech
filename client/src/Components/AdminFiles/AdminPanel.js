@@ -565,6 +565,16 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
   toast.error('Failed to delete file: ' + (error.response ? error.response.data : error.message), toastOptions);
  }};
 
+
+
+ if(role!=="admin"){
+  return (
+    <div style={{ paddingTop: '100px' }} className='container'>
+      <h1>You do not have the required permissions to access this page.</h1>
+    </div>
+  );
+ }
+
   
   
 
@@ -664,7 +674,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                     <label className='text-white'>Date</label>
                     <input
                       type="date"
-                      min={todayDate}
+                      // min={todayDate}
                       className="form-control"
                       name="date"
                       value={newAppointment.date}
