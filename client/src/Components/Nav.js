@@ -132,7 +132,7 @@ const MyNavbar = () => {
           className="collapse navbar-collapse w-100 gap-md-5"
           id="navbarNavAltMarkup"
         >
-          <div className="navbar-nav justify-content-center text-end gap-1 gap-sm-2 gap-md-3">
+          {/* <div className="navbar-nav justify-content-center text-end gap-1 gap-sm-2 gap-md-3">
             <a
               style={{ color: "#2A4735" }}
               className="nav-link"
@@ -154,7 +154,6 @@ const MyNavbar = () => {
             <a style={{ color: "#2A4735" }} className="nav-link" href="/book">
               Contact
             </a>
-            {/* {role==="user" && ( */}
             {!isContactPage && (
               <a
                 style={{ background: "#2A4735", color: "white" }}
@@ -164,9 +163,77 @@ const MyNavbar = () => {
                 Book Appointment
               </a>
             )}
-            {/* )} */}
             {role === "admin" && (
               <a style={{ color: "#2A4735" }} className="nav-link" href="admin">
+                Admin Panel
+              </a>
+            )}
+            {!authToken ? (
+              <a
+                style={{ textDecoration: "none" }}
+                href="/login"
+                className="loginbtn mx-md-5"
+              >
+                Login
+              </a>
+            ) : (
+              <a
+                style={{ textDecoration: "none" }}
+                href="/"
+                onClick={handleLogout}
+                className="loginbtn mx-md-5"
+              >
+                Logout
+              </a>
+            )}
+          </div> */}
+
+
+
+<div className="navbar-nav justify-content-center text-end gap-1 gap-sm-2 gap-md-3">
+            <a
+              style={{ color: "#2A4735" }}
+              className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+              href="/"
+            >
+              Home
+            </a>
+            <a
+              style={{ color: "#2A4735" }}
+              className={`nav-link ${location.pathname === "/about" ? "active" : ""}`}
+              href="/about"
+            >
+              About
+            </a>
+            <a
+              style={{ color: "#2A4735" }}
+              className={`nav-link ${location.pathname === "/specialities" ? "active" : ""}`}
+              href="/specialities"
+            >
+              Specialities
+            </a>
+            <a
+              style={{ color: "#2A4735" }}
+              className={`nav-link ${location.pathname === "/book" ? "active" : ""}`}
+              href="/book"
+            >
+              Contact
+            </a>
+            {!isContactPage && (
+              <a
+                style={{ background: "#2A4735", color: "white" }}
+                className="btn"
+                href="/book"
+              >
+                Book Appointment
+              </a>
+            )}
+            {authToken && (
+              <a
+                style={{ color: "#2A4735" }}
+                className={`nav-link ${location.pathname === "/admin" ? "active" : ""}`}
+                href="admin"
+              >
                 Admin Panel
               </a>
             )}
@@ -191,6 +258,12 @@ const MyNavbar = () => {
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .nav-link.active {
+          font-weight: bold;
+          color: #2a4735;
+        }
+      `}</style>
     </nav>
   );
 };

@@ -108,7 +108,7 @@ function App() {
     AOS.init({ duration: 1000 });
   }, []);
 
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     setLoad(true);
