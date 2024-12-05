@@ -70,7 +70,7 @@
 
 // export default App;
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 import AboutUs from "./Components/About";
 import Register from "./Components/Register";
@@ -104,6 +104,8 @@ import ForgotPassword from "./Components/LoginFiles/ForgotPassword";
 
 function App() {
 
+  const nav = useNavigate();
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -115,6 +117,27 @@ function App() {
     setTimeout(() => {
       setLoad(false);
     }, 3000);
+  }, []);
+
+
+
+  useEffect(() => {
+    const tokenExpiry = localStorage.getItem("tokenExpiry");
+    if (tokenExpiry) {
+      const remainingTime = parseInt(tokenExpiry, 10) - Date.now();
+
+      if (remainingTime > 0) {
+        setTimeout(() => {
+          localStorage.clear();
+          alert("Session expired. Please log in again.");
+          nav('/login');
+        }, remainingTime);
+      } else {
+        localStorage.clear();
+        alert("Session expired. Please log in again.");
+        // nav('/admin');
+      }
+    }
   }, []);
 
   return (

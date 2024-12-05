@@ -33,9 +33,11 @@ const Login = () => {
         password: password,
       });
       if (res.status === 200) {
+        const tokenExpiry = Date.now() + (res.data.role === 'admin' ? 24 * 60 * 60 * 1000 : 60 * 60 * 1000);
         
         toast.success("Logged In Successfully", toastOptions);
         localStorage.setItem("authToken", res.data.authToken);
+        localStorage.setItem('tokenExpiry', tokenExpiry);
         localStorage.setItem("username", res.data.name);
         localStorage.setItem("role", res.data.role);
         localStorage.setItem("email", res.data.email);

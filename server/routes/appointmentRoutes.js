@@ -613,5 +613,16 @@ router.delete('/appointments/:id/delete', async (req, res) => {
   try { const appointment = await Appointment.findById(appointmentId); if (!appointment) { return res.status(404).send('Appointment not found.'); } if (appointment.fileId) { const oldFilePath = path.join(uploadsDir, appointment.fileId); fs.access(oldFilePath, fs.constants.F_OK, (err) => { if (!err) { fs.unlink(oldFilePath, (err) => { if (err) { console.error('Error deleting old file:', err); return res.status(500).send('Error deleting old file.'); } }); } else { console.log('File does not exist, nothing to delete.'); } }); } appointment.fileId = null; appointment.fileName = null; appointment.fileSize = null; await appointment.save(); res.status(200).send({ message: 'File deleted successfully!', appointmentId }); } catch (error) { console.error('Error updating appointment:', error); if (!res.headersSent) { res.status(500).send('Server error'); } } 
           });
 
+router.get('/my-appointments', async (req, res) => {
+  const {id} = req.user;
+  try {
+      const appointments = await Appointment.findById(id);
+      res.status(200).json(appointments);
+  } catch (error) {
+      console.error('Error fetching appointments:', error);
+      res.status(500).send('Server error');
+  }
+});
+
 
 module.exports = router;
