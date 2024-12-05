@@ -138,6 +138,7 @@ const handleDownloadFile = async (e, appointmentId) => {
 
 
   useEffect(() => {
+    if (!appointments || appointments.length === 0) return;
     const results = appointments.filter((appointment) => {
       const nameMatch = searchName ? appointment.userInfo.toLowerCase().includes(searchName.toLowerCase()) : true;
       const reasonMatch = searchReason ? appointment.reason.toLowerCase().includes(searchReason.toLowerCase()) : true;
