@@ -145,7 +145,6 @@ function App() {
         }, remainingTime);
       } else {
         localStorage.clear();
-        alert("Session expired. Please log in again.");
         // nav('/admin');
       }
     }
