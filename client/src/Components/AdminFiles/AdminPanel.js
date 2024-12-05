@@ -28,6 +28,18 @@ const AdminPanel = () => {
   const [fileData, setFileData] = useState({});
   const [file, setFile] = useState(null);
 
+  useEffect(() => {
+    if (role !== 'admin') {
+      // If the user is not an admin, don't fetch data or show an error message
+      console.log('You are not authorized to view this page.');
+      
+      return (<div>
+        <h1 className='text-danger'>Uauthorized</h1>
+      </div>);
+    }
+  }
+  ,[role, authToken]);
+
   // const toastOptions = {
   //   position: "top-left",
   //   autoClose: 5000,
