@@ -584,8 +584,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
   
 
   return (
-    <>
-    <div style={{ paddingTop: '100px' }} className='container'>
+    <>{role=="admin" && (<div style={{ paddingTop: '100px' }} className='container'>
       
 
     <Tabs
@@ -1191,7 +1190,8 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
 {/* } */}
 
 {/* export default NoAnimationExample; */}
-    </div>
+    </div>)}
+    
     <ToastContainer />
     </>
   );
