@@ -177,7 +177,7 @@ const Land = () => {
         <div className="row">
           {services.map((s) => (
             <div className="col-md-4 col-sm-6 col-12" key={s.id} data-aos="fade-up" data-aos-delay={s.id * 500000}>
-              <div style={{ height: "300px" }} className="mt-5 p-4 card"><div className="w-100 text-center">
+              <div style={{ height: "300px", border: "0px solid transparent" }} className="mt-5 p-4 card"><div className="w-100 text-center">
                 <a href={s.to}><img src={s.icon} alt='icon' style={{width: "50px", height: "50px"}} className=" text-center" /></a></div>
                 <h6 className="text-center">{s.title}</h6>
                 <p className="text-center">{s.description}</p>
