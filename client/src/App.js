@@ -80,6 +80,9 @@ import Book from './Components/Book';
 import Land from "./Components/Land";
 import Nav from "./Components/Nav";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useEffect, useState, lazy, Suspense } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -119,6 +122,14 @@ function App() {
     }, 3000);
   }, []);
 
+  const toastOptions = {
+    position: "top-left",
+    autoClose: 5000,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
 
 
   useEffect(() => {
@@ -129,8 +140,6 @@ function App() {
       if (remainingTime > 0) {
         setTimeout(() => {
           localStorage.clear();
-          alert("Session expired. Please log in again.");
-          nav('/login');
         }, remainingTime);
       } else {
         localStorage.clear();
@@ -138,7 +147,7 @@ function App() {
         // nav('/admin');
       }
     }
-  }, []);
+  }, [nav]);
 
   return (
     <div className="App">
@@ -184,6 +193,7 @@ function App() {
           {/* <RatingComponent /> */}
         </BrowserRouter>
       )}
+      <ToastContainer />
     </div>
   );
 }
