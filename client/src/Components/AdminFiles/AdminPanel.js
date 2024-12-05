@@ -28,6 +28,9 @@ const AdminPanel = () => {
   const [fileData, setFileData] = useState({});
   const [file, setFile] = useState(null);
 
+  const role = localStorage.getItem("role");
+  const authToken = localStorage.getItem("authToken");
+
   useEffect(() => {
     if (role !== 'admin') {
       // If the user is not an admin, don't fetch data or show an error message
@@ -174,7 +177,7 @@ const handleDownloadFile = async (e, appointmentId) => {
   //   dispatch(fetchAppointments());
   // }, [dispatch]);
 
-  const authToken = localStorage.getItem("authToken");
+  
   
 
   useEffect(() => {
@@ -256,7 +259,7 @@ const handleDownloadFile = async (e, appointmentId) => {
   //   fetchReviews();
   // }, []);
 
-  const role = localStorage.getItem("role");
+  
   console.log("authToken : ", authToken);
 
   useEffect(()=>{
