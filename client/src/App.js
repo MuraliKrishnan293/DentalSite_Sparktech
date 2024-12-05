@@ -174,6 +174,7 @@ function App() {
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path='/print' element={<PrintDemo />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path="*" element={<h1 style={{ marginTop: "200px" }}>404 - Not Found</h1>} />
           </Routes>
           {/* </Suspense> */}
 

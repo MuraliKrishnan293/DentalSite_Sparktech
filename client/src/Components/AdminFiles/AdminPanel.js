@@ -575,7 +575,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
  if(role!=="admin"){
   return (
     <div style={{ paddingTop: '100px' }} className='container'>
-      <h1>You do not have the required permissions to access this page.</h1>
+      <h1 className='text-danger text-center'>You do not have the required permissions to access this page.</h1>
     </div>
   );
  }
