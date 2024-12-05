@@ -151,6 +151,7 @@ const handleDownloadFile = async (e, appointmentId) => {
 
   useEffect(() => {
     if (!appointments || appointments.length === 0) return;
+    if (Array.isArray(appointments)) {
     const results = appointments.filter((appointment) => {
       const nameMatch = searchName ? appointment.userInfo.toLowerCase().includes(searchName.toLowerCase()) : true;
       const reasonMatch = searchReason ? appointment.reason.toLowerCase().includes(searchReason.toLowerCase()) : true;
@@ -162,6 +163,10 @@ const handleDownloadFile = async (e, appointmentId) => {
     });
 
     setFilteredAppointments(results);
+  }
+  else{
+    console.error('Error fetching appointments:', appointments);
+  }
   }, [searchName, searchReason, searchLocation, searchDate, searchTime, appointments]);
   // const { appointments } = useSelector((state) => state.appointments);
 
