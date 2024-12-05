@@ -132,23 +132,23 @@ function App() {
   };
 
 
-  useEffect(() => {
-    const tokenExpiry = localStorage.getItem("tokenExpiry");
-    if (tokenExpiry) {
-      const remainingTime = parseInt(tokenExpiry, 10) - Date.now();
+  // useEffect(() => {
+  //   const tokenExpiry = localStorage.getItem("tokenExpiry");
+  //   if (tokenExpiry) {
+  //     const remainingTime = parseInt(tokenExpiry, 10) - Date.now();
 
-      if (remainingTime > 0) {
-        setTimeout(() => {
-          localStorage.clear();
-          toast.error("Session expired. Please log in again.", toastOptions);
-          nav('/login');
-        }, remainingTime);
-      } else {
-        localStorage.clear();
-        // nav('/admin');
-      }
-    }
-  }, [nav]);
+  //     if (remainingTime > 0) {
+  //       setTimeout(() => {
+  //         localStorage.clear();
+  //         toast.error("Session expired. Please log in again.", toastOptions);
+  //         nav('/login');
+  //       }, remainingTime);
+  //     } else {
+  //       localStorage.clear();
+  //       // nav('/admin');
+  //     }
+  //   }
+  // }, [nav]);
 
   return (
     <div className="App">
