@@ -194,7 +194,7 @@ function App() {
           {/* <RatingComponent /> */}
         </BrowserRouter>
       )}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 }
