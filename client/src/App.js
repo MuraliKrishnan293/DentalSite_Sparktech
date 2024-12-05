@@ -140,6 +140,8 @@ function App() {
       if (remainingTime > 0) {
         setTimeout(() => {
           localStorage.clear();
+          toast.error("Session expired. Please log in again.", toastOptions);
+          nav('/login');
         }, remainingTime);
       } else {
         localStorage.clear();
