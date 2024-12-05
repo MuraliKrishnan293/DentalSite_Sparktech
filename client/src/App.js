@@ -106,8 +106,8 @@ import ForgotPassword from "./Components/LoginFiles/ForgotPassword";
 // const AboutUs = lazy(() => import("./Components/About")); const Register = lazy(() => import("./Components/Register")); const Login = lazy(() => import('./Components/LoginFiles/Login')); const Home = lazy(() => import("./Components/Home")); const Book = lazy(() => import('./Components/Book')); const Land = lazy(() => import("./Components/Land")); const Payment = lazy(() => import("./Components/Pay")); const AdminPanel = lazy(() => import("./Components/AdminFiles/AdminPanel")); const ConfirmOtp = lazy(() => import("./Components/ConfirmOtp")); const Specialities = lazy(() => import("./Components/Specialities")); const Confirmation = lazy(() => import("./Components/Confirm")); const PrintDemo = lazy(() => import("./Components/Print")); const ForgotPassword = lazy(() => import("./Components/LoginFiles/ForgotPassword"));
 
 function App() {
+  // const navigate = useNavigate();
 
-  const nav = useNavigate();
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
@@ -131,24 +131,24 @@ function App() {
     theme: "dark",
   };
 
+  useEffect(() => {
+    const tokenExpiry = localStorage.getItem("tokenExpiry");
+    if (tokenExpiry) {
+      const remainingTime = parseInt(tokenExpiry, 10) - Date.now();
 
-  // useEffect(() => {
-  //   const tokenExpiry = localStorage.getItem("tokenExpiry");
-  //   if (tokenExpiry) {
-  //     const remainingTime = parseInt(tokenExpiry, 10) - Date.now();
-
-  //     if (remainingTime > 0) {
-  //       setTimeout(() => {
-  //         localStorage.clear();
-  //         toast.error("Session expired. Please log in again.", toastOptions);
-  //         nav('/login');
-  //       }, remainingTime);
-  //     } else {
-  //       localStorage.clear();
-  //       // nav('/admin');
-  //     }
-  //   }
-  // }, [nav]);
+      if (remainingTime > 0) {
+        setTimeout(() => {
+          localStorage.clear();
+          toast.error("Session expired. Please log in again.", toastOptions);
+          
+          window.location.href = '/login';
+        }, remainingTime);
+      } else {
+        localStorage.clear();
+        // nav('/admin');
+      }
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -194,7 +194,7 @@ function App() {
           {/* <RatingComponent /> */}
         </BrowserRouter>
       )}
-      {/* <ToastContainer /> */}
+      <ToastContainer />
     </div>
   );
 }
