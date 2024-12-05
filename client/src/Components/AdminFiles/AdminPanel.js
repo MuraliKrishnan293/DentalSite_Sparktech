@@ -157,8 +157,11 @@ const handleDownloadFile = async (e, appointmentId) => {
   // }, [dispatch]);
 
   const authToken = localStorage.getItem("authToken");
+  
 
   useEffect(() => {
+    const role1 = localStorage.getItem("role");
+    if(role1==="admin"){
     const fetchUsers = async () => {
       try {
         const response = await axios.get('https://dentalsite-sparktech-2.onrender.com/app/allusers', {
@@ -181,6 +184,7 @@ const handleDownloadFile = async (e, appointmentId) => {
       }
     };
     fetchUsers();
+  }
   }, []);
 
   console.log(users);
