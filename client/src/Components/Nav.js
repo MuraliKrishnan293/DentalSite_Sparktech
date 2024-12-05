@@ -228,7 +228,7 @@ const MyNavbar = () => {
                 Book Appointment
               </a>
             )}
-            {authToken && (
+            {authToken && role==="admin" && (
               <a
                 style={{ color: "#2A4735" }}
                 className={`nav-link ${location.pathname === "/admin" ? "active" : ""}`}

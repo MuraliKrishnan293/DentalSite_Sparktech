@@ -237,6 +237,11 @@ const handleDownloadFile = async (e, appointmentId) => {
   const role = localStorage.getItem("role");
   console.log("authToken : ", authToken);
 
+  useEffect(()=>{
+    const role = localStorage.getItem("role");
+  console.log("Role : ", role);
+  },[]);
+
 
 
 //   const handleFileChange = (e, appointmentId) => {
@@ -580,7 +585,6 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
 
   return (
     <>
-    {/* {role!=="admin" && (<h1>No</h1>)} */}
     <div style={{ paddingTop: '100px' }} className='container'>
       
 
