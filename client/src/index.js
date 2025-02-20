@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import store from '../src/Components/Redux/store';
 
 
-// if (process.env.NODE_ENV === 'production') {
-//   console.log = function() {};
-// }
+if (process.env.NODE_ENV === 'production') {
+  console.log = function() {};
+}
 
 
 
