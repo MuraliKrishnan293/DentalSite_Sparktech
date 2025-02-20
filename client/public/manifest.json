@@ -3,7 +3,7 @@
   "name": "Dr E Thulasiraam Dental and Orthondontic Center",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "../src/images/logo1.jpeg",
       "type": "image/png",
       "sizes": "512x512"
     }

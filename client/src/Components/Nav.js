@@ -237,6 +237,15 @@ const MyNavbar = () => {
                 Admin Panel
               </a>
             )}
+            {authToken && role==="user" && (
+              <a
+              style={{ color: "#2A4735" }}
+              className={`nav-link ${location.pathname === "/user-appointment" ? "active" : ""}`}
+              href="user-appointment"
+            >
+              Appointments
+            </a>
+            )}
             {!authToken ? (
               <a
                 style={{ textDecoration: "none" }}

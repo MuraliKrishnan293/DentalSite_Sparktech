@@ -171,20 +171,18 @@
 
 // export default BookAppointment;
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import { Rating } from "react-simple-star-rating";
 import "@coreui/coreui/dist/css/coreui.min.css";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CButton } from "@coreui/react";
-import StarRating from "./RatingComponent";
-import "../Styles/Rev.css";
-import logo from '../images/WhatsApp Image 2024-11-09 at 8.25.43 PM (1).jpeg';
+import React, { useEffect, useState } from "react";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../Styles/Rev.css";
+import logo from '../images/WhatsApp Image 2024-11-09 at 8.25.43 PM (1).jpeg';
+import StarRating from "./RatingComponent";
 
 const timeSlots = [
   "06:00",
@@ -208,6 +206,7 @@ const BookAppointment = () => {
   const [currentValue, setCurrentValue] = useState(0);
   const [time, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [location, setLocation] = useState(locations[0]);
   const [appointmentExists, setAppointmentExists] = useState(false);
   const [reason, setReason]  =useState("");
@@ -281,12 +280,16 @@ const BookAppointment = () => {
     setLoadings(true);
     try {
       const res = await axios.post(
+
+        //https://dentalsite-sparktech-2.onrender.com
+        //
         "https://dentalsite-sparktech-2.onrender.com/app/book",
         {
           reason,
           date,
           startTime: time,
           location,
+          phoneNumber: phoneNumber
         },
         {
           headers: {
@@ -312,7 +315,7 @@ const BookAppointment = () => {
       if (orderId && apptId) {
         localStorage.setItem("orderId", orderId); // Save orderId to localStorage
         localStorage.setItem("apptId", apptId);
-        handleProceedToPayment(orderId); // Pass orderId to proceed to payment
+        handleProceedToPayment(orderId, localStorage.getItem("username"), date, time, location); // Pass orderId to proceed to payment
       } else {
         console.error("Order ID is undefined in the response.");
       }
@@ -327,12 +330,16 @@ const BookAppointment = () => {
     }
   };
   // localStorage.setItem("orderId", orderId);
-  const handleProceedToPayment = () => {
+  const handleProceedToPayment = (orderId, name, date, time, location) => {
     
     // console.log(orderId);
     navigate("/payment", {
       state: {
         exists: true,
+        name: name,
+            date: date,
+            time: time,
+            location1: location,
         
         // orderId: orderId,
         timestamp: localStorage.getItem("appointmentTimestamp"),
@@ -385,7 +392,10 @@ const BookAppointment = () => {
 
   const fetchAvailableSlots = async () => {
     try {
-      const response = await axios.get(`https://dentalsite-sparktech-2.onrender.com/app/available-slots?date=${todayDate}`);
+      const response = await axios.get(
+        // `https://dentalsite-sparktech-2.onrender.com/app/available-slots?date=${todayDate}`
+        `https://dentalsite-sparktech-2.onrender.com/app/available-slots?date=${todayDate}`
+        );
       setAvailableSlots(response.data.availableSlots);
       setLoading(false);
     } catch (error) {
@@ -486,6 +496,22 @@ const BookAppointment = () => {
                   required
                 />
               </div>
+
+
+
+              <div className="mb-3 form-group text-white">
+                <label className="form-label">Phonenumber:</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  required
+                />
+              </div>
+
+
+
               <div className="mb-3 form-group text-white">
                 <label className="form-label">Start Time:</label>
                 <select

@@ -1,11 +1,23 @@
 .heroimg{
   min-height: 100vh;
-  background-image: url('../images/image.png');
+  background-image: url('../images/Backgrounds/fbg.jpg');
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  animation: slide 15s infinite;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 .h1text{
   font-weight: 1000;

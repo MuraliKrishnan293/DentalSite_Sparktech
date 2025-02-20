@@ -12,6 +12,7 @@ const Grid = require('gridfs-stream');
 const mongoose = require('mongoose');
 const mimePromise = import('mime');
 const crypto = require("crypto");
+const billModel = require('../models/billSchema');
 
 
 
@@ -87,8 +88,15 @@ router.post("/myappointment", async(req, res)=>{
 
 const razorpayInstance = new Razorpay({
   // key_id: "rzp_live_yc3AZztwWuIG7a",key_id: "rzp_test_k85tp70RzjZ5kf",key_secret: "7hwWnj0VCKoT0PvSCuifxosH"
+  
+  
+  //LiveApi
   key_id: "rzp_live_9UGHfbZkxezXiE",
   key_secret: "5kgS9AsMiaHYPZGNRzVFGE57"
+
+  //TestApi
+  // key_id: "rzp_test_DvgQSY1b0nqDty",
+  // key_secret: "CnoDcU5VAaEujyMb8e4EOZaa"
 });
 
 
@@ -156,33 +164,7 @@ router.post("/book", middleware, async (req, res) => {
 
     await newAppointment.save();
 
-    // setTimeout(async () => {
-    //   const currentAppointment = await appointmentModel.findById(newAppointment._id);
-    //   if (currentAppointment && currentAppointment.status === "pending_payment") {
-    //     await appointmentModel.deleteOne({ _id: newAppointment._id });
-    //     console.log(`Deleted appointment with ID ${newAppointment._id} due to expiration.`);
-    //   }
-    // }, 15* 60 * 1000);
-
-    
-
-    // setTimeout(async () => {
-    //   try {
-    //     const currentAppointment = await appointmentModel.findOne({
-    //       _id: newAppointment._id,
-    //       status: "pending_payment"
-    //     });
-
-    //     if (currentAppointment) {
-    //       await appointmentModel.deleteOne({ _id: newAppointment._id });
-    //       console.log(`Deleted appointment with ID ${newAppointment._id} due to payment expiration.`);
-    //     }
-    //   } catch (err) {
-    //     console.error("Error during scheduled appointment deletion:", err);
-    //   }
-    // }, 15 * 60 * 1000);
-
-    // Provide the user with a payment link or redirect URL
+   
     return res.status(200).json({ message: "Appointment created successfully", appointment: newAppointment, appointmentId: newAppointment._id, orderId: order.id, 
       amount: options.amount });
   } catch (e) {
@@ -213,6 +195,54 @@ router.put("/appointments/:id/update-payment", middleware, async (req, res) => {
 
 
 
+router.put("/appointments/:id/update-patientname", middleware, async (req, res) => {
+  const { userInfo } = req.body;
+  const appointmentId = req.params.id;
+
+  try {
+    const updatedAppointment = await appointmentModel.findByIdAndUpdate(
+      appointmentId,
+      { userInfo },
+      { new: true }
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    return res.status(200).json({ message: "userInfo updated successfully", appointment: updatedAppointment });
+  } catch (error) {
+    return res.status(500).json({ message: "Error updating userInfo", error });
+  }
+});
+
+router.put("/appointments/:id/update-phonenumber", middleware, async (req, res) => {
+  const { phoneNumber } = req.body;
+  const appointmentId = req.params.id;
+
+  try {
+    const updatedAppointment = await appointmentModel.findByIdAndUpdate(
+      appointmentId,
+      { phoneNumber },
+      { new: true }
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    return res.status(200).json({ message: "phoneNumber updated successfully", appointment: updatedAppointment });
+  } catch (error) {
+    return res.status(500).json({ message: "Error updating phoneNumber", error });
+  }
+});
+
+
+
+
+
+
+
 
 router.post("/payment-callback", async (req, res) => {
   const { appointmentId, razorpay_payment_id, razorpay_order_id, razorpay_signature, paymentStatus } = req.body;
@@ -228,8 +258,15 @@ router.post("/payment-callback", async (req, res) => {
 
     const expectedSignature = crypto
       .createHmac("sha256",
+
+        //LiveApi
         "5kgS9AsMiaHYPZGNRzVFGE57"
-        // U3P6hrmRqqadC3oDGXGJ8xAu
+
+
+
+        //TestApi
+        // "CnoDcU5VAaEujyMb8e4EOZaa"
+        
         )
       .update(body.toString())
       .digest("hex");
@@ -243,6 +280,24 @@ console.log("Received Signature:", razorpay_signature);
       appointment.status = "confirmed";
       appointment.paymentExpiry = null; // Clear the expiry time
       await appointment.save();
+
+      const bill = new billModel({
+        userId: appointment.userId,
+        appointmentId: appointment._id,
+        paymentId: razorpay_payment_id,
+        amount: 20000,
+        name: appointment.userInfo,
+        date: appointment.date,
+        time: appointment.startTime,
+        location: appointment.location,
+        bookdate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
+      });
+
+      await bill.save();
+
+
+
+
       return res.status(200).json({ message: "Payment successful and appointment confirmed" });
     } else {
       appointment.status = "payment_failed";
@@ -445,6 +500,7 @@ router.put('/appointment/:id', async (req, res) => {
 // });
 
 const fs = require('fs');
+const Middleware = require("../verify");
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir);
@@ -621,6 +677,25 @@ router.get('/my-appointments', async (req, res) => {
   } catch (error) {
       console.error('Error fetching appointments:', error);
       res.status(500).send('Server error');
+  }
+});
+
+
+
+router.get("/user-bills", middleware, async (req, res) => {
+  const { id } = req.user;
+
+  try {
+    const bills = await billModel.find({ userId: id }).populate("appointmentId", "date time location");
+
+    if (!bills || bills.length === 0) {
+      return res.status(404).json({ message: "No bills found for this user" });
+    }
+
+    return res.status(200).json({ bills });
+  } catch (e) {
+    console.error("Error fetching bills:", e);
+    return res.status(500).json({ message: "Server error" });
   }
 });
 

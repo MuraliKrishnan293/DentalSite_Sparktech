@@ -7,13 +7,16 @@ import Tabs from 'react-bootstrap/Tabs';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { ToastContainer } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // import { fetchAvailableSlots, addAppointment } from '../Redux/appointmentSlice';
-import { fetchAppointments } from '../Redux/appointmentSlice';
-import PrescriptionForm from './Prescription';
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/classic.css';
 import '../../App.css';
+import Billing from '../Billing';
 import Reviews from '../Reviews';
+import PrescriptionForm from './Prescription';
 
+const rowsToShow = 10;
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
   const [appointments, setAppointments] = useState([]);
@@ -27,6 +30,113 @@ const AdminPanel = () => {
   const [filteredAppointments, setFilteredAppointments] = useState(appointments);
   const [fileData, setFileData] = useState({});
   const [file, setFile] = useState(null);
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [appointments1, setAppointments1] = useState([]);  // Store all appointments
+  const [editingAppointment, setEditingAppointment] = useState(null); // The appointment currently being edited
+  const [newPatientName, setNewPatientName] = useState("");  // Store new patient name input
+  const [alldatap, setAllDataP] = useState([]);
+  // const [alldatap, setAllDataP] = useState([]);
+  
+
+
+
+  //Pagination
+  //const currentAppointments = appointments.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+
+
+
+  const updatePatientName = async (appointmentId, newPatientName) => {
+    try {
+      const response = await axios.put(
+        `https://dentalsite-sparktech-2.onrender.com/app/updateappointment/${appointmentId}`,
+        { patientName: newPatientName },
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+          }
+        }
+      );
+      
+      const updatedAppointments = appointments.map(appointment =>
+        appointment._id === appointmentId ? { ...appointment, userInfo: newPatientName } : appointment
+      );
+      setAppointments(updatedAppointments);
+      console.log("Appointment updated:", response.data);
+    } catch (error) {
+      console.error("Error updating patient name:", error);
+    }
+  };
+  
+
+const fetchApp1 = async()=>{
+  try {
+    //https://dentalsite-sparktech-2.onrender.com
+    const res1 = await axios.get('https://dentalsite-sparktech-2.onrender.com/app/allappfilter',{
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    });
+    setAllDataP(res1.data.Appointments);
+    console.log("All Appointments : ", res1.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+
+const fetchAppointments = async (page=1, limit=10) => {
+  try {
+    //https://dentalsite-sparktech-2.onrender.com
+    const res1 = await axios.get(`https://dentalsite-sparktech-2.onrender.com/app/allappointments?page=${page}&limit=${limit}`,{
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+    });
+    console.log("res1.data.totalPages : " + res1.data.totalPages);
+  setTotalPages(res1.data.totalPages);
+  setCurrentPage(res1.data.currentPage);
+    setAppointments(res1.data.appointments);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// const fetchApp1 = async()=>{
+//   try {
+//     //https://dentalsite-sparktech-2.onrender.com
+//     const res1 = await axios.get('https://dentalsite-sparktech-2.onrender.com/app/allappfilter',{
+//         headers: {
+//           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+//         }
+//     });
+//     setAllDataP(res1.data.appointments);
+//     console.log("All Appointments", res1.data.appointments);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// fetchAppointments(1, 20);
+
+
+
+  // const loadMore = () => {
+  //   setPage(page + 1);
+  // };
+
+
+
+
+
+
+
+
+
+
 
   const role = localStorage.getItem("role");
   const authToken = localStorage.getItem("authToken");
@@ -37,7 +147,7 @@ const AdminPanel = () => {
       console.log('You are not authorized to view this page.');
       
       return (<div>
-        <h1 className='text-danger'>Uauthorized</h1>
+        <h1 className='text-danger'>Un Authorized</h1>
       </div>);
     }
   }
@@ -152,25 +262,58 @@ const handleDownloadFile = async (e, appointmentId) => {
 
 
 
-  useEffect(() => {
-    if (!appointments || appointments.length === 0) return;
-    if (Array.isArray(appointments)) {
-    const results = appointments.filter((appointment) => {
+  // useEffect(() => {
+  //   if (!appointments || appointments.length === 0) return;
+  //   if (Array.isArray(appointments)) {
+  //   const results = appointments.filter((appointment) => {
+  //     const nameMatch = searchName ? appointment.userInfo.toLowerCase().includes(searchName.toLowerCase()) : true;
+  //     const reasonMatch = searchReason ? appointment.reason.toLowerCase().includes(searchReason.toLowerCase()) : true;
+  //     const locationMatch = searchLocation ? appointment.location.toLowerCase().includes(searchLocation.toLowerCase()) : true;
+  //     const dateMatch = searchDate ? appointment.date === searchDate : true;
+  //     const timeMatch = searchTime ? appointment.startTime === searchTime : true;
+      
+  //     return nameMatch && reasonMatch && locationMatch && dateMatch && timeMatch;
+  //   });
+
+  //   setFilteredAppointments(results);
+  // }
+  // else{
+  //   console.error('Error fetching appointments:', appointments);
+  // }
+  // }, [searchName, searchReason, searchLocation, searchDate, searchTime, appointments]);
+
+
+
+  // const paginatedAppointments = searchName || searchReason || searchLocation || searchDate || searchTime
+  // ? filteredAppointments
+  // : appointments;
+
+// 1️⃣ First, filter the full list of appointments
+const displayAppointments = (searchName || searchReason || searchLocation || searchDate || searchTime)
+  ? alldatap.filter((appointment) => {
+
       const nameMatch = searchName ? appointment.userInfo.toLowerCase().includes(searchName.toLowerCase()) : true;
       const reasonMatch = searchReason ? appointment.reason.toLowerCase().includes(searchReason.toLowerCase()) : true;
       const locationMatch = searchLocation ? appointment.location.toLowerCase().includes(searchLocation.toLowerCase()) : true;
       const dateMatch = searchDate ? appointment.date === searchDate : true;
       const timeMatch = searchTime ? appointment.startTime === searchTime : true;
-      
-      return nameMatch && reasonMatch && locationMatch && dateMatch && timeMatch;
-    });
 
-    setFilteredAppointments(results);
-  }
-  else{
-    console.error('Error fetching appointments:', appointments);
-  }
-  }, [searchName, searchReason, searchLocation, searchDate, searchTime, appointments]);
+      return nameMatch && reasonMatch && locationMatch && dateMatch && timeMatch;
+    })
+  : appointments;
+
+// 2️⃣ Then, apply pagination on the filtered list
+const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
+
+
+
+
+// const paginatedAppointments = displayAppointments;
+
+
+
+
+
   // const { appointments } = useSelector((state) => state.appointments);
 
   // useEffect(() => {
@@ -221,20 +364,24 @@ const handleDownloadFile = async (e, appointmentId) => {
   
   
   
+  // const handleShowMore = () => {
+  //   setRowsToShow(rowsToShow + 10);
+  // };
   // useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const res1 = await axios.get('https://dentalsite-sparktech-2.onrender.com/app/allappointments',{
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-            }
-        });
-        
-        setAppointments(res1.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    // const fetchAppointments = async () => {
+    //   try {
+    //     //https://dentalsite-sparktech-2.onrender.com
+    //     const res1 = await axios.get('https://dentalsite-sparktech-2.onrender.com/app/allappointments',{
+    //         headers: {
+    //           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+    //         }
+    //     });
+    //     console.log(res1);
+    //     setAppointments(res1.data.appointments);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
   //   fetchAppointments();
   // }, []);
 
@@ -305,6 +452,7 @@ const handleDownloadFile = async (e, appointmentId) => {
     userId: '',
     userInfo: "",
     reason: '',
+    phoneNumber: '',
     location: 'madipakkam',
     date: new Date().toLocaleDateString('en-CA'),
     startTime: '',
@@ -371,6 +519,7 @@ const handleDownloadFile = async (e, appointmentId) => {
 
   useEffect(() => {
     fetchAppointments();
+    fetchApp1();
   }, [authToken]);
 
   const [load, setLoad] = useState(false);
@@ -380,7 +529,7 @@ const handleDownloadFile = async (e, appointmentId) => {
     // setLoad(true);
     setLoad(false);
 
-    if (!newAppointment.userInfo || !newAppointment.reason || !newAppointment.date || !newAppointment.startTime) {
+    if (!newAppointment.userInfo || !newAppointment.reason || !newAppointment.date || !newAppointment.phoneNumber || !newAppointment.startTime) {
       toast.error("Please fill in all required fields.", toastOptions);
       setLoad(false);
       return; // Exit function if validation fails
@@ -411,6 +560,7 @@ const handleDownloadFile = async (e, appointmentId) => {
         userId: '',
         userInfo: "",
         reason: '',
+        phoneNumber:'',
         location: 'madipakkam',
         date: todayDate,
         startTime: '',
@@ -424,6 +574,20 @@ const handleDownloadFile = async (e, appointmentId) => {
       console.error('Error adding appointment:', error);
     }
   }
+
+  // useEffect(() => {
+  //   if (closeModal) {
+  //     setNewAppointment({
+  //       userId: '',
+  //       userInfo: "",
+  //       reason: '',
+  //       phoneNumber: '',
+  //       location: 'madipakkam',
+  //       date: todayDate,
+  //       startTime: '',
+  //     });
+  //   }
+  // }, [closeModal]);
 
 
   const toggleModal = () => {
@@ -516,6 +680,70 @@ const handleUpdatePayment = async (appointmentId) => {
     console.error("Error updating payment:", error);
   }
 };
+
+const [editingId, setEditingId] = useState(null);
+const [editedName, setEditedName] = useState("");
+
+const handleEdit = (id, currentName) => {
+  setEditingId(id);
+  setEditedName(currentName);
+};
+
+const handleSaveName = async (id) => {
+  console.log("Patient name updated successfully! + " + editedName);
+  try {
+    await axios.put(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${id}/update-patientname`, {
+      userInfo: editedName,
+    },{
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    toast.success("Patient name updated successfully!");
+    // alert("Patient name updated successfully! + " + editedName);
+    setEditingId(null);
+    fetchAppointments();
+  } catch (error) {
+    setEditingId(null);
+    console.error("Error updating name", error);
+  }
+};
+
+
+
+const [editingPId, setEditingPId] = useState(null);
+const [editedPhoneNumber, setEditedPhoneNumber] = useState("");
+
+const handleEditPhoneNumber = (id, phoneNumber) => {
+  setEditingPId(id);
+  setEditedPhoneNumber(phoneNumber);
+};
+
+
+
+const handleSavePhoneNumber = async (id) => {
+  console.log("Patient name updated successfully! + " + editedName);
+  try {
+    await axios.put(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${id}/update-phonenumber`, {
+      phoneNumber: editedPhoneNumber,
+    },{
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    toast.success("Phonenumber updated successfully!");
+
+    // alert("Phonenumber updated successfully! + " + editedPhoneNumber);
+    setEditingPId(null);
+    fetchAppointments();
+  } catch (error) {
+    setEditingPId(null);
+    console.error("Error updating name", error);
+  }
+};
+
 
 
 
@@ -709,6 +937,21 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                       onChange={handleInputChange}
                     />
                   </div>
+
+                  {/* Adding PhoneNumber Field */}
+                  <div className="form-group">
+                    <label className='text-white'>Phonenumber</label>
+                    <input
+                      type="number"
+                      // min={todayDate}
+                      className="form-control"
+                      name="phoneNumber"
+                      value={newAppointment.phoneNumber}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+
                   <div className="mb-3 form-group text-white">
                     <label className="form-label">Start Time:</label>
                     <select
@@ -777,6 +1020,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
     </div>
       </Tab>
       <Tab eventKey="profile" title="Patient Records">
+        
       {/* <div style={{overflowX: "hidden"}} className="table-responsive"> */}
         {/* <table className="table table-bordered table-striped"> */}
           {/* <tbody> */}
@@ -858,13 +1102,15 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
     <div className="table-responsive">
     
       <div className="row">
+      
         <div className="col">
           <table className="table table-bordered table-black table-striped appointments-table">
             <thead>
               <tr>
+                <th>S.No</th>
                 <th>Name</th>
                 <th>Reason</th>
-                <th>Payment</th>
+                <th>PhoneNumber</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Location</th>
@@ -877,23 +1123,108 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
             </thead>
             <tbody>
 
-              {filteredAppointments
-                // .filter(appointment => appointment.location === "madipakkam"
-                  
-                // )
-                .map(appointment => (
+              {paginatedAppointments
+                .map((appointment, index) => (
                   <tr key={appointment._id}>
-                    <td className='text-nowrap text-no-wrap'>{appointment.userInfo}</td>
+                    <td>{index+1}</td>
+                    
+                    
+                    
+                    {/* <td style={{textTransform: "capitalize"}} className='text-nowrap text-no-wrap'>{appointment.userInfo}</td>
+                     */}
+
+
+
+
+<td style={{ 
+  textTransform: "capitalize"
+  ,
+   whiteSpace: "nowrap" }} className="text-nowrap">
+  {editingId === appointment._id ? (
+    <div className="d-flex align-items-center">
+      <input
+        type="text"
+        value={editedName}
+        onChange={(e) => setEditedName(e.target.value)}
+        className="form-control"
+        style={{ width: "120px", marginRight: "5px" }} // Adjust width
+      />
+      <button
+        className="btn btn-success btn-sm"
+        style={{ marginLeft: "5px" }}
+        onClick={() => handleSaveName(appointment._id)}
+      >
+        Save
+      </button>
+    </div>
+  ) : (
+    <div className="d-flex align-items-center">
+      <span>{appointment.userInfo || "N/A"}</span>  {/* Ensure name is not empty */}
+      <button
+        className="btn"
+        style={{ marginLeft: "10px" }} // Ensure spacing
+        onClick={() => handleEdit(appointment._id, appointment.userInfo)}
+      >
+        ✏️
+      </button>
+    </div>
+  )}
+</td>
+
+
+
+
+
+ 
                     <td style={{width: "103px",
-                        display: "inline-block"}}>{appointment.reason}</td>
-                    <td>
-                      <span className={appointment.status === "confirmed" ? "text-white btn btn-rounded" : "bg-danger"}
-                      style={{ backgroundColor: appointment.status === "confirmed" ? '#2A4735' : '' }}
-                      >
-                        {appointment.status}
-                      </span>
-                    </td>
-                    <td>{appointment.date}</td>
+                        textWrap: "nowrap"}}>{appointment.reason}</td>
+
+
+
+
+                    {/* phoneNumber Edit */}
+
+                    <td style={{ whiteSpace: "nowrap" }} className="text-nowrap">
+  {editingPId === appointment._id ? (
+    <div className="d-flex align-items-center">
+      <input
+        type="text"
+        value={editedPhoneNumber}
+        onChange={(e) => setEditedPhoneNumber(e.target.value)}
+        className="form-control"
+        style={{ width: "120px", marginRight: "5px" }} // Adjust width
+      />
+      <button
+        className="btn btn-success btn-sm"
+        style={{ marginLeft: "5px" }}
+        onClick={() => handleSavePhoneNumber(appointment._id)}
+      >
+        Save
+      </button>
+    </div>
+  ) : (
+    <div className="d-flex align-items-center">
+      <span>{appointment.phoneNumber}</span>
+      <button
+        className="btn"
+        style={{ marginLeft: "10px" }}
+        onClick={() => handleEditPhoneNumber(appointment._id, appointment.phoneNumber)}
+      >
+        ✏️
+      </button>
+    </div>
+  )}
+</td>
+
+
+
+
+
+
+
+
+                    <td style={{
+                        textWrap: "nowrap"}}>{appointment.date}</td>
                     <td>{appointment.startTime}</td>
                     <td>{appointment.location}</td>
                     <td className='text-center'>
@@ -935,7 +1266,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                         display: "inline-block"}}
                         />
                         <button
-                            type="button" style={{background: "#2A4735"}} className='text-white btn mt-2' // Change to "button" to prevent default form submission
+                            type="button" style={{background: "#2A4735", textWrap: "nowrap"}} className='text-white btn mt-2 d-flex flex-row' // Change to "button" to prevent default form submission
                             onClick={(e) => handleSubmit(e, appointment._id)} // Call handleSubmit on click
                         >
                             Upload File
@@ -1031,11 +1362,28 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
           </table>
         </div> */}
       </div>
-    </div></>)  
+      {appointments.length > 0 && !(searchName || searchReason || searchLocation || searchDate || searchTime) && (
+  <div className="text-center mt-4">
+    <ResponsivePagination
+      current={currentPage}
+      total={totalPages}
+      onPageChange={(page) => {
+        setCurrentPage(page);
+        fetchAppointments(page, 10);
+      }}
+    />
+  </div>
+)}
+
+            
+    </div>
+    
+    </>)  
     }
           {/* </tbody> */}
         {/* </table> */}
       {/* </div> */}
+      
       </Tab>
       <Tab id="app" eventKey="contact" title="Appointments">
       {appointments.length===0 || appointments.filter(app => app.date === todayDate).length === 0 ? (<h1 className='text-center w-100' style={{marginTop: "100px"}}>No Appointmnets Booked for Today</h1>)
@@ -1172,7 +1520,12 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
                 .map(appointment => (
                   <tr key={appointment._id}>
                     <td>{appointment.userInfo}</td>
-                    <td>{appointment.reason}</td>
+                    <td
+                    
+                    
+                    
+                    
+                    >{appointment.reason}</td>
                     <td>
                       <span className={appointment.status === "confirmed" ? "bg-success btn btn-rounded" : "bg-danger"}>
                         {appointment.status}
@@ -1207,6 +1560,18 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
   <PrescriptionForm />
 </Tab>
 
+
+
+
+{/* Bill Code Render */}
+<Tab id="bill" eventKey="BillingPage" title="Billing">
+  <Billing />
+</Tab>
+
+
+
+
+
 <Tab id="rev" eventKey="reviews" title="Reviews">
   <Reviews />
 </Tab>
@@ -1218,6 +1583,37 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
     </div>)}
     
     <ToastContainer />
+    <style jsx>
+      {`
+      .page-item .page-link {
+  
+  color: white;
+  background-color: #2A4735;
+  transition: none;
+}
+
+      .page-item .page-link:hover{
+        color: white;
+        background-color: #2A4735;
+      }
+      
+
+      .page-item.active .page-link {
+      border-color: #2A4735;
+  font-weight: 700;
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+}
+
+
+      `}
+    </style>
     </>
   );
 }

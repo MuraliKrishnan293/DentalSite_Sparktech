@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      
+      //https://dentalsite-sparktech-2.onrender.com
       const res = await axios.post("https://dentalsite-sparktech-2.onrender.com/app/login", {
         email: email,
         password: password,
@@ -53,6 +53,8 @@ const Login = () => {
       setLoading(false);
       toast.success("Successfully Logged in", toastOptions);
     } catch (e) {
+      // alert("Bye");
+      console.log("error in debugging is : ", e);
       setLoading(false);
       if (e.response) {
         const er = e.response.data;
@@ -68,6 +70,14 @@ const Login = () => {
   };
 
   const auth = localStorage.getItem("authToken");
+
+  if(auth){
+    return (
+      <div className="alert" style={{marginTop: "100px"}}>
+        <h1 style={{color: "#2A4735"}}>You are already logged in.</h1>
+      </div>
+    )
+  }
 
   return (
     <>{!auth && (

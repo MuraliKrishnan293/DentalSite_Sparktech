@@ -100,6 +100,7 @@ import RatingComponent from "./Components/RatingComponent";
 import Confirmation from "./Components/Confirm";
 import PrintDemo from "./Components/Print";
 import ForgotPassword from "./Components/LoginFiles/ForgotPassword";
+import UserBills from "./Components/UserApp";
 
 
 
@@ -172,7 +173,7 @@ function App() {
             <Route path="/payment" element={<Payment />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/confirmation" element={<Confirmation />} />
-            <Route path='/print' element={<PrintDemo />} />
+            <Route path='/user-appointment' element={<UserBills />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path="*" element={<h1 style={{ marginTop: "200px" }}>404 - Not Found</h1>} />
           </Routes>

@@ -10,7 +10,9 @@ const cron = require('node-cron');
 
 app.use(express.json());
 app.use(cors({
-  origin: 'https://thulasiraam.netlify.app'
+  origin: 'https://thulasiraam.netlify.app',
+  // origin: 'http://localhost:3000'
+  origin: "*"
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

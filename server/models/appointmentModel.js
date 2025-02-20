@@ -46,6 +46,10 @@ const appointmentSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    phoneNumber: {
+      type: String,
+      required: true
+    },
     reason: {
       type: String,
       required: true
@@ -110,8 +114,14 @@ const appointmentSchema = new mongoose.Schema(
     type: Number,
     required: false,
     default: null
-  }
-},
+  },
+phoneNumber:{
+  type: String,
+  required: true,
+  unique: true,
+  match: /^\d{10}$/
+}
+  },
   { timestamps: true }
 );
 

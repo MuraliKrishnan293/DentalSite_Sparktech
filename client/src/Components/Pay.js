@@ -8,9 +8,11 @@ const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { name, date, time, location1 } = location.state || {};
+
   const appointmentExists = location.state?.exists;
-  const appointmentId = localStorage.getItem("apptId"); // Ensure this ID is available in state
-  const orderId = localStorage.getItem("orderId"); // The order ID returned from your backend
+  const appointmentId = localStorage.getItem("apptId");
+  const orderId = localStorage.getItem("orderId"); // The order ID is returned from my backend
   console.log(appointmentId);
   const amount = 20000;
   const appointmentTimestamp = location.state?.timestamp;
@@ -38,7 +40,7 @@ const Payment = () => {
             theme: "dark",
           });
           setRemainingTime(0);
-          navigate("/book"); // Redirect to booking page
+          navigate("/book");
         } else {
           setRemainingTime(timeLeft);
         }
@@ -65,8 +67,17 @@ const Payment = () => {
 
   const handlePayment = async () => {
     const options = {
+
+      //LiveApi
       key: "rzp_live_9UGHfbZkxezXiE",
-      // "rzp_live_yc3AZztwWuIG7a", // Your Razorpay key
+
+
+
+      //TestApi
+      // key: "rzp_test_DvgQSY1b0nqDty",
+
+
+
       amount: amount, // Amount in paise
       currency: "INR",
       name: "Appointment Payment",
@@ -78,6 +89,7 @@ const Payment = () => {
           const { razorpay_payment_id, razorpay_signature } = response;
 
           const paymentResponse = await axios.post(
+            // https://dentalsite-sparktech-2.onrender.com
             "https://dentalsite-sparktech-2.onrender.com/app/payment-callback",
             {
               appointmentId: appointmentId,
@@ -102,6 +114,10 @@ const Payment = () => {
                 appointmentId: appointmentId,
                 razorpay_payment_id: response.razorpay_payment_id,
                 amount: amount,
+                name: name,
+                date: date,
+                time: time,
+                location: location1,
               },
             });
           }
@@ -115,8 +131,8 @@ const Payment = () => {
         }
       },
       prefill: {
-        name: "Monish", // Placeholder name
-        email: "email", // Placeholder email
+        name: "Enter your name", // Placeholder name
+        email: "Enter your email", // Placeholder email
       },
       theme: {
         color: "#3399cc",
