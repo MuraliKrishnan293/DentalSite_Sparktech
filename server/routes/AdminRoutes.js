@@ -4,6 +4,7 @@ const appointmentModel = require("../models/appointmentModel");
 const userModel = require("../models/userModel");
 const middleware = require("../verify");
 const { isAdmin } = require("../checkuser");
+const Payment = require("../models/billSchema");
 
 router.get("/allusers", middleware, isAdmin, async (req, res) => {
   try {
@@ -57,6 +58,22 @@ router.get("/get-last-receipt", middleware, isAdmin, async (req, res) => {
     res.status(500).json({ error: "Error fetching receipt" });
   }
 });
+
+
+
+router.post("/update-last-receipt", middleware, isAdmin, async (req, res) => {
+  try {
+    const { lastReceipt } = req.body;
+
+    // Update or insert the latest receipt
+    await Payment.updateOne({}, { receipt: lastReceipt }, { upsert: true });
+
+    res.json({ message: "Receipt ID updated successfully", lastReceipt });
+  } catch (error) {
+    res.status(500).json({ error: "Error updating receipt ID" });
+  }
+});
+
 
 
 

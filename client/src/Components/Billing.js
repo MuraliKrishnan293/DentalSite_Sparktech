@@ -8,9 +8,34 @@ const App = () => {
   const [showBill, setShowBill] = useState(false);
   const [lastReceiptId, setLastReceiptId] = useState(0);
 
+  const saveLastReceiptId = async (newReceiptId) => {
+    try {
+      const response = await fetch("https://dentalsite-sparktech-2.onrender.com/app/update-last-receipt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("authToken"),
+        },
+        body: JSON.stringify({ lastReceipt: newReceiptId }),
+      });
+  
+      if (!response.ok) throw new Error("Failed to update receipt ID");
+  
+      console.log("Receipt ID updated in DB:", newReceiptId);
+    } catch (error) {
+      console.error("Error saving receipt ID:", error);
+    }
+  };
+  
+
 const fetchLastReceiptId = async () => {
   try {
-    const response = await fetch("https://dentalsite-sparktech-2.onrender.com/get-last-receipt");
+    //https://dentalsite-sparktech-2.onrender.com
+    const response = await fetch("https://dentalsite-sparktech-2.onrender.com/app/get-last-receipt",{
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+      }
+    });
     const data = await response.json();
     const lastId = data.lastReceipt || 0;
 
@@ -120,13 +145,47 @@ const clearIt = ()=>{
   
   
 
+  // const handleSubmit = () => {
+  //   setShowBill(true);
+  // };
   const handleSubmit = () => {
     setShowBill(true);
+    const newReceiptId = lastReceiptId + 1;
+  
+    setLastReceiptId(newReceiptId);
+    setPayments((prevPayments) =>
+      prevPayments.map((payment, index) =>
+        index === 0 ? { ...payment, receipt: newReceiptId } : payment
+      )
+    );
+  
+    // Save receipt ID in DB
+    saveLastReceiptId(newReceiptId);
   };
+  
+  
+
+  // const printBill = () => {
+  //   window.print();
+  // };
+
+
 
   const printBill = () => {
     window.print();
+    const newReceiptId = lastReceiptId + 1;
+  
+    setLastReceiptId(newReceiptId);
+    setPayments((prevPayments) =>
+      prevPayments.map((payment, index) =>
+        index === 0 ? { ...payment, receipt: newReceiptId } : payment
+      )
+    );
+  
+    // Save receipt ID in DB
+    saveLastReceiptId(newReceiptId);
   };
+  
 
 
 
