@@ -64,9 +64,9 @@ const AdminPanel = () => {
         appointment._id === appointmentId ? { ...appointment, userInfo: newPatientName } : appointment
       );
       setAppointments(updatedAppointments);
-      console.log("Appointment updated:", response.data);
+      //////////console.log("Appointment updated:", response.data);
     } catch (error) {
-      console.error("Error updating patient name:", error);
+      //////////console.error("Error updating patient name:", error);
     }
   };
   
@@ -80,9 +80,9 @@ const fetchApp1 = async()=>{
         }
     });
     setAllDataP(res1.data.Appointments);
-    console.log("All Appointments : ", res1.data);
+    //////////console.log("All Appointments : ", res1.data);
   } catch (error) {
-    console.error(error);
+    //////////console.error(error);
   }
 };
 
@@ -96,12 +96,12 @@ const fetchAppointments = async (page=1, limit=10) => {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
     });
-    console.log("res1.data.totalPages : " + res1.data.totalPages);
+    //////////console.log("res1.data.totalPages : " + res1.data.totalPages);
   setTotalPages(res1.data.totalPages);
   setCurrentPage(res1.data.currentPage);
     setAppointments(res1.data.appointments);
   } catch (error) {
-    console.error(error);
+    //////////console.error(error);
   }
 };
 
@@ -114,9 +114,9 @@ const fetchAppointments = async (page=1, limit=10) => {
 //         }
 //     });
 //     setAllDataP(res1.data.appointments);
-//     console.log("All Appointments", res1.data.appointments);
+//     //////////console.log("All Appointments", res1.data.appointments);
 //   } catch (error) {
-//     console.error(error);
+//     //////////console.error(error);
 //   }
 // };
 
@@ -144,7 +144,7 @@ const fetchAppointments = async (page=1, limit=10) => {
   useEffect(() => {
     if (role !== 'admin') {
       // If the user is not an admin, don't fetch data or show an error message
-      console.log('You are not authorized to view this page.');
+      //////////console.log('You are not authorized to view this page.');
       
       return (<div>
         <h1 className='text-danger'>Un Authorized</h1>
@@ -195,11 +195,11 @@ const handleSubmit = async (event, appointmentId) => {
                 : appt
         )
     );
-      console.log(response.data); // Log the server response
+      //////////console.log(response.data); // Log the server response
       // alert(`File uploaded successfully!`); // Optional success message
       toast.success("File uploaded successfully!", toastOptions);
   } catch (error) {
-      console.error('Error uploading file:', error.response || error); // Log error response
+      //////////console.error('Error uploading file:', error.response || error); // Log error response
       alert('Failed to upload file: ' + (error.response ? error.response.data : error.message));
       toast.error('Failed to upload file: ' + (error.response ? error.response.data : error.message), toastOptions);
   }
@@ -247,7 +247,7 @@ const handleDownloadFile = async (e, appointmentId) => {
       document.body.removeChild(fileLink);
       window.URL.revokeObjectURL(fileURL);
   } catch (error) {
-      console.error('Error downloading file:', error);
+      //////////console.error('Error downloading file:', error);
       alert('Failed to download the file.');
   }
 };
@@ -278,7 +278,7 @@ const handleDownloadFile = async (e, appointmentId) => {
   //   setFilteredAppointments(results);
   // }
   // else{
-  //   console.error('Error fetching appointments:', appointments);
+  //   //////////console.error('Error fetching appointments:', appointments);
   // }
   // }, [searchName, searchReason, searchLocation, searchDate, searchTime, appointments]);
 
@@ -337,13 +337,13 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
         const data = response.data;
         const nonAdminUsers = data.filter(user => user.role !== "admin");
         setUsers(nonAdminUsers);
-        console.log(users);
+        //////////console.log(users);
       } catch (error) {
         if (error.response) {
-          console.error("Error fetching users:", error.response.data);
-          console.error("Status code:", error.response.status);
+          //////////console.error("Error fetching users:", error.response.data);
+          //////////console.error("Status code:", error.response.status);
       } else {
-          console.error("Error fetching users:", error.message);
+          //////////console.error("Error fetching users:", error.message);
       }
       }
     };
@@ -351,7 +351,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
   }
   }, []);
 
-  console.log(users);
+  //////////console.log(users);
 
   // const { appointments, status } = useSelector((state) => state.appointments);
 
@@ -376,17 +376,17 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
     //           'Authorization': `Bearer ${localStorage.getItem('authToken')}`
     //         }
     //     });
-    //     console.log(res1);
+    //     //////////console.log(res1);
     //     setAppointments(res1.data.appointments);
     //   } catch (error) {
-    //     console.error(error);
+    //     ////////console.error(error);
     //   }
     // };
   //   fetchAppointments();
   // }, []);
 
 
-  console.log('Appointments state:', appointments);
+  ////////console.log('Appointments state:', appointments);
 
 
   // useEffect(() => {
@@ -400,18 +400,18 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
         
   //       setReviews(res1.data);
   //     } catch (error) {
-  //       console.error(error);
+  //       ////////console.error(error);
   //     }
   //   };
   //   fetchReviews();
   // }, []);
 
   
-  console.log("authToken : ", authToken);
+  ////////console.log("authToken : ", authToken);
 
   useEffect(()=>{
     const role = localStorage.getItem("role");
-  console.log("Role : ", role);
+  ////////console.log("Role : ", role);
   },[]);
 
 
@@ -428,7 +428,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
 //         await axios.post(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${appointmentId}/upload`, formData);
 //         alert('File uploaded successfully!');
 //     } catch (error) {
-//         console.error('Error uploading file', error);
+//         ////////console.error('Error uploading file', error);
 //         alert('Error uploading file');
 //     }
 // };
@@ -488,7 +488,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
   // const today = new Date().toISOString().split("T")[0];
 
   useEffect(()=>{
-    console.log(todayDate);
+    ////////console.log(todayDate);
   },[]);
 
   
@@ -500,16 +500,16 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
       setLoading(false);
     } catch (error) {
       setError("Error fetching available slots");
-      console.error("Error:", error);
+      ////////console.error("Error:", error);
       setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchAvailableSlots();
-    console.log("Slot date : ", todayDate);
+    ////////console.log("Slot date : ", todayDate);
   }, [todayDate]);
-  console.log("Slot date : ", todayDate);
+  ////////console.log("Slot date : ", todayDate);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -518,8 +518,14 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
 
 
   useEffect(() => {
-    fetchAppointments();
-    fetchApp1();
+    const interval = setInterval(()=>{
+      fetchAppointments();
+      fetchApp1();
+      fetchAvailableSlots();
+
+      return () => clearInterval(interval);
+    },5000);
+    
   }, [authToken]);
 
   const [load, setLoad] = useState(false);
@@ -528,7 +534,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
   const handleAddAppointment = async () => {
     // setLoad(true);
     setLoad(false);
-    console.log(newAppointment);
+    //////////console.log(newAppointment);
     if (!newAppointment.userInfo || !newAppointment.reason || !newAppointment.date || !newAppointment.phoneNumber || !newAppointment.startTime) {
       toast.error("Please fill in all required fields.", toastOptions);
       setLoad(false);
@@ -550,7 +556,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
     try {
       setLoad(true);
       document.getElementById("lo").disabled = true;
-      await axios.post('https://dentalsite-sparktech-2.onrender.com/app/offline-book', newAppointment);
+      await axios.post('http://localhost:5000/app/offline-book', newAppointment);
       toast.success("Appointment added successfully!", toastOptions);
       setShowModal(false); // Close the modal after successful addition
       fetchAvailableSlots(); // Refresh available slots after adding an appointment
@@ -571,7 +577,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
     } catch (error) {
       setLoad(false);
       toast.error("Error adding appointment", toastOptions);
-      console.log('Error adding appointment:', error);
+      //////////console.log('Error adding appointment:', error);
     }
   }
 
@@ -610,7 +616,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
 
         // Check the response and handle unexpected formats
         // if (!response || !response.data || typeof response.data.visited !== 'boolean') {
-        //     console.error("Unexpected response data:", response);
+        //     //////////console.error("Unexpected response data:", response);
         //     return;
         // }
 
@@ -623,15 +629,15 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
             )
         );
     } catch (error) {
-        console.error("Error updating visited status:", error.message);
+        //////////console.error("Error updating visited status:", error.message);
         // Display more specific errors based on the error type
-        console.log(error);
+        //////////console.log(error);
         if (error.response) {
-            console.error("Server responded with error:", error.response.status);
+            //////////console.error("Server responded with error:", error.response.status);
         } else if (error.request) {
-            console.error("No response from server, possible network issue");
+            //////////console.error("No response from server, possible network issue");
         } else {
-            console.error("Unexpected error:", error.message);
+            //////////console.error("Unexpected error:", error.message);
         }
     }
 };
@@ -677,7 +683,7 @@ const handleUpdatePayment = async (appointmentId) => {
     setAmountsPaid(null);
   } catch (error) {
     setAmountsPaid(null);
-    console.error("Error updating payment:", error);
+    //////////console.error("Error updating payment:", error);
   }
 };
 
@@ -690,7 +696,7 @@ const handleEdit = (id, currentName) => {
 };
 
 const handleSaveName = async (id) => {
-  console.log("Patient name updated successfully! + " + editedName);
+  //////////console.log("Patient name updated successfully! + " + editedName);
   try {
     await axios.put(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${id}/update-patientname`, {
       userInfo: editedName,
@@ -706,7 +712,7 @@ const handleSaveName = async (id) => {
     fetchAppointments();
   } catch (error) {
     setEditingId(null);
-    console.error("Error updating name", error);
+    //////////console.error("Error updating name", error);
   }
 };
 
@@ -723,7 +729,7 @@ const handleEditPhoneNumber = (id, phoneNumber) => {
 
 
 const handleSavePhoneNumber = async (id) => {
-  console.log("Patient name updated successfully! + " + editedName);
+  //////////console.log("Patient name updated successfully! + " + editedName);
   try {
     await axios.put(`https://dentalsite-sparktech-2.onrender.com/app/appointments/${id}/update-phonenumber`, {
       phoneNumber: editedPhoneNumber,
@@ -740,7 +746,33 @@ const handleSavePhoneNumber = async (id) => {
     fetchAppointments();
   } catch (error) {
     setEditingPId(null);
-    console.error("Error updating name", error);
+    //////////console.error("Error updating name", error);
+  }
+};
+
+
+
+//Delete Appointment
+const deleteAppointment = async (appointmentId) => {
+  const authToken1 = localStorage.getItem("authToken");
+  if (!authToken) {
+    alert("Authentication token missing. Please log in again.");
+    return;
+  }
+  try {
+    const response = await axios.delete("http://localhost:5000/app/delete-appointment", {
+      data: { appointmentId },
+      headers: {
+        Authorization: `Bearer ${authToken1}`,
+      },
+    });
+
+    alert(response.data.message);
+    setAppointments(appointments.filter((app) => app._id !== appointmentId));
+    //////////console.log(response);
+  } catch (error) {
+    //////////console.error("Error deleting appointment:", error);
+    alert("Error deleting appointment");
   }
 };
 
@@ -770,7 +802,7 @@ const handleSavePhoneNumber = async (id) => {
 //         alert("Failed to upload prescription.");
 //       }
 //     } catch (error) {
-//       console.error("Error uploading file:", error);
+//       //////////console.error("Error uploading file:", error);
 //       alert("An error occurred while uploading the prescription.");
 //     }
 //   }
@@ -802,7 +834,7 @@ const handleSavePhoneNumber = async (id) => {
 //       alert(`Error deleting file: ${errorData.message}`);
 //     }
 //   } catch (error) {
-//     console.error('Error deleting file:', error);
+//     //////////console.error('Error deleting file:', error);
 //     alert('Server error. Unable to delete file.');
 //   }
 // };
@@ -818,7 +850,7 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
     toast.error(`Error deleting file: ${response.statusText}`, toastOptions);
 } }
  catch (error) { 
-  console.error('Error deleting file:', error); 
+  //////////console.error('Error deleting file:', error); 
   // alert('Server error. Unable to delete file.');
   toast.error('Failed to delete file: ' + (error.response ? error.response.data : error.message), toastOptions);
  }};
@@ -1309,6 +1341,9 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
     </button>
   </div>  
   }
+</td>
+<td>
+<button className='btn' onClick={() => deleteAppointment(appointment._id)}>🗑️</button>
 </td>
 
                   </tr>

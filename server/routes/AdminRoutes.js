@@ -74,6 +74,16 @@ router.post("/update-last-receipt", middleware, isAdmin, async (req, res) => {
   }
 });
 
+router.delete("/delete-appointment", middleware, isAdmin, async (req,res)=>{
+  try {
+    const appointmentId = req.body.appointmentId;
+    await appointmentModel.findByIdAndDelete(appointmentId);
+    res.json({ message: "Appointment deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting appointment" });
+  }
+});
+
 
 
 
