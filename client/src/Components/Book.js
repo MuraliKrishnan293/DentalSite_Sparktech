@@ -943,7 +943,24 @@ const BookAppointment = () => {
         
         </div>
 
+        <style jsx>
+          {
+            `
+        .btn {
+        transition: all 0.3s ease-in-out;
+      }
 
+      .btn:hover {
+        background: #1e3628 !important;
+        transform: scale(1.05);
+      }
+
+      .btn:active {
+        transform: scale(0.95);
+      }
+            `
+          }
+          </style>
     <ToastContainer />
     </div>
   );

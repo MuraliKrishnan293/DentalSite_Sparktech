@@ -70,35 +70,33 @@
 
 // export default App;
 
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import AboutUs from "./Components/About";
-import Register from "./Components/Register";
-import Login from './Components/LoginFiles/Login';
-import Home from "./Components/Home";
 import Book from './Components/Book';
+import Home from "./Components/Home";
 import Land from "./Components/Land";
+import Login from './Components/LoginFiles/Login';
 import Nav from "./Components/Nav";
+import Register from "./Components/Register";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { useEffect, useState, lazy, Suspense } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useEffect, useState } from "react";
 
-import Payment from "./Components/Pay";
 import AdminPanel from "./Components/AdminFiles/AdminPanel";
 import ConfirmOtp from "./Components/ConfirmOtp";
+import Payment from "./Components/Pay";
 import Specialities from "./Components/Specialities";
 
-import ScrollToTop from "react-scroll-to-top";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import ScrollToTop from "react-scroll-to-top";
 import './App.css';
 
-import RatingComponent from "./Components/RatingComponent";
 import Confirmation from "./Components/Confirm";
-import PrintDemo from "./Components/Print";
 import ForgotPassword from "./Components/LoginFiles/ForgotPassword";
 import UserBills from "./Components/UserApp";
 

@@ -19,15 +19,15 @@ import { FaWhatsapp } from "react-icons/fa";
 import logo from "../images/WhatsApp Image 2024-11-09 at 8.25.43 PM (1).jpeg";
 
 import AwesomeSlider from "react-awesome-slider";
-import "react-awesome-slider/dist/styles.css"; // ✅ Import default styles
-import "react-awesome-slider/dist/custom-animations/fold-out-animation.css"; // ✅ Import animation styles
 import withAutoplay from "react-awesome-slider/dist/autoplay";
+import "react-awesome-slider/dist/custom-animations/fold-out-animation.css"; // ✅ Import animation styles
+import "react-awesome-slider/dist/styles.css"; // ✅ Import default styles
 
 import fbg from "../images/Backgrounds/fbg.jpg";
+import fibg from "../images/Backgrounds/fibg.jpg";
+import frbg from "../images/Backgrounds/frbg.jpg";
 import sbg from "../images/Backgrounds/sbg.jpg";
 import tbg from "../images/Backgrounds/tbg.jpg";
-import frbg from "../images/Backgrounds/frbg.jpg";
-import fibg from "../images/Backgrounds/fibg.jpg";
 
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -192,14 +192,16 @@ const Land = () => {
     <div data-src={frbg} />
     <div data-src={fibg} />
   </AutoplaySlider> */}
-
+<div className="bg-black">
       <AutoplaySlider
+      className="bg-dark"
         animation="foldOutAnimation"
         play={true}
         cancelOnInteraction={false}
         interval={3000}
         bullets={false}
         mobileTouch={true}
+        style={{opacity: 0.8}}
         cssModule={{
           "--organic-arrow-color": "red",
           "--organic-arrow-thickness": "3px",
@@ -210,19 +212,14 @@ const Land = () => {
         <div data-src={fbg}>
           <div className="overlay" style={{ marginTop: "120px" }}>
             <h1
-              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#3d6a4e" }} // Corrected condition
+              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#ffffff" }}
               className="h1text d-flex flex-wrap w-100"
-              // data-aos="fade-in"
-              // data-aos-delay="500"
-              // className="h1text d-flex flex-wrap w-100">
             >
               We are best dental service
             </h1>
             <p
-              // data-aos="fade-in"
-              // data-aos-delay="1000"
               className="ptexthero text-left"
-              style={{ fontSize: windowWidth < 700 && "14px", fontWeight: "700", color: "white" }}
+              style={{ fontSize: windowWidth < 700 && "14px", fontWeight: "700", color: "#ffff" }}
             >
               At ThulasiRaam, we believe that every smile deserves the best
               care. Our dedicated team is committed to providing exceptional
@@ -232,29 +229,12 @@ const Land = () => {
             </p>
           </div>
         </div>
-        {/* <div data-src={fbg}>
-  <div className="background"  />
-  <div className="overlay" style={{ marginTop: "120px" }}>
-    <h1
-      style={{ fontSize: windowWidth < 700 ? "30px" : "50px" }} // Corrected condition
-      className="h1text d-flex flex-wrap w-100"
-    >
-      We are best dental service
-    </h1>
-    <p
-      className="ptexthero text-left"
-      style={{ fontSize: windowWidth < 700 && "14px" }}
-    >
-      At ThulasiRaam, we believe that every smile deserves the best care. Our dedicated team is committed to providing exceptional dental services with a personal touch. We ensure a comfortable and stress-free experience. Our mission is to make top-quality dental care accessible.
-    </p>
-  </div>
-</div> */}
 
 
         <div data-src={sbg}>
           <div className="overlay" style={{ marginTop: "120px" }}>
             <h1
-              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#3d6a4e" }} // Corrected condition
+              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#ffffff" }} // Corrected condition
               className="h1text d-flex flex-wrap w-100"
               // data-aos="fade-in"
               // data-aos-delay="500"
@@ -279,7 +259,7 @@ const Land = () => {
         <div data-src={tbg}>
           <div className="overlay" style={{ marginTop: "120px" }}>
             <h1
-              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#3d6a4e" }} // Corrected condition
+              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#ffffff" }} // Corrected condition
               className="h1text d-flex flex-wrap w-100"
               // data-aos="fade-in"
               // data-aos-delay="500"
@@ -291,7 +271,7 @@ const Land = () => {
               // data-aos="fade-in"
               // data-aos-delay="1000"
               className="ptexthero text-left"
-              style={{ fontSize: windowWidth < 700 && "14px", fontWeight: "700", color: "whitesmoke" }}
+              style={{ fontSize: windowWidth < 700 && "14px", fontWeight: "700", color: "#ffffff" }}
             >
               Our team is skilled in providing dental care for children. We aim
               to create a positive experience for kids, from their first visit
@@ -304,7 +284,7 @@ const Land = () => {
         <div data-src={frbg}>
           <div className="overlay" style={{ marginTop: "120px" }}>
             <h1
-              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#3d6a4e" }} // Corrected condition
+              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#ffffff" }} // Corrected condition
               className="h1text d-flex flex-wrap w-100"
               // data-aos="fade-in"
               // data-aos-delay="500"
@@ -329,7 +309,7 @@ const Land = () => {
         <div data-src={fibg}>
           <div className="overlay" style={{ marginTop: "120px" }}>
             <h1
-              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#3d6a4e" }} // Corrected condition
+              style={{ fontSize: windowWidth < 700 ? "30px" : "50px", color: "#ffffff" }} // Corrected condition
               className="h1text d-flex flex-wrap w-100"
               // data-aos="fade-in"
               // data-aos-delay="500"
@@ -351,7 +331,7 @@ const Land = () => {
           </div>
         </div>
       </AutoplaySlider>
-
+</div>
       {/* <section className="services container">
       <h2 className="services-heading">OUR SERVICES</h2>
       <h3 className="services-subheading">What We Provide</h3>
@@ -796,6 +776,10 @@ const Land = () => {
             color: white;
             width: 80%;
           }
+
+
+
+        
         `}
       </style>
     </>

@@ -31,11 +31,25 @@
   color: #333131;
   font-size: larger;
   /* From https://css.glass */
-background: rgba(255, 255, 255, 0.02);
+/* background: rgba(255, 255, 255, 1);
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(4.4px);
--webkit-backdrop-filter: blur(4.4px);
+backdrop-filter: blur(100.4px);
+-webkit-backdrop-filter: blur(4.4px); */
+
+
+
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.64);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border: 1px solid rgba(255, 255, 255, 0.43);
+
+
+
+
 padding: 10px;
 }
 

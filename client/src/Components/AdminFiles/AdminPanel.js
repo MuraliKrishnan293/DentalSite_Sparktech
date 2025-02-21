@@ -767,12 +767,12 @@ const deleteAppointment = async (appointmentId) => {
       },
     });
 
-    alert(response.data.message);
+    toast.success(response.data.message);
     setAppointments(appointments.filter((app) => app._id !== appointmentId));
     //////////console.log(response);
   } catch (error) {
     //////////console.error("Error deleting appointment:", error);
-    alert("Error deleting appointment");
+    toast.error("Error deleting appointment, try after sometime");
   }
 };
 
@@ -1635,16 +1635,30 @@ const handleDeleteFile = async (e, appointmentId) => { e.preventDefault(); try {
 
       .page-item.active .page-link {
       border-color: #2A4735;
-  font-weight: 700;
-  color: #000000;
-  background-color: #FFFFFF;
-}
+      font-weight: 700;
+      color: #000000;
+      background-color: #FFFFFF;
+      }
 
-.page-item.disabled .page-link {
-  color: #6c757d;
-  pointer-events: none;
-  cursor: auto;
-}
+      .page-item.disabled .page-link {
+        color: #6c757d;
+        pointer-events: none;
+        cursor: auto;
+      }
+
+      .btn {
+        transition: all 0.3s ease-in-out;
+      }
+
+      .btn:hover {
+        background: #1e3628 !important;
+        transform: scale(1.05);
+      }
+
+      .btn:active {
+        transform: scale(0.95);
+      }
+
 
 
       `}
