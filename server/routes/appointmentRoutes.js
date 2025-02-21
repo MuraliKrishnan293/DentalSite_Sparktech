@@ -361,7 +361,7 @@ router.get('/available-slots', async (req, res) => {
 
 
 router.post("/offline-book", async(req, res)=>{
-  const { userId, userInfo, reason, location, date, startTime } = req.body;
+  const { userId, userInfo, reason, location, date, startTime, phoneNumber } = req.body;
 
   const endTimeDate = moment(`${date} ${startTime}`).add(30, 'minutes'); // Assuming startTime is in HH:mm format
   const endTime = endTimeDate.format('HH:mm');
@@ -391,7 +391,7 @@ router.post("/offline-book", async(req, res)=>{
     if (aptmnts.length >= 3) {
       return res.status(400).json({ message: "This appointment slot is full" });
     }
-  const newAppointment = new Appointment({ userId, userInfo, reason, location, date, startTime, status:"confirmed" });
+  const newAppointment = new Appointment({ userId, userInfo, reason, location, phoneNumber, date, startTime, status:"confirmed" });
 
     await newAppointment.save();
 

@@ -528,7 +528,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
   const handleAddAppointment = async () => {
     // setLoad(true);
     setLoad(false);
-
+    console.log(newAppointment);
     if (!newAppointment.userInfo || !newAppointment.reason || !newAppointment.date || !newAppointment.phoneNumber || !newAppointment.startTime) {
       toast.error("Please fill in all required fields.", toastOptions);
       setLoad(false);
@@ -571,7 +571,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
     } catch (error) {
       setLoad(false);
       toast.error("Error adding appointment", toastOptions);
-      console.error('Error adding appointment:', error);
+      console.log('Error adding appointment:', error);
     }
   }
 
