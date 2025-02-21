@@ -556,7 +556,7 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
     try {
       setLoad(true);
       document.getElementById("lo").disabled = true;
-      await axios.post('http://localhost:5000/app/offline-book', newAppointment);
+      await axios.post('https://dentalsite-sparktech-2.onrender.com/app/offline-book', newAppointment);
       toast.success("Appointment added successfully!", toastOptions);
       setShowModal(false); // Close the modal after successful addition
       fetchAvailableSlots(); // Refresh available slots after adding an appointment
@@ -760,7 +760,7 @@ const deleteAppointment = async (appointmentId) => {
     return;
   }
   try {
-    const response = await axios.delete("http://localhost:5000/app/delete-appointment", {
+    const response = await axios.delete("https://dentalsite-sparktech-2.onrender.com/app/delete-appointment", {
       data: { appointmentId },
       headers: {
         Authorization: `Bearer ${authToken1}`,
