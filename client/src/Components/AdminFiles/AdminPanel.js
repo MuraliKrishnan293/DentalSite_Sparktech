@@ -518,9 +518,9 @@ const paginatedAppointments = displayAppointments.slice(0, rowsToShow);
 
 
   useEffect(() => {
-    const interval = setInterval(()=>{
-      fetchAppointments();
+    fetchAppointments();
       fetchApp1();
+    const interval = setInterval(()=>{
       fetchAvailableSlots();
 
       return () => clearInterval(interval);
